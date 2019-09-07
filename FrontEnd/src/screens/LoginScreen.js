@@ -14,7 +14,7 @@ export default class LoginScreen extends Component{
 
 const styles = StyleSheet.create({
     screenColor: {
-        backgroundColor: '#8A2BE2',
+        backgroundColor: '#7F00FF',
         flex:1,
         justifyContent: 'center'
         
