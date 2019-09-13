@@ -28,7 +28,7 @@ export default class LoadingScreen extends Component{
     render() {
         return (
             <View style={styles.splashColor}>
-                <Image source={require('../../../pics/calendar.png')}/>
+                <Image source={require('../pics/calendar.png')}/>
             </View>
             
         );
