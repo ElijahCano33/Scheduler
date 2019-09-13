@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View,} from 'react-native';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
-import LoadingScreen from './FrontEnd/src/screens/LoadingScreen.js';
-import LoginScreen from './FrontEnd/src/screens/LoginScreen.js';
+import LoadingScreen from './src/screens/LoadingScreen.js';
+import LoginScreen from './src/screens/LoginScreen.js';
 
 
 /*

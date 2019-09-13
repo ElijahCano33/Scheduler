@@ -28,17 +28,18 @@ export default class LoadingScreen extends Component{
     render() {
         return (
             <View style={styles.splashColor}>
-                <Text>
-                    Our logo will go in the center of this screen
-                </Text>
+                <Image source={require('../pics/calendar.png')}/>
             </View>
+            
         );
     }
 }
     
 const styles = StyleSheet.create({
     splashColor: {
-        backgroundColor: 'purple',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#7F00FF',
         flex:1,
     },
     logo: {
