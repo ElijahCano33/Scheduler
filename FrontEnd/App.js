@@ -19,7 +19,7 @@ const AppNavigator = createSwitchNavigator({
 /*
 The root navigator that will send the app into the
 loading screen and then navigate to the login screen after
-five second.
+five seconds.
 */
 const InitialNavigator = createSwitchNavigator(
     {
