@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         backgroundColor: "darkblue",
-        left: 125,
+        left: 72, 
         height: 40,
-        width: 75,
+        width: 100,
         paddingVertical: 10
     },
     buttonText: {
@@ -58,9 +58,10 @@ const styles = StyleSheet.create({
 
     buttonContainer2: {
         backgroundColor: "darkblue",
-        left: 150,
+        left: 223,
+        bottom: 40,
         height: 40,
-        width: 90,
+        width: 100,
         paddingVertical: 10
     },
     buttonText: {
