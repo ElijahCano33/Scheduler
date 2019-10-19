@@ -48,7 +48,7 @@ def register_():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    response = {]
+    response = {}
     if request.method == 'POST':
         email = request.get_json()['email']
         cursor.execute("SELECT COUNT(1) FROM users WHERE email = %s", (email))
