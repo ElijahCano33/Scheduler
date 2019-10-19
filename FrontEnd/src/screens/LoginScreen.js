@@ -1,33 +1,44 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  StatusBar
+  Image,
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
+// import LoginForm from './LoginForm';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-export default class App extends Component {
+export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="#BA55D3"
-        />
-        <Text style={styles.welcome}>
-          Welcome to Scheduler!
-        </Text>
-        <Text style={styles.instructions}>
-          This is for testing
-        </Text>
+      <View style={styles.logoContainer}>
+      <Image
+        style={styles.logo}
+        source={require('../pics/scheduler.png')}
+      />
+      </View>
+      <TextInput
+            placeholder="  email"
+            placeholderTextColor='#000000'
+            style={styles.input}
+          />
+      <TextInput
+            placeholder="  password"
+            placeholderTextColor='#000000'
+            style={styles.input}
+          />
+      <TouchableOpacity style={styles.buttonContainer}>
+        <Text style={styles.buttonText}>LOGIN</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.buttonContainer}>
+        <Text style={styles.buttonText}>SIGN UP</Text>
+      </TouchableOpacity>
+
+      <View style={styles.formContainer}>
+      </View>
       </View>
     );
   }
@@ -38,17 +49,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#BA55D3',
+    backgroundColor: '#40e0d0'
   },
-  welcome: {
-    fontSize: 20,
+
+  logo: {
+    height: 200,
+    width: 500
+  },
+
+  input: {
+    height: 40,
+    width: 250,
+    backgroundColor: '#FFFFFF',
+    marginBottom: 20
+  },
+
+  buttonContainer: {
+    width: 120,
+    backgroundColor: '#000000',
+    paddingHorizontal: 30,
+    textAlign: 'left'
+  },
+
+  buttonText: {
     textAlign: 'center',
-    margin: 10,
-    color: '#FFB6C1',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#FFB6C1',
-    marginBottom: 5,
-  },
-})
+    color: '#FFFFFF',
+    fontWeight: '700'
+  }
+
+});

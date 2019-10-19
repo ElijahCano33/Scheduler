@@ -4,7 +4,6 @@ import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import LoadingScreen from './src/screens/LoadingScreen.js';
 import LoginScreen from './src/screens/LoginScreen.js';
 
-
 /*
 This will be an app navigator that will help
 connect and navigate the login screen to future 
@@ -13,7 +12,6 @@ screens within our app.
 const AppNavigator = createSwitchNavigator({
   firstScreen: LoginScreen
 });
-
 
 
 /*
