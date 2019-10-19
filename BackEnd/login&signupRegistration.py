@@ -4,15 +4,15 @@ import mysql.connector
 import json
 
 app = Flask(__name__)
-connection = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com',
+database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com',
                                      database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
-cursor = connection.cursor()
+cursor = database.cursor()
 
 
 @app.route('/api/connection-test')
 def connection_test():
-    if connection.is_connected():
-        db_info = connection.get_server_info()
+    if database.is_connected():
+        db_info = database.get_server_info()
         cursor.execute("select database();")
         record = cursor.fetchone()
         return f'''
@@ -41,6 +41,7 @@ def register_():
             response['status'] = 'username or email already exist'
         else:
             cursor.execute( f'insert into Scheduler.users (username, email, password, mac_address,first_name, last_name) values ("{user_name}", "{email}", "{passphrase}", "{imei}", "{first_name}", "{last_name}")')
+            database.commit()
             response['status'] = "Successfull"
     return response
 
