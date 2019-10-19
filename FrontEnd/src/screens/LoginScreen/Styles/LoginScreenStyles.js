@@ -11,8 +11,8 @@ export default StyleSheet.create({
     logo: {
       height: 160,
       width: 320,
-      top: '-200%',
-      position: 'absolute'
+      top: '-35%',
+      //position: 'absolute'
     },
   
     input1: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
       width: 250,
       backgroundColor: '#FFFFFF',
       marginBottom: 20,
-      top: '40%',
+      top: '35%',
       position: 'absolute'
     },
 
@@ -29,7 +29,7 @@ export default StyleSheet.create({
         width: 250,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
-        top: '50%', 
+        top: '45%', 
         position: 'absolute'
       },
   
@@ -38,8 +38,8 @@ export default StyleSheet.create({
       backgroundColor: '#000000',
       paddingHorizontal: 30,
       textAlign: 'left',
-      left: '18%',
-      top: '59%',
+      left: '16%',
+      top: '54.5%',
       position: 'absolute'
     },
 
@@ -48,8 +48,8 @@ export default StyleSheet.create({
         backgroundColor: '#000000',
         paddingHorizontal: 30,
         textAlign: 'left',
-        top: '59%',
-        left: '51.5%',
+        top: '54.5%',
+        left: '50%',
         position: 'absolute'
       },
   
