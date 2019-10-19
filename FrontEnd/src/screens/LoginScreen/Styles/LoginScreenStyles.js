@@ -29,17 +29,17 @@ export default StyleSheet.create({
         width: 250,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
-        top: '47.5%', 
+        top: '50%', 
         position: 'absolute'
       },
   
     buttonContainer1: {
-      width: 120,
+      width: 105,
       backgroundColor: '#000000',
       paddingHorizontal: 30,
       textAlign: 'left',
       left: '18%',
-      top: '55%',
+      top: '59%',
       position: 'absolute'
     },
 
@@ -48,7 +48,7 @@ export default StyleSheet.create({
         backgroundColor: '#000000',
         paddingHorizontal: 30,
         textAlign: 'left',
-        top: '55%',
+        top: '59%',
         left: '51.5%',
         position: 'absolute'
       },
