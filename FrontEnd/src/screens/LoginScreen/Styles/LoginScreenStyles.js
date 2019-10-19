@@ -11,7 +11,8 @@ export default StyleSheet.create({
     logo: {
       height: 160,
       width: 320,
-      top: '-30%',
+      top: '-200%',
+      position: 'absolute'
     },
   
     input1: {
@@ -28,7 +29,8 @@ export default StyleSheet.create({
         width: 250,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
-        top: '-7%', 
+        top: '47.5%', 
+        position: 'absolute'
       },
   
     buttonContainer1: {
@@ -36,8 +38,9 @@ export default StyleSheet.create({
       backgroundColor: '#000000',
       paddingHorizontal: 30,
       textAlign: 'left',
-      left: '-16.5%',
-      top: '-8%'
+      left: '18%',
+      top: '55%',
+      position: 'absolute'
     },
 
     buttonContainer2: {
@@ -45,8 +48,9 @@ export default StyleSheet.create({
         backgroundColor: '#000000',
         paddingHorizontal: 30,
         textAlign: 'left',
-        top: '-10.72%',
-        left: '16.5%'
+        top: '55%',
+        left: '51.5%',
+        position: 'absolute'
       },
   
     buttonText: {
