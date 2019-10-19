@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, View, Text, Image} from 'react-native';
+import styles from '../Styles/LoadingScreenStyles.js';
 
 
 const FIVE_SECONDS = 5000;
@@ -28,22 +29,12 @@ export default class LoadingScreen extends Component{
     render() {
         return (
             <View style={styles.splashColor}>
-                <Image source={require('../pics/calendar.png')}/>
+                <Image source={require('../../../../pics/modifiedLogo.png')}/>
             </View>
             
         );
     }
 }
     
-const styles = StyleSheet.create({
-    splashColor: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#7F00FF',
-        flex:1,
-    },
-    logo: {
-        
-    }
-});
+
 

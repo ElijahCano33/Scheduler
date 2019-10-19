@@ -1,40 +1,32 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View,} from 'react-native';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
-import LoadingScreen from './src/screens/LoadingScreen.js';
-import LoginScreen from './src/screens/LoginScreen.js';
+import LoadingScreen from './src/screens/LoadingScreen/Components/LoadingScreen.js';
+import LoginScreen from './src/screens/LoginScreen/Components/LoginScreen.js';
 
 
 /*
-This will be an app navigator that will help
-connect and navigate the login screen to future 
-screens within our app.
+The following establishes a network between 
+the different screens within the app, and makes it 
+so that only one screen is shown at a time. Sets 
+the loading screen as the first screen to be displayed
+within the app.
 */
-const AppNavigator = createSwitchNavigator({
-  firstScreen: LoginScreen
-});
-
-
-
-/*
-The root navigator that will send the app into the
-loading screen and then navigate to the login screen after
-five second.
-*/
-const InitialNavigator = createSwitchNavigator(
-    {
-      LoginScreen: LoginScreen,
-      LoadingScreen: LoadingScreen
-    }, 
-    {
-      initialRouteName: 'LoadingScreen'
-    }
+const AppNavigator = createSwitchNavigator(
+  {
+    LoginScreen: LoginScreen,
+    LoadingScreen: LoadingScreen
+  }, 
+  {
+    initialRouteName: 'LoadingScreen'
+  }
 );
+
 
 /*
 Responsible for checking the current state of the app
 and linking the navigator to the app environment
 */
-export default createAppContainer(InitialNavigator);
+export default createAppContainer(AppNavigator);
 
 
