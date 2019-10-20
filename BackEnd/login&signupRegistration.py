@@ -1,11 +1,10 @@
 from flask import Flask, request
 from hashlib import sha1
 import mysql.connector
-import json
 
 app = Flask(__name__)
 database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com',
-                                     database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
+                                   database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
 cursor = database.cursor()
 
 
@@ -38,11 +37,14 @@ def register_():
         cursor.execute(f'SELECT * FROM Scheduler.users WHERE username = "{user_name}" or email = "{email}"')
         account = cursor.fetchone()
         if account:
-            response['status'] = 'username or email already exist'
+            response['status'] = False
+            response['status_info'] = 'username or email already exist'
         else:
-            cursor.execute( f'insert into Scheduler.users (username, email, password, mac_address,first_name, last_name) values ("{user_name}", "{email}", "{passphrase}", "{imei}", "{first_name}", "{last_name}")')
+            cursor.execute(
+                f'insert into Scheduler.users (username, email, password, mac_address,first_name, last_name) values ("{user_name}", "{email}", "{passphrase}", "{imei}", "{first_name}", "{last_name}")')
             database.commit()
-            response['status'] = "Successfull"
+            response['status'] = True
+            response['status_info'] = 'account created successfully'
     return response
 
 
@@ -56,12 +58,7 @@ def login():
             response['status'] = 'invalid email or email not present in db'
             return response
         password = request.get_json()['password']
-        cursor.execute("SELECT password FROM users WHERE name = %s", (email))
-        for row in cursor.fetchall():
-            if md5(password).hexdigest() == row[0]:
-                response['status'] = 'Sucessful login'
-                response['status'] = 'invalid password'
-                return response
+        # hesh password
 
 
 if __name__ == '__main__':
