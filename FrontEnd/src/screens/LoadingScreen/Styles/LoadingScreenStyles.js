@@ -7,7 +7,4 @@ export default StyleSheet.create({
         backgroundColor: '#7F00FF',
         flex:1,
     },
-    logo: {
-        
-    }
 });

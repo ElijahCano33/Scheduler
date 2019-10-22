@@ -11,7 +11,7 @@ export default StyleSheet.create({
     logo: {
       height: 160,
       width: 320,
-      top: '-35%',
+      top: -220,//-35
       //position: 'absolute'
     },
   
@@ -38,7 +38,7 @@ export default StyleSheet.create({
       backgroundColor: '#000000',
       paddingHorizontal: 30,
       textAlign: 'left',
-      left: '16%',
+      left: '19%', //16% for it to work on all android screens
       top: '54.5%',
       position: 'absolute'
     },
