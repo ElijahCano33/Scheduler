@@ -3,7 +3,9 @@ from hashlib import sha1
 import mysql.connector
 
 app = Flask(__name__)
-
+database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com',
+                                   database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
+cursor = database.cursor()
 
 @app.route('/api/connection-test')
 def connection_test():
@@ -45,20 +47,25 @@ def register_():
     return response
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     response = {}
     if request.method == 'POST':
         email = request.get_json()['email']
-        cursor.execute(f"SELECT COUNT(1) FROM users WHERE email = {email}")
+        cursor.execute(f"SELECT COUNT(1) FROM Scheduler.users WHERE email = '{email}'")
         if not cursor.fetchone()[0]:
             response['status']= False
             response['status_info'] = 'invalid email or email not present in db'
+            print(response)
         else:
             password = request.get_json()['password']
-            cursor.execute(f'SLECT password FROM Scheduler.users WHERE email = "{email}"')
-            for row in cursor.fetchall():
-                if(encrypt_Password(password) == row[0]):
+            cursor.execute(f'SELECT password FROM Scheduler.users WHERE email = "{email}"')
+            results = cursor.fetchall()
+            if len(results) > 0:
+                response['status']= False
+                response['status_info'] = 'invalid password'
+            for row in results:
+                if encrypt_password(password) == row[0]:
                     response['status']= True
                     response['status_info'] = 'Login attempt was Successful'
                     response["authentication token"] = generate_authorization_token()
@@ -69,15 +76,15 @@ def login():
     return response
 
 
-def encrypt_Password(password_unencrypted):
+def encrypt_password(password_unencrypted):
     hashed_password = "jk;hs;jh"
-    return hashed_password
+    return password_unencrypted
+
 
 def generate_authorization_token():
-    return "llsjkahfkjldh"
+    return "laughing"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
-    database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com',
-                                   database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
-    cursor = database.cursor()
+
