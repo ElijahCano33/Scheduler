@@ -28,7 +28,7 @@ def register_():
     email = data['email']
     passphrase = data['password']
     user_name = data['user_name']
-    imei = data['imei']
+    #imei = data['imei']
     first_name = data['first_name']
     last_name = data['last_name']
 
@@ -40,7 +40,7 @@ def register_():
             response['status_info'] = 'username or email already exist'
         else:
             cursor.execute(
-                f'insert into Scheduler.users (username, email, password, mac_address,first_name, last_name) values ("{user_name}", "{email}", "{passphrase}", "{imei}", "{first_name}", "{last_name}")')
+                f'insert into Scheduler.users (username, email, password, first_name, last_name) values ("{user_name}", "{email}", "{passphrase}",  "{first_name}", "{last_name}")')
             database.commit()
             response['status'] = True
             response['status_info'] = 'account created successfully'
