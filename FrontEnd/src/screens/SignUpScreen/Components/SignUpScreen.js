@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, ImageBackground} from 'react-native';
-import styles from '../Styles/LoginScreenStyles.js';
+import styles from '../Styles/SignUpScreenStyles.js';
 
-export default class LoginScreen extends Component {
+export default class SignUpScreen extends Component {
 
   //The constructor will both initalize and give access to "this"
   constructor(props) {
@@ -10,14 +10,16 @@ export default class LoginScreen extends Component {
 
     //sets up current states of component.
     this.state = {
+        firstName: '',
+        lastName: '',
         email: '',
         password: '',
     }
   }
   
-  //Sends the user to the app's main screen.
-  navigateToSchedulerMainScreen(){
-    this.props.navigation.navigate('SchedulerMainScreen');
+  //Sends the user to the loading screen.
+  navigateToLoginScreen(){
+    this.props.navigation.navigate('LoginScreen');
   }
   
   /*
@@ -28,7 +30,7 @@ export default class LoginScreen extends Component {
     them from strings to JSON, and then sends them to 
     the backend api with the endpoint "/login".
   */
-  loginNetworkRequestToBackend(){
+  signUpNetworkRequestToBackend(){
     fetch('http://PUTIPADDRESSHERE!!!/login', {
         method: 'POST',
         headers: {
@@ -37,6 +39,8 @@ export default class LoginScreen extends Component {
         },
 
         body: {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
           email: this.state.email,
           password: this.state.password
         }
@@ -44,20 +48,22 @@ export default class LoginScreen extends Component {
     });
   }
 
-  /*
-    This function makes calls to the 
-    loginNetworkRequest function and 
-    then navigates the user to the loading
-    screen.
-  */
-  loginButtonPressed(){
-    this.loginNetworkRequestToBackend();
-    this.navigateToSchedulerMainScreen();
+  //Sends the user to the app's main screen.
+  navigateToSchedulerMainScreen(){
+    this.props.navigation.navigate('SchedulerMainScreen');
   }
 
-  navigateToSignUpScreen(){
-    this.props.navigation.navigate('SignUpScreen');
-  }
+  /*
+    This function makes calls to the 
+    signUpNetworkRequest function and 
+    then navigates the user to the app's
+    main screen.
+  */
+ signUpButtonPressed(){
+  this.signUpNetworkRequestToBackend();
+  this.navigateToSchedulerMainScreen();
+}
+
   
   /*
     The following renders the text Scheduler at
@@ -72,28 +78,40 @@ export default class LoginScreen extends Component {
           style={styles.logo}
           source={require('../../../../pics/RedScheduler.png')}
          />
-        <TextInput
-              placeholder="  Email"
+         <TextInput
+              placeholder="  First Name"
               placeholderTextColor='#000000'
               style={styles.input1}
               onChangeText={(email) => this.setState({email})}
             />
         <TextInput
-              placeholder="  Password"
+              placeholder="  Last Name"
               placeholderTextColor='#000000'
               style={styles.input2}
               onChangeText={(password) => this.setState({password})}
             />
+        <TextInput
+              placeholder="  Email"
+              placeholderTextColor='#000000'
+              style={styles.input3}
+              onChangeText={(email) => this.setState({email})}
+            />
+        <TextInput
+              placeholder="  Password"
+              placeholderTextColor='#000000'
+              style={styles.input4}
+              onChangeText={(password) => this.setState({password})}
+            />
         <TouchableOpacity 
           style={styles.buttonContainer1} 
-          onPress={() => this.loginButtonPressed()}> 
+          onPress={() => this.navigateToLoginScreen()}> 
           <Text 
             style={styles.buttonText}>LOGIN
           </Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.buttonContainer2}
-          onPress={() => this.navigateToSignUpScreen()}>
+          onPress={() => this.signUpButtonPressed()}>
           <Text 
             style={styles.buttonText}>SIGN UP
             </Text>

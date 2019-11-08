@@ -25,7 +25,7 @@ export default StyleSheet.create({
       width: 250,
       backgroundColor: '#FFFFFF',
       marginBottom: 20,
-      top: '35%',
+      top: '25%',
       position: 'absolute'
     },
 
@@ -34,9 +34,26 @@ export default StyleSheet.create({
         width: 250,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
-        top: '45%', 
+        top: '35%', 
         position: 'absolute'
       },
+      input3: {
+        height: 40,
+        width: 250,
+        backgroundColor: '#FFFFFF',
+        marginBottom: 20,
+        top: '45%',
+        position: 'absolute'
+      },
+  
+      input4: {
+          height: 40,
+          width: 250,
+          backgroundColor: '#FFFFFF',
+          marginBottom: 20,
+          top: '55%', 
+          position: 'absolute'
+        },
   
     buttonContainer1: {
       width: 120,
@@ -44,7 +61,7 @@ export default StyleSheet.create({
       paddingHorizontal: 30,
       textAlign: 'left',
       left: '18%', //16% for it to work on all android screens
-      top: '54.5%',
+      top: '64.5%',
       position: 'absolute'
     },
 
@@ -53,7 +70,7 @@ export default StyleSheet.create({
         backgroundColor: '#000000',
         paddingHorizontal: 30,
         textAlign: 'left',
-        top: '54.5%',
+        top: '64.5%',
         left: '51%',
         position: 'absolute'
       },

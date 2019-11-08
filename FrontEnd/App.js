@@ -3,6 +3,8 @@ import { StyleSheet, Text, View,} from 'react-native';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import LoadingScreen from './src/screens/LoadingScreen/Components/LoadingScreen.js';
 import LoginScreen from './src/screens/LoginScreen/Components/LoginScreen.js';
+import SignUpScreen from './src/screens/SignUpScreen/Components/SignUpScreen.js';
+import SchdeulerMainScreen from './src/screens/SchedulerMainScreen/Components/SchedulerMainScreen.js';
 
 
 /*
@@ -14,6 +16,8 @@ within the app.
 */
 const AppNavigator = createSwitchNavigator(
   {
+    SchedulerMainScreen: SchdeulerMainScreen,
+    SignUpScreen: SignUpScreen,
     LoginScreen: LoginScreen,
     LoadingScreen: LoadingScreen
   }, 

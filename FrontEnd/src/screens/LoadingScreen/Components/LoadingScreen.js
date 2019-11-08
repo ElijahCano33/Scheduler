@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, Image} from 'react-native';
+import { StyleSheet, View, Text, Image, ImageBackground} from 'react-native';
 import styles from '../Styles/LoadingScreenStyles.js';
 
 
@@ -15,12 +15,6 @@ export default class LoadingScreen extends Component{
     seconds.
     */
     componentDidMount(){
-        /*
-        This function looks weird because it uses the "modern"
-        syntax of javascript otherwirse known as the es6 syntax aka
-        javascript 6. Don't be intimidated all it does is set a timer
-        for 5 seconds and then navigate to the login screen.
-        */
         setTimeout(() => {
             this.props.navigation.navigate('LoginScreen');
         }, FIVE_SECONDS);
@@ -28,9 +22,9 @@ export default class LoadingScreen extends Component{
     
     render() {
         return (
-            <View style={styles.splashColor}>
-                <Image source={require('../../../../pics/modifiedLogo.png')}/>
-            </View>
+            <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
+                <Image source={require('../../../../pics/calendar.png')}/>
+            </ImageBackground>
             
         );
     }
