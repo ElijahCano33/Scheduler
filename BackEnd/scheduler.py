@@ -10,7 +10,6 @@ database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west
 
                   
 
-#Cursor objects interact with the MySQL server using a MySQLConnection object.
 cursor = database.cursor()
 
 @app.route('/api/connection-test')
@@ -76,10 +75,9 @@ def login():
                 response['status']= False
                 response['status_info'] = 'invalid password'
             cursor.execute(f'SELECT salts FROM Scheduler.users WHERE email = "{email}"')
-            salt_result = cursor.fetchall()[0]
-            print("This is the original salt", salt_result)
+            salt_result = cursor.fetchall()
             for row in results:
-                if encrypt_password(password, salt_result) == row[0]:
+                if encrypt_password(password, salt_result[0]) == row[0]:
                     response['status']= True
                     response['status_info'] = 'Login attempt was Successful'
                     response["authentication token"] = generate_authorization_token()
@@ -93,7 +91,6 @@ def encrypt_password(password_unencrypted, salt_string):
     encrypted_password = pbkdf2_sha256.hash(password_unencrypted, rounds=200000, salt=salt_string)
     return encrypted_password
 
-#returns a random salt
 def generate_salt_string():
     salt_string = bcrypt.gensalt()
     return salt_string
