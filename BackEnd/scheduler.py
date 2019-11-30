@@ -34,6 +34,7 @@ def register_():
     passphrase = data['password']
     salt = generate_salt_string()
     newPassPhrase = encrypt_password(passphrase, salt)
+    salt = salt.decode("utf-8")
     user_name = data['user_name']
     #imei = data['imei']
     first_name = data['first_name']
@@ -75,9 +76,10 @@ def login():
                 response['status']= False
                 response['status_info'] = 'invalid password'
             cursor.execute(f'SELECT salts FROM Scheduler.users WHERE email = "{email}"')
-            salt_result = cursor.fetchall()
+            salt_result = cursor.fetchall()[0]
+            salt_result = str.encode(salt_result[0])
             for row in results:
-                if encrypt_password(password, salt_result[0]) == row[0]:
+                if encrypt_password(password, salt_result) == row[0]:
                     response['status']= True
                     response['status_info'] = 'Login attempt was Successful'
                     response["authentication token"] = generate_authorization_token()
