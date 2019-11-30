@@ -8,6 +8,8 @@ app = Flask(__name__)
 database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com',
                                    database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
 
+                  
+
 #Cursor objects interact with the MySQL server using a MySQLConnection object.
 cursor = database.cursor()
 
@@ -46,10 +48,10 @@ def register_():
             response['status_info'] = 'username or email already exist'
         else:
             cursor.execute(
-                f'insert into Scheduler.users (username, email, password, first_name, last_name) values ("{user_name}", "{email}", "{newPassPhrase}",  "{first_name}", "{last_name}")')
+                f'insert into Scheduler.users (username, email, password, salts, first_name, last_name) values ("{user_name}", "{email}", "{newPassPhrase}", "{salt}", "{first_name}", "{last_name}")')
             database.commit()
             response['status'] = True
-            response['status_info'] = 'account created successfully'
+            response['status_info'] = 'account created successfully',
     return response
 
 
@@ -57,31 +59,26 @@ def register_():
 def login():
     response = {}
     if request.method == 'POST':
-        email = request.get_json()['email']
-        #searches for email in database
+        data = request.get_json()
+        email = data['email']
+        #email = request.get_json()['email']
         cursor.execute(f"SELECT COUNT(1) FROM Scheduler.users WHERE email = '{email}'")
-        #if email is not found returned invalid email or email doesn't exist
         if not cursor.fetchone()[0]:
             response['status']= False
             response['status_info'] = 'invalid email or email not present in db'
             print(response)
-        #if email is found now we will search for password in the database just to verify
         else:
-            password = request.get_json()['password']
+            #password = request.get_json()['password']
+            password = data['password']
             cursor.execute(f'SELECT password FROM Scheduler.users WHERE email = "{email}"')
-            #The method fetchall() fetches all (or all remaining) rows of a query result set and returns a list of tuples. If no more rows are available, it returns an empty list.
             results = cursor.fetchall()
             if len(results) > 0:
                 response['status']= False
                 response['status_info'] = 'invalid password'
-            #HERE I NEED TO SEARCH DATABASE FOR THE SALTED STRING THEN PASS IT INTO ENCRYPT_PASSWORD!!!!!!
             cursor.execute(f'SELECT salts FROM Scheduler.users WHERE email = "{email}"')
-            #store found salt into salt_result
-            salt_result = cursor.fetchall()
+            salt_result = cursor.fetchall()[0]
+            print("This is the original salt", salt_result)
             for row in results:
-                #make a call to encrypt_password with the password sent from frontend and salt that was made during registration
-                #to see if its the same password
-                #if same hash return login attempt was successful
                 if encrypt_password(password, salt_result) == row[0]:
                     response['status']= True
                     response['status_info'] = 'Login attempt was Successful'
@@ -92,25 +89,17 @@ def login():
 
     return response
 
-#salt: a random string we do this because often what happens is that
-#if two users have the the same password, they'll have the same password hashes.
-#lookup tables and rainbow table attacks are feasible and successful becuase
-#passwords are hashed the exact same way.A solution around this is to randomize
-#each hash so that when the same password is hashed twice, the hashes are not the same
-# we can do this using salts.
-#salts are unique per password
-#password is hashed using a new random salt
 def encrypt_password(password_unencrypted, salt_string):
     encrypted_password = pbkdf2_sha256.hash(password_unencrypted, rounds=200000, salt=salt_string)
     return encrypted_password
 
+#returns a random salt
 def generate_salt_string():
     salt_string = bcrypt.gensalt()
     return salt_string
 
 def generate_authorization_token():
     return "laughing"
-
 
 if __name__ == '__main__':
     app.run(debug=True)
