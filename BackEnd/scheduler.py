@@ -1,6 +1,6 @@
 from flask import Flask, request
 from hashlib import sha1
-from passlib.hash import pbkdf2_sha256
+from passlib.hash import argon2
 import bcrypt
 import mysql.connector
 
@@ -35,6 +35,7 @@ def register_():
     salt = generate_salt_string()
     newPassPhrase = encrypt_password(passphrase, salt)
     salt = salt.decode("utf-8")
+    print("This is the salt: ", salt)
     user_name = data['user_name']
     #imei = data['imei']
     first_name = data['first_name']
@@ -90,7 +91,8 @@ def login():
     return response
 
 def encrypt_password(password_unencrypted, salt_string):
-    encrypted_password = pbkdf2_sha256.hash(password_unencrypted, rounds=200000, salt=salt_string)
+    encrypted_password = argon2.using(rounds=5, salt=salt_string).hash(password_unencrypted)
+    #print("This is the encrypted_password: ", encrypted_password)
     return encrypted_password
 
 def generate_salt_string():
