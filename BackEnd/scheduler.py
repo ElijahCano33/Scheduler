@@ -35,7 +35,6 @@ def register_():
     salt = generate_salt_string()
     newPassPhrase = encrypt_password(passphrase, salt)
     salt = salt.decode("utf-8")
-    print("This is the salt: ", salt)
     user_name = data['user_name']
     #imei = data['imei']
     first_name = data['first_name']
@@ -62,14 +61,12 @@ def login():
     if request.method == 'POST':
         data = request.get_json()
         email = data['email']
-        #email = request.get_json()['email']
         cursor.execute(f"SELECT COUNT(1) FROM Scheduler.users WHERE email = '{email}'")
         if not cursor.fetchone()[0]:
             response['status']= False
             response['status_info'] = 'invalid email or email not present in db'
             print(response)
         else:
-            #password = request.get_json()['password']
             password = data['password']
             cursor.execute(f'SELECT password FROM Scheduler.users WHERE email = "{email}"')
             results = cursor.fetchall()
@@ -92,7 +89,6 @@ def login():
 
 def encrypt_password(password_unencrypted, salt_string):
     encrypted_password = argon2.using(rounds=5, salt=salt_string).hash(password_unencrypted)
-    #print("This is the encrypted_password: ", encrypted_password)
     return encrypted_password
 
 def generate_salt_string():
