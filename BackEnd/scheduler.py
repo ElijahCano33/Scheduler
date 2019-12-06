@@ -1,6 +1,7 @@
 from flask import Flask, request
 from hashlib import sha1
 from passlib.hash import argon2
+import secrets
 import bcrypt
 import mysql.connector
 
@@ -96,8 +97,9 @@ def generate_salt_string():
     return salt_string
 
 def generate_authorization_token():
-    return "laughing"
-
+    token_string = secrets.token_hex(32)
+    return token_string
+    
 if __name__ == '__main__':
     app.run(debug=True)
 
