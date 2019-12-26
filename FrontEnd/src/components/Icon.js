@@ -13,28 +13,25 @@ const iconMap = {
 
 export default class Icon extends Component{
     
-    icon = iconMap[name];
+    icon = iconMap[this.props.name];
+    
+
     
     render() {
         return (
-            
-            
-            
-            <Text style={[{ fontSize: 26, color }, style]}>{icon}</Text>
-            
-            
-
-
-            
+          
+            <Text style={[{ fontSize: 26}, this.props.color, this.props.style]}>{this.icon}</Text>
             
         );
     }   
 }
 
-
+/*
 Icon.propTypes = {
     name: PropTypes.string,
     color: PropTypes.string,
     style: PropTypes.object
 };
+*/
+
 

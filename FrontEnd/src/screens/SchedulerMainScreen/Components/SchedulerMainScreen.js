@@ -7,7 +7,8 @@ import {createBottomTabNavigator } from "react-navigation-tabs";
 import FriendsScreen from '../../Friends/FriendsScreen.js';
 import ProfileScreen from '../../Profile/ProfileScreen.js';
 import SettingsScreen from '../../Settings/SettingsScreen.js';
-import {Icon} from '../../../components/Icon.js';
+import Icon from '../../../components/Icon.js';
+import TabBar, {tabBar} from '../../../components/TabBar.js';
 
 
 class SchedulerMainScreen extends Component{
@@ -22,43 +23,51 @@ class SchedulerMainScreen extends Component{
                 />
             
             
-            <Text>hello!!!</Text>
+            <Text>This is the main screen</Text>
             
-            
-
-
             </ImageBackground>
             
         );
     }   
 }
 
-const TabNavigator = createBottomTabNavigator({
-    SchedulerMainScreen: {
-        screen: SchedulerMainScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => <Icon name="home" color={tintColor} />
-        }
+const TabNavigator = createBottomTabNavigator(
+  {
+    Calendar: {
+      screen: SchedulerMainScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <Icon name="home" color={tintColor} />
       },
-      FriendsScreen: {
-        screen: FriendsScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => <Icon name="search" color={tintColor} />
-        }
-      },
-      ProfileScreen: {
-        screen: ProfileScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => <Icon name="favorites" color={tintColor} />
-        }
-      },
-      SettingsScreen: {
-        screen: SettingsScreen,
-        navigationOptions: {
-          tabBarIcon: ({ tintColor }) => <Icon name="profile" color={tintColor} />
-        }
+    },
+    Friends: {
+      screen: FriendsScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <Icon name="search" color={tintColor} />,
       }
-  });
+    },
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <Icon name="favorites" color={tintColor} />
+      }
+    },
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <Icon name="profile" color={tintColor} />
+      }
+    }
+  },
+  {
+    tabBarComponent: TabBar,
+    tabBarOptions: {
+      showLabel: false,
+      showIcon: true,
+      activeTintColor: "#4F4F4F",
+      inactiveTintColor: "#ddd", 
+    }
+  },
+);
   
   
   export default createAppContainer(TabNavigator);
