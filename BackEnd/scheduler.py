@@ -1,10 +1,16 @@
 from flask import Flask, request
 from hashlib import sha1
+from passlib.hash import argon2
+import secrets
+import bcrypt
 import mysql.connector
 
 app = Flask(__name__)
 database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com',
                                    database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
+
+                  
+
 cursor = database.cursor()
 
 @app.route('/api/connection-test')
@@ -27,6 +33,9 @@ def register_():
     data = request.get_json()
     email = data['email']
     passphrase = data['password']
+    salt = generate_salt_string()
+    newPassPhrase = encrypt_password(passphrase, salt)
+    salt = salt.decode("utf-8")
     user_name = data['user_name']
     #imei = data['imei']
     first_name = data['first_name']
@@ -40,10 +49,10 @@ def register_():
             response['status_info'] = 'username or email already exist'
         else:
             cursor.execute(
-                f'insert into Scheduler.users (username, email, password, first_name, last_name) values ("{user_name}", "{email}", "{passphrase}",  "{first_name}", "{last_name}")')
+                f'insert into Scheduler.users (username, email, password, salts, first_name, last_name) values ("{user_name}", "{email}", "{newPassPhrase}", "{salt}", "{first_name}", "{last_name}")')
             database.commit()
             response['status'] = True
-            response['status_info'] = 'account created successfully'
+            response['status_info'] = 'account created successfully',
     return response
 
 
@@ -51,21 +60,25 @@ def register_():
 def login():
     response = {}
     if request.method == 'POST':
-        email = request.get_json()['email']
+        data = request.get_json()
+        email = data['email']
         cursor.execute(f"SELECT COUNT(1) FROM Scheduler.users WHERE email = '{email}'")
         if not cursor.fetchone()[0]:
             response['status']= False
             response['status_info'] = 'invalid email or email not present in db'
             print(response)
         else:
-            password = request.get_json()['password']
+            password = data['password']
             cursor.execute(f'SELECT password FROM Scheduler.users WHERE email = "{email}"')
             results = cursor.fetchall()
             if len(results) > 0:
                 response['status']= False
                 response['status_info'] = 'invalid password'
+            cursor.execute(f'SELECT salts FROM Scheduler.users WHERE email = "{email}"')
+            salt_result = cursor.fetchall()[0]
+            salt_result = str.encode(salt_result[0])
             for row in results:
-                if encrypt_password(password) == row[0]:
+                if encrypt_password(password, salt_result) == row[0]:
                     response['status']= True
                     response['status_info'] = 'Login attempt was Successful'
                     response["authentication token"] = generate_authorization_token()
@@ -75,16 +88,18 @@ def login():
 
     return response
 
+def encrypt_password(password_unencrypted, salt_string):
+    encrypted_password = argon2.using(rounds=5, salt=salt_string).hash(password_unencrypted)
+    return encrypted_password
 
-def encrypt_password(password_unencrypted):
-    hashed_password = "jk;hs;jh"
-    return password_unencrypted
-
+def generate_salt_string():
+    salt_string = bcrypt.gensalt()
+    return salt_string
 
 def generate_authorization_token():
-    return "laughing"
-
-
+    token_string = secrets.token_hex(32)
+    return token_string
+    
 if __name__ == '__main__':
     app.run(debug=True)
 
