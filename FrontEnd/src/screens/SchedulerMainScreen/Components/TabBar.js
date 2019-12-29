@@ -1,6 +1,6 @@
 import { Dimensions, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, {Component} from 'react';
-import styles from './TabBarStyles.js';
+import styles from '../Styles/TabBarStyles.js';
 import posed from "react-native-pose";
 
 

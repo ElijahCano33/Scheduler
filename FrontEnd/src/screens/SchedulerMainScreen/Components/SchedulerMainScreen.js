@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
 import { StyleSheet, View, Text, Image, ImageBackground} from 'react-native';
 import styles from '../Styles/SchedulerMainScreenStyles.js';
-import CustomBottomTabNavigator from '../../../components/CustomBottomTabNavigator/router.js';
+//import CustomBottomTabNavigator from './router.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
-import FriendsScreen from '../../Friends/FriendsScreen.js';
-import ProfileScreen from '../../Profile/ProfileScreen.js';
-import SettingsScreen from '../../Settings/SettingsScreen.js';
-import Icon from '../../../components/Icon.js';
-import TabBar, {tabBar} from '../../../components/TabBar.js';
+import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
+import ProfileScreen from '../../Profile/Components/ProfileScreen.js';
+import SettingsScreen from '../../Settings/Components/SettingsScreen.js';
+import Icon from './Icon.js';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Foundation from 'react-native-vector-icons/Foundation';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import TabBar, {tabBar} from './TabBar.js';
 
 
 class SchedulerMainScreen extends Component{
@@ -23,7 +30,7 @@ class SchedulerMainScreen extends Component{
                 />
             
             
-            <Text>This is the main screen</Text>
+            <Text>This is the Calendar screen</Text>
             
             </ImageBackground>
             
@@ -36,33 +43,35 @@ const TabNavigator = createBottomTabNavigator(
     Calendar: {
       screen: SchedulerMainScreen,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <Icon name="home" color={tintColor} />
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({ tintColor }) => <Icon name="home" color={tintColor} style={{top: '15%'}} />
       },
     },
     Friends: {
       screen: FriendsScreen,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <Icon name="search" color={tintColor} />,
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({ tintColor }) => <Icon name="search" color={tintColor} style={{top: '15%'}} />
       }
     },
     Profile: {
       screen: ProfileScreen,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <Icon name="favorites" color={tintColor} />
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({ tintColor }) => <Icon name="favorites" color={tintColor} style={{top: '15%'}} />
       }
     },
     Settings: {
       screen: SettingsScreen,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => <Icon name="profile" color={tintColor} />
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({ tintColor }) => <Icon name="profile" color={tintColor} style={{top: '15%'}} />
       }
     }
   },
   {
     tabBarComponent: TabBar,
     tabBarOptions: {
-      showLabel: false,
-      showIcon: true,
       activeTintColor: "#4F4F4F",
       inactiveTintColor: "#ddd", 
     }

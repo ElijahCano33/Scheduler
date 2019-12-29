@@ -15,8 +15,6 @@ export default class Icon extends Component{
     
     icon = iconMap[this.props.name];
     
-
-    
     render() {
         return (
           
@@ -26,12 +24,5 @@ export default class Icon extends Component{
     }   
 }
 
-/*
-Icon.propTypes = {
-    name: PropTypes.string,
-    color: PropTypes.string,
-    style: PropTypes.object
-};
-*/
 
 
