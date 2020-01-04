@@ -18,9 +18,12 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     spotLight: {
-        width: tabWidth,
-        height: "100%",
-        backgroundColor: "rgba(128,128,255,0.2)",
-        borderRadius: 8
+        width: '16%', //tabWidth
+        left:'4%',
+        top: '10%',
+        height: "75%", //100
+        backgroundColor: '#c71585', //"rgba(128,128,255,0.2)"
+        borderRadius: 20, //8
+
       }
 });

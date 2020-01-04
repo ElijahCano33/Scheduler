@@ -15,6 +15,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabBar, {tabBar} from './TabBar.js';
 
 
@@ -28,7 +29,6 @@ class SchedulerMainScreen extends Component{
                     style={styles.logo}
                     source={require('../../../../pics/RedScheduler.png')}
                 />
-            
             
             <Text>This is the Calendar screen</Text>
             
@@ -44,36 +44,38 @@ const TabNavigator = createBottomTabNavigator(
       screen: SchedulerMainScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <Icon name="home" color={tintColor} style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <FontAwesome name="calendar" color={tintColor} size={25}style={{top: '15%'}} />
       },
     },
     Friends: {
       screen: FriendsScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <Icon name="search" color={tintColor} style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <FontAwesome name="search" color={tintColor} size={25} style={{top: '15%'}} />
       }
     },
     Profile: {
       screen: ProfileScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <Icon name="favorites" color={tintColor} style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <MaterialIcons name="add" color={tintColor} size={35} style={{top: '15%'}} />
       }
     },
     Settings: {
       screen: SettingsScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <Icon name="profile" color={tintColor} style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <FontAwesome5 name="user-friends" color={tintColor} size={25} style={{top: '15%'}} />
       }
     }
   },
   {
     tabBarComponent: TabBar,
     tabBarOptions: {
-      activeTintColor: "#4F4F4F",
-      inactiveTintColor: "#ddd", 
+      activeTintColor: '#4F4F4F', //'#4F4F4F'
+      inactiveTintColor: 'ddd', //ddd
+      showIcon: true
+
     }
   },
 );
