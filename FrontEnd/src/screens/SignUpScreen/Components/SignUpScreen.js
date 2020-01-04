@@ -75,9 +75,9 @@ export default class SignUpScreen extends Component {
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
         
         <Image
-          style={styles.logo}
-          source={require('../../../../pics/RedScheduler.png')}
-         />
+            style={styles.logo}
+            source={require('../../../../pics/PersonalScheduler.png')}
+        />
          <TextInput
               placeholder="  First Name"
               placeholderTextColor='#000000'

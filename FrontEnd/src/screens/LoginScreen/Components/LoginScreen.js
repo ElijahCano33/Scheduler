@@ -17,7 +17,7 @@ export default class LoginScreen extends Component {
   
   //Sends the user to the app's main screen.
   navigateToSchedulerMainScreen(){
-    this.props.navigation.navigate('SchedulerMainScreen');
+    this.props.navigation.navigate('CalendarScreen');
   }
   
   /*
@@ -69,9 +69,9 @@ export default class LoginScreen extends Component {
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
         
         <Image
-          style={styles.logo}
-          source={require('../../../../pics/RedScheduler.png')}
-         />
+            style={styles.logo}
+            source={require('../../../../pics/PersonalScheduler.png')}
+        />
         <TextInput
               placeholder="  Email"
               placeholderTextColor='#000000'

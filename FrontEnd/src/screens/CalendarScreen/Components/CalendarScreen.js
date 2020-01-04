@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, View, Text, Image, ImageBackground} from 'react-native';
-import styles from '../Styles/SchedulerMainScreenStyles.js';
+import styles from '../Styles/CalendarScreenStyles.js';
 //import CustomBottomTabNavigator from './router.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
@@ -19,7 +19,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabBar, {tabBar} from './TabBar.js';
 
 
-class SchedulerMainScreen extends Component{
+class CalendarScreen extends Component{
     
     
     render() {
@@ -27,10 +27,10 @@ class SchedulerMainScreen extends Component{
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
                 <Image
                     style={styles.logo}
-                    source={require('../../../../pics/RedScheduler.png')}
+                    source={require('../../../../pics/PersonalScheduler.png')}
                 />
             
-            <Text>This is the Calendar screen</Text>
+            <Text style={{alignItems: 'center', justifyContent: 'center'}}>This is the Calendar screen</Text>
             
             </ImageBackground>
             
@@ -41,7 +41,7 @@ class SchedulerMainScreen extends Component{
 const TabNavigator = createBottomTabNavigator(
   {
     Calendar: {
-      screen: SchedulerMainScreen,
+      screen: CalendarScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
         tabBarIcon: ({ tintColor }) => <FontAwesome name="calendar" color={tintColor} size={25}style={{top: '15%'}} />
