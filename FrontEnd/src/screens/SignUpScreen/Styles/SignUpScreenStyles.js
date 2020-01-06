@@ -59,6 +59,7 @@ export default StyleSheet.create({
       width: 120,
       backgroundColor: '#000000',
       paddingHorizontal: 30,
+      borderRadius: 20,
       textAlign: 'left',
       left: '18%', //16% for it to work on all android screens
       top: '64.5%',
@@ -69,6 +70,7 @@ export default StyleSheet.create({
         width: 120,
         backgroundColor: '#000000',
         paddingHorizontal: 30,
+        borderRadius: 20,
         textAlign: 'left',
         top: '64.5%',
         left: '51%',
