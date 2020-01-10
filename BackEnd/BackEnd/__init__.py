@@ -10,5 +10,5 @@ app.register_blueprint(reg)
 app.register_blueprint(log)
 
 
-if __name__ == '__main__':
+def RunServer():
     app.run(debug=True)
