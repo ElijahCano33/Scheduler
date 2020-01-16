@@ -13,6 +13,8 @@ cursor = database.cursor()
 
 log = Blueprint('login', __name__)
 
+userAuthenticationTracker = []
+
 @log.route('/api/login', methods=['POST'])
 def login():
     response = {}
@@ -39,6 +41,8 @@ def login():
                     response['status']= True
                     response['status_info'] = 'Login attempt was Successful'
                     response["authentication token"] = generate_authorization_token()
+                    userInfo = (email, response["authentication token"])
+                    userAuthenticationTracker.insert(0, userInfo)
     else:
         response["status"] = False
         response["status_info"] = "invalid request type"
