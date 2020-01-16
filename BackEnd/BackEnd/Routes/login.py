@@ -30,6 +30,7 @@ def login():
             password = data['password']
             cursor.execute(f'SELECT password FROM Scheduler.users WHERE email = "{email}"')
             results = cursor.fetchall()
+            print(results, "results")
             if len(results) > 0:
                 response['status']= False
                 response['status_info'] = 'invalid password'
