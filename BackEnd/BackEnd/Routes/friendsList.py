@@ -20,35 +20,32 @@ def fetchAllFriends():
         data = request.get_json()
         token = data['authentication token']
         
-
         if token == userAuthenticationTracker[0][1]:
+
             email = userAuthenticationTracker[0][0]
             cursor.execute(f"SELECT user_id FROM Scheduler.users WHERE email = '{email}'")
-            userIdQueryResult = cursor.fetchone()[0] 
-            cursor.execute(f"SELECT user_one_id FROM Scheduler.friendship WHERE user_two_id = '{userIdQueryResult}'")
-            friendsResult = cursor.fetchall() #[0][0] is for when there is only one friend
-            friendInfo = [tup[0] for tup in friendsResult]
+            userId = cursor.fetchone()[0] 
+            cursor.execute(f"SELECT user_one_id FROM Scheduler.friendship WHERE user_two_id = '{userId}'")
+            firstFriendsResult = cursor.fetchall()
+
+            friendIds = [tup[0] for tup in firstFriendsResult]
             
-            for row in friendInfo:
-                var = ("", row) 
-                friends.insert(0, var) 
+            for ids in friendIds:
+                friends.insert(0, ids) 
             
+            cursor.execute(f"SELECT user_two_id FROM Scheduler.friendship WHERE user_one_id = '{userId}'")
+            secondFriendsResult = cursor.fetchall()
 
-            cursor.execute(f"SELECT user_two_id FROM Scheduler.friendship WHERE user_one_id = '{userIdQueryResult}'")
-            friendsResult = cursor.fetchall()
+            friendIds = [tup[0] for tup in secondFriendsResult]
 
-            friendInfo = [tup[0] for tup in friendsResult]
+            for ids in friendIds:
+                friends.insert(0, ids)
 
-            
-            for info in friendInfo:
-                var = ("", info)
-                friends.insert(0, var)
-
-            for friendTuple in friends:
-                friendId = friendTuple[1]
-                cursor.execute(f"SELECT first_name FROM Scheduler.users WHERE user_id = '{friendId}'")
+            for info in friends:
+                cursor.execute(f"SELECT first_name FROM Scheduler.users WHERE user_id = '{info}'")
                 friendFirstName = cursor.fetchone()[0]
                 response.insert(0, friendFirstName)
+
     return jsonify(response)
 
 
