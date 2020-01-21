@@ -12,7 +12,7 @@ fl = Blueprint('friendsList', __name__)
 
 @fl.route('/api/friendsList', methods=['GET'])
 def fetchAllFriends():
-    response = []
+    response = {}
     friends = []
 
     if request.method == 'GET':
@@ -44,8 +44,8 @@ def fetchAllFriends():
             for info in friends:
                 cursor.execute(f"SELECT first_name FROM Scheduler.users WHERE user_id = '{info}'")
                 friendFirstName = cursor.fetchone()[0]
-                response.insert(0, friendFirstName)
+                response[info] = friendFirstName
 
-    return jsonify(response)
+    return response
 
 
