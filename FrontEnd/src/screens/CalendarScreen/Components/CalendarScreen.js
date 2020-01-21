@@ -7,6 +7,7 @@ import {createBottomTabNavigator } from "react-navigation-tabs";
 import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
 import ProfileScreen from '../../Profile/Components/ProfileScreen.js';
 import SettingsScreen from '../../Settings/Components/SettingsScreen.js';
+import NotificationsScreen from '../../NotificationsScreen/Components/NotificationsScreen.js';
 import Icon from './Icon.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -15,12 +16,28 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabBar, {tabBar} from './TabBar.js';
 
 
 class CalendarScreen extends Component{
-    
+  constructor(props) {
+    super(props)
+
+    //sets up current states of component.
+    this.state = {
+        calendarIconPressed: false,
+        searchBarIconPressed: false,
+        addIconPressed: false,
+        friendsIconPressed: false,
+        notificationsIconPressed: false,
+    }
+  }
+
+  changeCalendarIconState(){
+    this.setState({calendarIconPressed: !calendarIconPressed});
+  }
     
     render() {
         return (
@@ -66,6 +83,13 @@ const TabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel:() => {return null},
         tabBarIcon: ({ tintColor }) => <FontAwesome5 name="user-friends" color={tintColor} size={25} style={{top: '15%'}} />
+      }
+    },
+    Notifications: {
+      screen: NotificationsScreen,
+      navigationOptions: {
+        tabBarLabel:() => {return null},
+        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications" color={tintColor} size={35} style={{top: '15%'}} />
       }
     }
   },

@@ -24,6 +24,7 @@ export default StyleSheet.create({
       height: 40,
       width: 250,
       backgroundColor: '#FFFFFF',
+      paddingLeft: 10,
       marginBottom: 20,
       top: '35%',
       position: 'absolute'
@@ -32,6 +33,7 @@ export default StyleSheet.create({
     input2: {
         height: 40,
         width: 250,
+        paddingLeft: 10,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
         top: '45%', 

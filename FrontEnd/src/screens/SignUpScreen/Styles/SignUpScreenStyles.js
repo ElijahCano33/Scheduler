@@ -23,6 +23,7 @@ export default StyleSheet.create({
     input1: {
       height: 40,
       width: 250,
+      paddingLeft: 10,
       backgroundColor: '#FFFFFF',
       marginBottom: 20,
       top: '25%',
@@ -32,6 +33,7 @@ export default StyleSheet.create({
     input2: {
         height: 40,
         width: 250,
+        paddingLeft: 10,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
         top: '35%', 
@@ -40,6 +42,7 @@ export default StyleSheet.create({
       input3: {
         height: 40,
         width: 250,
+        paddingLeft: 10,
         backgroundColor: '#FFFFFF',
         marginBottom: 20,
         top: '45%',
@@ -49,6 +52,7 @@ export default StyleSheet.create({
       input4: {
           height: 40,
           width: 250,
+          paddingLeft: 10,
           backgroundColor: '#FFFFFF',
           marginBottom: 20,
           top: '55%', 

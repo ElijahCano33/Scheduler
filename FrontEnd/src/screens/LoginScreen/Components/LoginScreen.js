@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, ImageBackground} from 'react-native';
+import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground} from 'react-native';
 import styles from '../Styles/LoginScreenStyles.js';
 
 export default class LoginScreen extends Component {
@@ -66,40 +66,42 @@ export default class LoginScreen extends Component {
   */
   render(){
     return(
-      <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
-        
-        <Image
-            style={styles.logo}
-            source={require('../../../../pics/PersonalScheduler.png')}
-        />
-        <TextInput
-              placeholder="  Email"
-              placeholderTextColor='#000000'
-              style={styles.input1}
-              onChangeText={(email) => this.setState({email})}
-            />
-        <TextInput
-              placeholder="  Password"
-              placeholderTextColor='#000000'
-              style={styles.input2}
-              onChangeText={(password) => this.setState({password})}
-            />
-        <TouchableOpacity 
-          style={styles.buttonContainer1} 
-          onPress={() => this.loginButtonPressed()}> 
-          <Text 
-            style={styles.buttonText}>LOGIN
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.buttonContainer2}
-          onPress={() => this.navigateToSignUpScreen()}>
-          <Text 
-            style={styles.buttonText}>SIGN UP
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
+          
+          <Image
+              style={styles.logo}
+              source={require('../../../../pics/PersonalScheduler.png')}
+          />
+          <TextInput
+                placeholder="Email"
+                placeholderTextColor='#000000'
+                style={styles.input1}
+                onChangeText={(email) => this.setState({email})}
+              />
+          <TextInput
+                placeholder="Password"
+                placeholderTextColor='#000000'
+                style={styles.input2}
+                onChangeText={(password) => this.setState({password})}
+              />
+          <TouchableOpacity 
+            style={styles.buttonContainer1} 
+            onPress={() => this.loginButtonPressed()}> 
+            <Text 
+              style={styles.buttonText}>LOGIN
             </Text>
-        </TouchableOpacity>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.buttonContainer2}
+            onPress={() => this.navigateToSignUpScreen()}>
+            <Text 
+              style={styles.buttonText}>SIGN UP
+              </Text>
+          </TouchableOpacity>
 
-        </ImageBackground>
+          </ImageBackground>
+        </TouchableWithoutFeedback>
     );
   }
 }

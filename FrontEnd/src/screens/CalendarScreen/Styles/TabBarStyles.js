@@ -19,7 +19,7 @@ export default StyleSheet.create({
     },
     spotLight: {
         width: '16%', //tabWidth
-        left:'4%',
+        left:'2%',
         top: '10%',
         height: "75%", //100
         backgroundColor: '#c71585', //"rgba(128,128,255,0.2)"
