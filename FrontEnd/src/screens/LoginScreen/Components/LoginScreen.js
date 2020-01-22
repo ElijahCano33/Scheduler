@@ -84,9 +84,9 @@ export default class LoginScreen extends Component {
           />
 
           <PasswordTextInput
-            label="Password"
+            placeholder="Password"
             placeholderTextColor='#000000'
-            style={{height: 40, width: 250, paddingLeft: 9, backgroundColor: '#FFFFFF', marginBottom: 20, top: '45%', position: 'absolute'}}
+            style={{height: 40, width: 250, backgroundColor: '#FFFFFF', marginBottom: 20, top: '45%', position: 'absolute'}}
             onChange={(password) => this.setState({password})}
           />
 
