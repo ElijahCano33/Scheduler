@@ -13,6 +13,8 @@ cursor = database.cursor()
 
 log = Blueprint('login', __name__)
 
+userAuthenticationTracker = []
+
 @log.route('/api/login', methods=['POST'])
 def login():
     response = {}
@@ -28,6 +30,7 @@ def login():
             password = data['password']
             cursor.execute(f'SELECT password FROM Scheduler.users WHERE email = "{email}"')
             results = cursor.fetchall()
+            print(results, "results")
             if len(results) > 0:
                 response['status']= False
                 response['status_info'] = 'invalid password'
@@ -39,6 +42,8 @@ def login():
                     response['status']= True
                     response['status_info'] = 'Login attempt was Successful'
                     response["authentication token"] = generate_authorization_token()
+                    userInfo = (email, response["authentication token"])
+                    userAuthenticationTracker.insert(0, userInfo)
     else:
         response["status"] = False
         response["status_info"] = "invalid request type"
