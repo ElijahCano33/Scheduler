@@ -4,7 +4,6 @@ export default StyleSheet.create({
     fadeBackgroundStyles: {
         justifyContent: 'center', 
         alignItems: 'center', 
-        //flexDirection: 'row',
         flex: 1
     },
     logo: {
@@ -18,5 +17,23 @@ export default StyleSheet.create({
         height: 110,
         bottom: '-12%',
         backgroundColor: 'red'
+    },
+    createEventsButton: {
+        width: '50%',
+        height: '5%',
+        borderRadius: 20,
+        top: '90%',
+        backgroundColor: 'white',
+        position: 'absolute'
+    },
+    createEventsText: {
+        color: '#c71585',
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        top: '8%',
+        left: '5%',
+        alignSelf: 'center',
+        fontWeight: "bold",
+        fontSize: 18
     }
 });
