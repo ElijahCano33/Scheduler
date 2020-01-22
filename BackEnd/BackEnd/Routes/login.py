@@ -35,8 +35,8 @@ def login():
                 response['status']= False
                 response['status_info'] = 'invalid password'
             cursor.execute(f'SELECT salts FROM Scheduler.users WHERE email = "{email}"')
-            salt_result = cursor.fetchall()[0]
-            salt_result = str.encode(salt_result[0])
+            salt_result = cursor.fetchone()[0]
+            salt_result = str.encode(salt_result)
             for row in results:
                 if encrypt_password(password, salt_result) == row[0]:
                     response['status']= True

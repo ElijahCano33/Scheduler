@@ -8,10 +8,11 @@ const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 4;
 
 const SpotLight = posed.View({
-    route0: { x: 0 },
-    route1: { x: tabWidth },
-    route2: { x: tabWidth * 2 },
-    route3: { x: tabWidth * 3 }
+    route0: { x: 0 }, //0
+    route1: { x: tabWidth*0.80}, //80
+    route2: { x: tabWidth*1.60 }, //156
+    route3: { x: tabWidth*2.39 }, //235
+    route4: {x: tabWidth*3.19} //314
   });
 
 
