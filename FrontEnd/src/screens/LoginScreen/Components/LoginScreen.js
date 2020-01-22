@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground} from 'react-native';
 import styles from '../Styles/LoginScreenStyles.js';
+import PasswordTextInput from './PasswordTextInput.js';
+
 
 export default class LoginScreen extends Component {
 
@@ -73,18 +75,21 @@ export default class LoginScreen extends Component {
               style={styles.logo}
               source={require('../../../../pics/PersonalScheduler.png')}
           />
+
           <TextInput
-                placeholder="Email"
-                placeholderTextColor='#000000'
-                style={styles.input1}
-                onChangeText={(email) => this.setState({email})}
-              />
-          <TextInput
-                placeholder="Password"
-                placeholderTextColor='#000000'
-                style={styles.input2}
-                onChangeText={(password) => this.setState({password})}
-              />
+            placeholder="Email"
+            placeholderTextColor='#000000'
+            style={styles.input1}
+            onChangeText={(email) => this.setState({email})}
+          />
+
+          <PasswordTextInput
+            label="Password"
+            placeholderTextColor='#000000'
+            style={{height: 40, width: 250, paddingLeft: 9, backgroundColor: '#FFFFFF', marginBottom: 20, top: '45%', position: 'absolute'}}
+            onChange={(password) => this.setState({password})}
+          />
+
           <TouchableOpacity 
             style={styles.buttonContainer1} 
             onPress={() => this.loginButtonPressed()}> 
@@ -92,12 +97,13 @@ export default class LoginScreen extends Component {
               style={styles.buttonText}>LOGIN
             </Text>
           </TouchableOpacity>
+
           <TouchableOpacity 
             style={styles.buttonContainer2}
             onPress={() => this.navigateToSignUpScreen()}>
             <Text 
               style={styles.buttonText}>SIGN UP
-              </Text>
+            </Text>
           </TouchableOpacity>
 
           </ImageBackground>
