@@ -52,7 +52,7 @@ export default StyleSheet.create({
       input4: {
           height: 40,
           width: 250,
-          paddingLeft: 10,
+          paddingLeft: 0,
           backgroundColor: '#FFFFFF',
           marginBottom: 20,
           top: '55%', 
