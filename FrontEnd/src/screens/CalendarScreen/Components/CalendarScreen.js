@@ -84,6 +84,7 @@ class CalendarScreen extends Component{
               </TouchableOpacity>
             
              <Text style={{alignItems: 'center', justifyContent: 'center'}}>Calendar component will go here</Text>
+
              <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
 
            <View style={{top: '25%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent'}}>
@@ -92,8 +93,6 @@ class CalendarScreen extends Component{
                 horizontal={true}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (<UpcomingEventBox event={item.event}/>)}
-                
-                
             />
             </View>
                 

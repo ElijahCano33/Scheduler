@@ -23,6 +23,7 @@ export default StyleSheet.create({
         color: 'white',
         position: 'absolute',
         fontWeight: "bold"
+    },
     container: {
         width: 395,
         height: 110,
