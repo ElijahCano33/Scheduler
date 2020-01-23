@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, FlatList, Text, Image, ImageBackground} from 'react-native';
+import { StyleSheet, View, SafeAreaView, FlatList, Text, Image, ImageBackground} from 'react-native';
 import styles from '../Styles/CalendarScreenStyles.js';
 //import CustomBottomTabNavigator from './router.js';
 import { createAppContainer} from 'react-navigation';
@@ -25,21 +25,34 @@ import UpcomingEventBox from './UpcomingEventBox.js';
 const EVENTS = [
   {
     id: 1,
-    event: 'Birthday Party',
+    event: '',
   },
   {
     id: 2,
-    event: 'Dance recital'
+    event: ''
   },
   {
     id: 3,
-    event: 'Dinner date',
+    event: '',
   },
   {
     id: 4,
-    event: 'Football party'
+    event: ''
+  },
+  {
+    id: 5,
+    event: ''
+  },
+  {
+    id: 6,
+    event: '',
+  },
+  {
+    id: 7,
+    event: ''
   }
 ]
+
 
 
 class CalendarScreen extends Component{
@@ -59,6 +72,8 @@ class CalendarScreen extends Component{
   changeCalendarIconState(){
     this.setState({calendarIconPressed: !calendarIconPressed});
   }
+
+  
     
     render() {
         return (
@@ -69,18 +84,19 @@ class CalendarScreen extends Component{
               />
              */}
             
-             <Text style={{alignItems: 'center', justifyContent: 'center'}}>This is the Calendar screen</Text>
+             <Text style={{alignItems: 'center', justifyContent: 'center'}}>Calendar component will go here</Text>
+             <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
 
-            <UpcomingEventBox event="birthday"/>
-
+           <View style={{top: '25%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent'}}>
              <FlatList
                 data={EVENTS}
                 horizontal={true}
-                style={{flex: 1, width: '100%', height: '30%', top: '80%', position: 'absolute'}}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (<UpcomingEventBox event={item.event}/>)}
                 
+                
             />
+            </View>
                 
                         
             </ImageBackground>
@@ -137,6 +153,8 @@ const TabNavigator = createBottomTabNavigator(
     }
   },
 );
+
+
   
   
   export default createAppContainer(TabNavigator);

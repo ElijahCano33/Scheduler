@@ -16,5 +16,13 @@ export default StyleSheet.create({
     
     flatlistContainer: {
         flex: 1
+    },
+    upcomingEventsText: {
+        top: '63%',
+        left: '3%',
+        fontSize: 22,
+        color: 'white',
+        position: 'absolute',
+        fontWeight: "bold"
     }
 });

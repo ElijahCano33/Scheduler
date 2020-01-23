@@ -6,24 +6,24 @@ const tabWidth = windowWidth / 4;
 
 export default StyleSheet.create({
     container: {
-        top: '40%', //40%
-        backgroundColor: 'white',
-        width: '41.5%', //41.5%
-        height: '13.5%', //13.5%
+        backgroundColor: '#fbfbfb',
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 16,
+        width: 150,
         borderRadius: 20,
-        position: 'absolute',
-        shadowColor: "#000000",
-        shadowOpacity: 10,
-        shadowRadius: 2,
-        elevation: 5
+        
     },
     eventDescriptionText: {
-        top: '33%',
-        left: '27%',
+        alignContent: 'center',
+        top: '30%',
+        left: '35%',
+        justifyContent: 'center',
+        alignSelf: 'center',
         position: 'absolute',
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: 'bold',
-        color: '#c71585'
+        color: 'black'
     }
     
 });
