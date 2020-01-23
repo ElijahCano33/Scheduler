@@ -13,10 +13,8 @@ export default StyleSheet.create({
         top: -200,//-35
         //position: 'absolute'
     },
-    container: {
-        width: 395,
-        height: 110,
-        bottom: '-12%',
-        backgroundColor: 'red'
+    
+    flatlistContainer: {
+        flex: 1
     }
 });
