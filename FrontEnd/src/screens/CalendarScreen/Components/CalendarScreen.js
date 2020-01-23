@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, SafeAreaView, FlatList, Text, Image, ImageBackground} from 'react-native';
+import { StyleSheet, View, SafeAreaView, FlatList, Text, Image, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CalendarScreenStyles.js';
-//import CustomBottomTabNavigator from './router.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
 import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
@@ -12,11 +11,6 @@ import Icon from './Icon.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Foundation from 'react-native-vector-icons/Foundation';
-import Entypo from 'react-native-vector-icons/Entypo';
-import Octicons from 'react-native-vector-icons/Octicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabBar, {tabBar} from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
@@ -83,6 +77,11 @@ class CalendarScreen extends Component{
                   source={require('../../../../pics/PersonalScheduler.png')}
               />
              */}
+
+              <TouchableOpacity style={styles.createEventsButton}>
+                <MaterialIcons name="add" color="#c71585" size={35} style={{top: '-6%', left: '5%', position: 'absolute'}} />
+                <Text style={styles.createEventsText}>Create Events</Text>
+              </TouchableOpacity>
             
              <Text style={{alignItems: 'center', justifyContent: 'center'}}>Calendar component will go here</Text>
              <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
