@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, ImageBackground} from 'react-native';
+import { StyleSheet, View, SafeAreaView, FlatList, Text, Image, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CalendarScreenStyles.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
@@ -13,6 +13,40 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabBar, {tabBar} from './TabBar.js';
+import UpcomingEventBox from './UpcomingEventBox.js';
+
+
+const EVENTS = [
+  {
+    id: 1,
+    event: '',
+  },
+  {
+    id: 2,
+    event: ''
+  },
+  {
+    id: 3,
+    event: '',
+  },
+  {
+    id: 4,
+    event: ''
+  },
+  {
+    id: 5,
+    event: ''
+  },
+  {
+    id: 6,
+    event: '',
+  },
+  {
+    id: 7,
+    event: ''
+  }
+]
+
 
 
 class CalendarScreen extends Component{
@@ -32,22 +66,38 @@ class CalendarScreen extends Component{
   changeCalendarIconState(){
     this.setState({calendarIconPressed: !calendarIconPressed});
   }
+
+  
     
     render() {
         return (
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
-              <Image
+             {/* <Image
                   style={styles.logo}
                   source={require('../../../../pics/PersonalScheduler.png')}
               />
-            
-              <Text style={{top: '50%', left: '30%', position: 'absolute'}}>This is the Calendar screen</Text>
+             */}
 
               <TouchableOpacity style={styles.createEventsButton}>
                 <MaterialIcons name="add" color="#c71585" size={35} style={{top: '-6%', left: '5%', position: 'absolute'}} />
                 <Text style={styles.createEventsText}>Create Events</Text>
               </TouchableOpacity>
             
+             <Text style={{alignItems: 'center', justifyContent: 'center'}}>Calendar component will go here</Text>
+             <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
+
+           <View style={{top: '25%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent'}}>
+             <FlatList
+                data={EVENTS}
+                horizontal={true}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (<UpcomingEventBox event={item.event}/>)}
+                
+                
+            />
+            </View>
+                
+                        
             </ImageBackground>
             
         );
@@ -102,6 +152,8 @@ const TabNavigator = createBottomTabNavigator(
     }
   },
 );
+
+
   
   
   export default createAppContainer(TabNavigator);

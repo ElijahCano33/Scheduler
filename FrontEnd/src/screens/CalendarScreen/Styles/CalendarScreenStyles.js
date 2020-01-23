@@ -12,6 +12,17 @@ export default StyleSheet.create({
         top: -200,//-35
         //position: 'absolute'
     },
+    
+    flatlistContainer: {
+        flex: 1
+    },
+    upcomingEventsText: {
+        top: '63%',
+        left: '3%',
+        fontSize: 22,
+        color: 'white',
+        position: 'absolute',
+        fontWeight: "bold"
     container: {
         width: 395,
         height: 110,

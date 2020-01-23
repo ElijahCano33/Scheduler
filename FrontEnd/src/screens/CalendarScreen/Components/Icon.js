@@ -2,13 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Text } from "react-native";
 
-const iconMap = {
-  home: "♡",
-  search: "♢",
-  favorites: "♧",
-  profile: "♤"
-};
-
 
 
 export default class Icon extends Component{
