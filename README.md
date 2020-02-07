@@ -6,4 +6,6 @@ A powerful effective time-management and scheduling calendar service application
 
 </div>
 
+## Prerequisites
+
 ## Quick Start
