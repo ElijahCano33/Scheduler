@@ -4,4 +4,4 @@
 
 </div>
 
-  The following is a mobile app that serves as both a time-management and scheduling calendar service. 
+A powerful effective time-management and scheduling calendar service application for mobile devices.
