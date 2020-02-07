@@ -13,4 +13,7 @@ The following technologies will need to be installed on your local machine in or
 *   Python & Flask  
 *   Android Studio/Xcode  
 
-## Quick Start
+## Quick Start  
+*   Clone the repo: 
+*   Navigate to FrontEnd directory and run Npm/Yarn install
+
