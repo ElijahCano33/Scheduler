@@ -17,5 +17,6 @@ The following technologies will need to be installed on your local machine in or
 *   Clone the repo: https://github.com/ElijahCano33/Scheduler.git
 *   Navigate to FrontEnd directory and run Npm/Yarn install
 *   Open an emulator/simulator in Android Studio/Xcode
-*   Open another terminal window, navigate to BackEnd directory, type in python
+*   Open another terminal window, navigate to BackEnd directory, type in python to launch Python Interpreter
+*   Once Python Interpreter has been launched, type in "import BackEnd"
 
