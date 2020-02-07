@@ -6,6 +6,11 @@ A powerful effective time-management and scheduling calendar service application
 
 </div>
 
-## Prerequisites
+## Prerequisites  
+The following technologies will need to be installed on your local machine in order to run this application successfully:
+    * Npm/Yarn
+    * React-Native
+    * Python & Flask
+    * Android Studio/Xcode
 
 ## Quick Start
