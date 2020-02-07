@@ -22,5 +22,6 @@ Clone the repo: https://github.com/ElijahCano33/Scheduler.git
 ### BackEnd Setup
 *   Navigate to first BackEnd directory and type in "python" to launch Python Interpreter
 *   Once Python Interpreter has been launched, type in "import BackEnd" followed by the command "exit()"
-*   Run the command "python BackEnd-Server.py"
+*   Run the command "python BackEnd-Server.py"  
 
+## Bugs, Issue Trackers, and List of Upcoming Features
