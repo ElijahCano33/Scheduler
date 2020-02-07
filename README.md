@@ -2,7 +2,7 @@
   
 #  Welcome to Scheduler  
 
-__A powerful effective time-management and scheduling calendar service application for mobile devices__
+**A powerful effective time-management and scheduling calendar service application for mobile devices**
 
 </div>
 
