@@ -14,7 +14,7 @@ The following technologies will need to be installed on your local machine in or
 *   Android Studio/Xcode  
 
 ## Quick Start
-*   Clone the repo: https://github.com/ElijahCano33/Scheduler.git  
+Clone the repo: https://github.com/ElijahCano33/Scheduler.git  
 ### FrontEnd Setup
 *   Navigate to FrontEnd directory and run Npm/Yarn install
 *   Open an emulator/simulator in Android Studio/Xcode
