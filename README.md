@@ -25,4 +25,4 @@ Clone the repo: https://github.com/ElijahCano33/Scheduler.git
 *   Run the command "python BackEnd-Server.py"  
 
 ## Bugs, Issue Trackers, and List of Upcoming Features
-To check some of the current issues or upcoming features that we're working on, click on the "Projects" tab and then select "App Assignments"
+To check some of the current issues or upcoming features that we're working on, click on the "Projects" tab at the top of the web page and then select "App Assignments"
