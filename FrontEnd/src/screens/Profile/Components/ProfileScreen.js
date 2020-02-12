@@ -9,9 +9,10 @@ export default class ProfileScreen extends Component{
     render() {
         return (
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
-                
-                <Text>This is the profile ProfileScreen</Text>
-                
+                <Image
+                    style={styles.logo}
+                    source={require('../../../../pics/scriptscheduler.png')}
+                />   
             </ImageBackground>
             
         );

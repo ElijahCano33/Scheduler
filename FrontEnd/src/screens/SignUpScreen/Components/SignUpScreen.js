@@ -78,7 +78,7 @@ export default class SignUpScreen extends Component {
           
           <Image
             style={styles.logo}
-            source={require('../../../../pics/PersonalScheduler.png')}
+            source={require('../../../../pics/scriptscheduler.png')}
           />
 
           <TextInput

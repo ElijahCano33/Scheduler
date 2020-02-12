@@ -8,9 +8,10 @@ export default StyleSheet.create({
         flex: 1
     },
     logo: {
-        height: 450,
-        width: 600,
+        height: 650,
+        width: 800,
         top: -200,//-35
+        left: '14%'
         //position: 'absolute'
     },
     container: {

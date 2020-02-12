@@ -71,10 +71,10 @@ export default class LoginScreen extends Component {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
           
-          <Image
-              style={styles.logo}
-              source={require('../../../../pics/PersonalScheduler.png')}
-          />
+        <Image
+            style={styles.logo}
+            source={require('../../../../pics/scriptscheduler.png')}
+        />
 
           <TextInput
             placeholder="Email"
