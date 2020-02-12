@@ -15,9 +15,9 @@ The following technologies will need to be installed on your local machine in or
 
 ## Quick Start
 Clone the repo: https://github.com/ElijahCano33/Scheduler.git  
-### FrontEnd Setup
-*   Navigate to FrontEnd directory and run Npm/Yarn install
-*   Open an emulator/simulator in Android Studio/Xcode
+### FrontEnd Setup For Android
+*   Navigate to FrontEnd directory and run npm/yarn install
+*   Open an emulator/simulator in Android Studio
 *   Run the command "react-native run-android"  
 ### BackEnd Setup
 *   Navigate to first BackEnd directory and type in "python" to launch Python Interpreter
