@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground} from 'react-native';
 import styles from '../Styles/LoginScreenStyles.js';
 import PasswordTextInput from './PasswordTextInput.js';
+import Loader from './Loader.js';
 
 
 export default class LoginScreen extends Component {
@@ -53,12 +54,37 @@ export default class LoginScreen extends Component {
     screen.
   */
   loginButtonPressed(){
+    this.showLoaderComponent();
     this.loginNetworkRequestToBackend();
     this.navigateToSchedulerMainScreen();
   }
 
   navigateToSignUpScreen(){
     this.props.navigation.navigate('SignUpScreen');
+  }
+
+  fetchLoginNetworkResponseFromBackend(){
+    return fetch('http://127.0.0.1:5000/api/login')
+
+    .then((response) => response.json())
+
+    .then((responseJson) => {
+      return responseJson['status'];
+    })
+
+    .catch((error) => {
+      console.log("This is the status value: " + responseJson['status']);
+      throw error;
+    });
+
+  }
+
+  showLoaderComponent = () => {
+    if(this.state.loginButtonPressed == true){
+      this.setState({loginButtonPressed: false})
+    }else{
+      this.setState({loginButtonPressed: true})
+    }
   }
   
   /*
