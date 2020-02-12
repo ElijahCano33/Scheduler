@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, ImageBackground, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import PasswordTextInput from './PasswordTextInput.js';
 import styles from '../Styles/SignUpScreenStyles.js';
+import Loader from './Loader.js';
 
 export default class SignUpScreen extends Component {
 
@@ -15,6 +16,7 @@ export default class SignUpScreen extends Component {
         lastName: '',
         email: '',
         password: '',
+        signUpButtonPressed: false
     }
   }
   
@@ -49,6 +51,21 @@ export default class SignUpScreen extends Component {
     });
   }
 
+  fetchSignUpNetworkResponseFromBackend(){
+    return fetch('http://127.0.0.1:5000/api/register')
+
+    .then((response) => response.json())
+
+    .then((responseJson) => {
+      return responseJson['status'];
+    })
+
+    .catch((error) => {
+      console.log("This is the status value: " + responseJson['status']);
+      throw error;
+    });
+  }
+
   //Sends the user to the app's main screen.
   navigateToSchedulerMainScreen(){
     this.props.navigation.navigate('SchedulerMainScreen');
@@ -60,11 +77,26 @@ export default class SignUpScreen extends Component {
     then navigates the user to the app's
     main screen.
   */
- signUpButtonPressed(){
+signUpButtonPressed(){
+  this.showLoaderComponent();
   this.signUpNetworkRequestToBackend();
   this.navigateToSchedulerMainScreen();
+
+  if (this.fetchSignUpNetworkResponseFromBackend() == true){
+    this.navigateToSchedulerMainScreen();
+  }else{
+    //Alert.alert("Invalid SignUp!");
+    this.showLoaderComponent();
+  }
 }
 
+showLoaderComponent = () => {
+  if(this.state.signUpButtonPressed == true){
+    this.setState({signUpButtonPressed: false})
+  }else{
+    this.setState({signUpButtonPressed: true})
+  }
+}
   
   /*
     The following renders the text Scheduler at
@@ -122,6 +154,8 @@ export default class SignUpScreen extends Component {
           <TouchableOpacity 
             style={styles.buttonContainer2}
             onPress={() => this.signUpButtonPressed()}>
+
+            { this.state.signUpButtonPressed == true ? <Loader style={{position: 'absolute', top: '-1000%', left: '-100%', width: '200%', height: '500%', backgroundColor: 'black', borderRadius: 20}}/> : null }
 
             <Text 
               style={styles.buttonText}>SIGN UP
