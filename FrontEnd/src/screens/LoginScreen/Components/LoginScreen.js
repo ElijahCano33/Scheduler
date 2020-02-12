@@ -15,6 +15,7 @@ export default class LoginScreen extends Component {
     this.state = {
         email: '',
         password: '',
+        loginButtonPressed: false
     }
   }
   
@@ -55,8 +56,8 @@ export default class LoginScreen extends Component {
   */
   loginButtonPressed(){
     this.showLoaderComponent();
-    this.loginNetworkRequestToBackend();
-    this.navigateToSchedulerMainScreen();
+    //this.loginNetworkRequestToBackend();
+    //this.navigateToSchedulerMainScreen();
   }
 
   navigateToSignUpScreen(){
@@ -118,7 +119,10 @@ export default class LoginScreen extends Component {
 
           <TouchableOpacity 
             style={styles.buttonContainer1} 
-            onPress={() => this.loginButtonPressed()}> 
+            onPress={() => this.loginButtonPressed()}>
+
+            { this.state.loginButtonPressed === true ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: 'black', borderRadius: 20}}/> : null }
+
             <Text 
               style={styles.buttonText}>LOGIN
             </Text>
