@@ -1,5 +1,4 @@
-from flask import Flask, Blueprint
-from flask import Flask, request
+from flask import Flask, Blueprint, request
 from hashlib import sha1
 from passlib.hash import argon2
 import secrets
