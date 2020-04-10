@@ -15,7 +15,6 @@ reg = Blueprint('register', __name__)
 
 @reg.route("/api/register", methods=['POST'])
 def register_():
-    print("yooooo")
     response = dict()
     data = request.get_json()
     email = data['email']
