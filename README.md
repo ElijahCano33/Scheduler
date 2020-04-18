@@ -18,7 +18,7 @@ Clone the repo: https://github.com/ElijahCano33/Scheduler.git
 *   Navigate to FrontEnd directory and run npm/yarn install
 *   Open an emulator/simulator in Android Studio
 *   Run the command "react-native run-android"  
-### BackEnd Setup
+### BackEnd Setup :electric_plug:
 *   Navigate to first BackEnd directory and type in "python" to launch Python Interpreter
 *   Once Python Interpreter has been launched, type in "import BackEnd" followed by the command "exit()"
 *   Run the command "python BackEnd-Server.py"  
