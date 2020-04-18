@@ -6,7 +6,7 @@
 
 </div>
 
-## Prerequisites  
+## Prerequisites :bell:
 The following technologies will need to be installed on your local machine in order to run this application successfully:
 *   Npm/Yarn  
 *   React-Native  
