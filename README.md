@@ -12,7 +12,7 @@ The following technologies will need to be installed on your local machine in or
 *   Python & Flask  
 *   Android Studio/Xcode  
 
-## Quick Start
+## Quick Start :rocket:
 Clone the repo: https://github.com/ElijahCano33/Scheduler.git  
 ### FrontEnd Setup For Android :iphone:
 *   Navigate to FrontEnd directory and run npm/yarn install
@@ -23,5 +23,5 @@ Clone the repo: https://github.com/ElijahCano33/Scheduler.git
 *   Once Python Interpreter has been launched, type in "import BackEnd" followed by the command "exit()"
 *   Run the command "python BackEnd-Server.py"  
 
-## Bugs, Issue Trackers, and List of Upcoming Features
+## Bugs, Issue Trackers, and List of Upcoming Features :clipboard:
 To check some of the current issues or upcoming features that we're working on, click on the "Projects" tab at the top of the web page and then select "App Assignments"
