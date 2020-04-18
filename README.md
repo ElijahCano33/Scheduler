@@ -1,6 +1,6 @@
 <div align="center">
   
-#  Welcome to Scheduler  
+#  Welcome to Scheduler :calendar:
 
 *A powerful effective time-management and scheduling calendar service application for mobile devices*
 
