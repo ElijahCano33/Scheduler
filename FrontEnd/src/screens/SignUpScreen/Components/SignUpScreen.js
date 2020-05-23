@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, ImageBackground, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import PasswordTextInput from './PasswordTextInput.js';
 import styles from '../Styles/SignUpScreenStyles.js';
+import axios from "axios";
+
+const serverUrl = 'http://192.168.68.1:5000';
+const http = axios.create({
+  baseURL: serverUrl
+})
 
 export default class SignUpScreen extends Component {
 
@@ -15,6 +21,7 @@ export default class SignUpScreen extends Component {
         lastName: '',
         email: '',
         password: '',
+        userName: ''
     }
   }
   
@@ -32,20 +39,36 @@ export default class SignUpScreen extends Component {
     the backend api with the endpoint "/login".
   */
   signUpNetworkRequestToBackend(){
-    fetch('http://PUTIPADDRESSHERE!!!/login', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-                    'Content-Type': 'application/json',
-        },
+    var firstName = this.state.firstName;
+    var lastName = this.state.lastName;
+    var email = this.state.email;
+    var password = this.state.password;
+    var username = this.state.userName;
 
-        body: {
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          email: this.state.email,
-          password: this.state.password
-        }
-            
+    console.log("This is the first name: " + firstName);
+    console.log("this is last name: " + lastName);
+    console.log("this is the email: " + email);
+    console.log("this is the password: " + password);
+    console.log("this is the username: " + username);
+    
+    axios({
+      method: 'post',
+      
+      url: 'http://192.168.68.1:5000/api/register',
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+        user_name: username
+      }
+    })
+    .then((response) => {
+        
+        console.log(response);
+    }, (error) => {
+      
+        console.log(error);
     });
   }
 
@@ -85,14 +108,21 @@ export default class SignUpScreen extends Component {
             placeholder="First Name"
             placeholderTextColor='#000000'
             style={styles.input1}
-            onChangeText={(email) => this.setState({email})}
+            onChangeText={(firstName) => this.setState({firstName})}
           />
 
           <TextInput
             placeholder="Last Name"
             placeholderTextColor='#000000'
             style={styles.input2}
-            onChangeText={(password) => this.setState({password})}
+            onChangeText={(lastName) => this.setState({lastName})}
+          />
+
+          <TextInput
+            placeholder="username"
+            placeholderTextColor='#000000'
+            style={styles.input5}
+            onChangeText={(userName) => this.setState({userName})}
           />
 
           <TextInput

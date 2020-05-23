@@ -58,6 +58,18 @@ export default StyleSheet.create({
           top: '55%', 
           position: 'absolute'
         },
+
+        input5: {
+          height: 40,
+          width: 250,
+          paddingLeft: 0,
+          backgroundColor: '#FFFFFF',
+          marginBottom: 20,
+          top: '75%', 
+          position: 'absolute'
+        },
+
+        
   
     buttonContainer1: {
       width: 120,
