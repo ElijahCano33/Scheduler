@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, ImageBackground, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {Alert, Button, Text,View,Image,TextInput,TouchableOpacity, ImageBackground, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import PasswordTextInput from './PasswordTextInput.js';
 import styles from '../Styles/SignUpScreenStyles.js';
 import axios from "axios";
@@ -21,8 +21,32 @@ export default class SignUpScreen extends Component {
         lastName: '',
         email: '',
         password: '',
-        userName: ''
+        userName: '',
+        registered: false,
+        responseMessage: ''
     }
+  }
+
+  createTwoButtonAlert = () =>
+  
+    Alert.alert(
+      "Alert!",
+      "Account Created Successfully!"
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    
+    );
+  
+
+  renderAlertBox(){
+    return(<Button title={"2-Button Alert"} onPress={this.createTwoButtonAlert}/>);
   }
   
   //Sends the user to the loading screen.
@@ -65,7 +89,22 @@ export default class SignUpScreen extends Component {
     })
     .then((response) => {
         
-        console.log(response);
+        this.setState({registered: true});
+        var responsejson = JSON.stringify(response);
+        var responseObj = JSON.parse(response["request"]["_response"]);
+        var rpsMessage = responseObj["status_info"];
+    
+        this.setState({responseMessage: rpsMessage});
+        this.setState({registered: true});
+        
+
+        if(this.state.registered === true){
+          //this.createTwoButtonAlert();
+          this.navigateToLoginScreen();
+        }else{
+          console.log("registered value: " + this.state.registered);
+        }
+
     }, (error) => {
       
         console.log(error);
@@ -85,7 +124,6 @@ export default class SignUpScreen extends Component {
   */
  signUpButtonPressed(){
   this.signUpNetworkRequestToBackend();
-  this.navigateToSchedulerMainScreen();
 }
 
   
@@ -119,23 +157,23 @@ export default class SignUpScreen extends Component {
           />
 
           <TextInput
-            placeholder="username"
-            placeholderTextColor='#000000'
-            style={styles.input5}
-            onChangeText={(userName) => this.setState({userName})}
-          />
-
-          <TextInput
             placeholder="Email"
             placeholderTextColor='#000000'
             style={styles.input3}
             onChangeText={(email) => this.setState({email})}
           />
 
+          <TextInput
+            placeholder="Username"
+            placeholderTextColor='#000000'
+            style={styles.input4}
+            onChangeText={(userName) => this.setState({userName})}
+          />
+
           <PasswordTextInput
             placeholder="Password"
             placeholderTextColor='#000000'
-            style={styles.input4}
+            style={styles.input5}
             onChange={(password) => this.setState({password})}
           />
 

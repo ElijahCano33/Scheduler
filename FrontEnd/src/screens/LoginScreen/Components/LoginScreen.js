@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground} from 'react-native';
 import styles from '../Styles/LoginScreenStyles.js';
 import PasswordTextInput from './PasswordTextInput.js';
+import axios from "axios";
 
 
 export default class LoginScreen extends Component {
@@ -14,6 +15,8 @@ export default class LoginScreen extends Component {
     this.state = {
         email: '',
         password: '',
+        authenticated: '',
+        loginMessage: ''
     }
   }
   
@@ -31,18 +34,39 @@ export default class LoginScreen extends Component {
     the backend api with the endpoint "/login".
   */
   loginNetworkRequestToBackend(){
-    fetch('http://PUTIPADDRESSHERE!!!/login', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-                    'Content-Type': 'application/json',
-        },
+    var email = this.state.email;
+    var password = this.state.password; 
 
-        body: {
-          email: this.state.email,
-          password: this.state.password
+    axios({
+      method: 'post',
+      
+      url: 'http://192.168.68.1:5000/api/login',
+      data: {
+        email: email,
+        password: password,
+        
+      }
+    })
+    .then((response) => {
+        
+        this.setState({authenticated: true});
+        var responsejson = JSON.stringify(response);
+        var responseObj = JSON.parse(response["request"]["_response"]);
+        var rpsMessage = responseObj["status_info"];
+        console.log("info: " + rpsMessage);
+    
+        this.setState({loginMessage: rpsMessage});
+        
+        if(this.state.authenticated === true){
+          //this.createTwoButtonAlert();
+          this.navigateToSchedulerMainScreen();
+        }else{
+          console.log("registered value: " + this.state.authenticated);
         }
-            
+
+    }, (error) => {
+      
+        console.log(error);
     });
   }
 
