@@ -23,7 +23,7 @@ export default class LoadingScreen extends Component{
     render() {
         return (
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
-                <Image source={require('../../../../pics/calendar.png')}/>
+                <Image source={require('../../../../pics/image-0.png')} style={styles.image}/>
             </ImageBackground>
             
         );
