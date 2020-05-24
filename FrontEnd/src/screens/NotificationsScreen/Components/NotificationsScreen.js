@@ -13,6 +13,7 @@ export default class FriendsScreen extends Component{
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
                 />
+                <Text>this is NotificationsScre</Text>
                 
             </ImageBackground>
             

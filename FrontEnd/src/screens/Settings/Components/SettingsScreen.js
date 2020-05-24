@@ -13,6 +13,7 @@ export default class SettingsScreen extends Component{
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
                 />    
+                <Text>this is settings</Text>
             </ImageBackground>
             
         );
