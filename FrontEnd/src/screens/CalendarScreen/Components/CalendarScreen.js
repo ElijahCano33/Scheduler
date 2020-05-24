@@ -3,7 +3,7 @@ import { StyleSheet, View, SafeAreaView, FlatList, Text, Image, TouchableOpacity
 import styles from '../Styles/CalendarScreenStyles.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
-import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
+import SearchScreen from '../../Search/Components/SearchScreen.js';
 import ProfileScreen from '../../Profile/Components/ProfileScreen.js';
 import SettingsScreen from '../../Settings/Components/SettingsScreen.js';
 import NotificationsScreen from '../../NotificationsScreen/Components/NotificationsScreen.js';
@@ -209,8 +209,8 @@ const TabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => <FontAwesome name="calendar" color={tintColor} size={25}style={{top: '15%'}} />
       },
     },
-    Friends: {
-      screen: FriendsScreen,
+    Search: {
+      screen: SearchScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
         tabBarIcon: ({ tintColor }) => <FontAwesome name="search" color={tintColor} size={25} style={{top: '15%'}} />

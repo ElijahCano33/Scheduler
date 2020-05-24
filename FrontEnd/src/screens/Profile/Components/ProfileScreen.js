@@ -13,6 +13,7 @@ export default class ProfileScreen extends Component{
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
                 />   
+                <Text>this is profile screen!</Text>
             </ImageBackground>
             
         );

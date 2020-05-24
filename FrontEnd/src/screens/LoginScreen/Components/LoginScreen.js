@@ -80,7 +80,7 @@ export default class LoginScreen extends Component {
   */
   loginButtonPressed(){
     this.showLoaderComponent();
-    //this.loginNetworkRequestToBackend();
+    this.loginNetworkRequestToBackend();
     //this.navigateToSchedulerMainScreen();
   }
 
@@ -88,6 +88,7 @@ export default class LoginScreen extends Component {
     this.props.navigation.navigate('SignUpScreen');
   }
 
+  /*
   fetchLoginNetworkResponseFromBackend(){
     return fetch('http://127.0.0.1:5000/api/login')
 
@@ -103,6 +104,7 @@ export default class LoginScreen extends Component {
     });
 
   }
+  */
 
   showLoaderComponent = () => {
     if(this.state.loginButtonPressed == true){

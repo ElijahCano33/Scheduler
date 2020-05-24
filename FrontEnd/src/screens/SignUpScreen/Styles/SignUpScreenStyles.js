@@ -14,9 +14,9 @@ export default StyleSheet.create({
   },
 
   logo: {
-    height: 450,
-    width: 600,
-    top: -200,//-35
+    height: 650,
+    width: 800,
+    top: -220,//-35
     left: '14%'
     //position: 'absolute'
   },

@@ -16,9 +16,8 @@ export default StyleSheet.create({
     logo: {
       height: 650,
       width: 800,
-      top: -200,//-35
+      top: -220,//-35
       left: '14%'
-      //position: 'absolute'
     },
   
     input1: {
