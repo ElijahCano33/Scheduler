@@ -38,6 +38,5 @@ def load_user(id):
     except Exception:
         return response, 400
 
-
 def RunServer():
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

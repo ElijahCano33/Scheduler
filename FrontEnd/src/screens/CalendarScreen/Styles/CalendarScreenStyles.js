@@ -7,17 +7,18 @@ export default StyleSheet.create({
         flex: 1
     },
     logo: {
-        height: 450,
-        width: 600,
-        top: -200,//-35
-        //position: 'absolute'
+        height: 650,
+        width: 800,
+        bottom: '36%',//-35
+        left: '-38%',
+        position: 'absolute'
     },
     
     flatlistContainer: {
         flex: 1
     },
     upcomingEventsText: {
-        top: '63%',
+        top: '66%',
         left: '3%',
         fontSize: 22,
         color: 'white',

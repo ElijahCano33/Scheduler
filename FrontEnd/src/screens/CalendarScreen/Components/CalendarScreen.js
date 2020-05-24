@@ -14,6 +14,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabBar, {tabBar} from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
+import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
 
 const EVENTS = [
@@ -72,22 +73,118 @@ class CalendarScreen extends Component{
     render() {
         return (
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
-             {/* <Image
+              <Image
                   style={styles.logo}
-                  source={require('../../../../pics/PersonalScheduler.png')}
+                  source={require('../../../../pics/scriptscheduler.png')}
               />
-             */}
+             
+
+
+            <CalendarList
+              style={{bottom: '-16.5%', height: -100, width: 340, left: 9}}
+
+              theme={{
+                backgroundColor: 'transparent',
+                calendarBackground: 'transparent',
+                textSectionTitleColor: '#c71585',
+                selectedDayBackgroundColor: '#00adf5',
+                selectedDayTextColor: '#ffffff',
+                todayTextColor: 'yellow',
+                dayTextColor: '#2d4150',
+                textDisabledColor: 'white',
+                dotColor: '#00adf5',
+                selectedDotColor: '#ffffff',
+                arrowColor: 'transparent',
+                disabledArrowColor: '#d9e1e8',
+                monthTextColor: 'white',
+                indicatorColor: 'yellow',
+                textDayFontFamily: 'monospace',
+                textMonthFontFamily: 'monospace',
+                textDayHeaderFontFamily: 'monospace',
+                textDayFontWeight: '300',
+                textMonthFontWeight: 'bold',
+                textDayHeaderFontWeight: '300',
+                textDayFontSize: 16,
+                textMonthFontSize: 30,
+                textDayHeaderFontSize: 17,
+                textMonthFontWeight: 'bold',
+                textDayFontWeight: 'bold'
+              }}
+                
+              // Callback which gets executed when visible months change in scroll view. Default = undefined
+              onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
+              // Max amount of months allowed to scroll to the past. Default = 50
+              pastScrollRange={50}
+              // Max amount of months allowed to scroll to the future. Default = 50
+              futureScrollRange={50}
+              // Enable or disable scrolling of calendar list
+              scrollEnabled={true}
+              // Enable or disable vertical scroll indicator. Default = false
+              showScrollIndicator={true}
+
+              // Enable horizontal scrolling, default = false
+              horizontal={true}
+              // Enable paging on horizontal, default = false
+              pagingEnabled={false}
+              // Set custom calendarWidth.
+              calendarWidth={320}
+            />
+            
+
+              {/*
+              <Calendar
+                horizontal={true}
+                // Specify style for calendar container element. Default = {}
+                style={{
+                  top: '10%',
+                  width: '100%',
+                  borderWidth: 1,
+                  borderColor: 'transparent',
+                  height: 350,
+                  position: 'absolute',
+                  //borderColor: 'pink',
+                  
+                }}
+                // Specify theme properties to override specific styles for calendar parts. Default = {}
+                theme={{
+                  backgroundColor: 'transparent',
+                  calendarBackground: 'transparent',
+                  textSectionTitleColor: '#c71585',
+                  selectedDayBackgroundColor: '#00adf5',
+                  selectedDayTextColor: '#ffffff',
+                  todayTextColor: 'yellow',
+                  dayTextColor: '#2d4150',
+                  textDisabledColor: 'white',
+                  dotColor: '#00adf5',
+                  selectedDotColor: '#ffffff',
+                  arrowColor: 'transparent',
+                  disabledArrowColor: '#d9e1e8',
+                  monthTextColor: 'white',
+                  indicatorColor: 'yellow',
+                  textDayFontFamily: 'monospace',
+                  textMonthFontFamily: 'monospace',
+                  textDayHeaderFontFamily: 'monospace',
+                  textDayFontWeight: '300',
+                  textMonthFontWeight: 'bold',
+                  textDayHeaderFontWeight: '300',
+                  textDayFontSize: 16,
+                  textMonthFontSize: 30,
+                  textDayHeaderFontSize: 17,
+                  textMonthFontWeight: 'bold',
+                  textDayFontWeight: 'bold'
+                }}
+              />
+              */}
 
               <TouchableOpacity style={styles.createEventsButton}>
                 <MaterialIcons name="add" color="#c71585" size={35} style={{top: '-6%', left: '5%', position: 'absolute'}} />
                 <Text style={styles.createEventsText}>Create Events</Text>
               </TouchableOpacity>
             
-             <Text style={{alignItems: 'center', justifyContent: 'center'}}>Calendar component will go here</Text>
 
              <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
 
-           <View style={{top: '25%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent'}}>
+           <View style={{top: '73%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent', position: 'absolute'}}>
              <FlatList
                 data={EVENTS}
                 horizontal={true}

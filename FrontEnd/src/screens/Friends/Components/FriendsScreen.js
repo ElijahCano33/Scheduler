@@ -9,7 +9,11 @@ export default class FriendsScreen extends Component{
     render() {
         return (
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
-                <Text>This is the friend's screen</Text>
+                <Image
+                    style={styles.logo}
+                    source={require('../../../../pics/scriptscheduler.png')}
+                />
+                
                 
             </ImageBackground>
             

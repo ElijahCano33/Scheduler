@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, ImageBackground, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {Alert, Button, Text,View,Image,TextInput,TouchableOpacity, ImageBackground, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import PasswordTextInput from './PasswordTextInput.js';
 import styles from '../Styles/SignUpScreenStyles.js';
+import Loader from './Loader.js';
+import axios from "axios";
+
+const serverUrl = 'http://192.168.68.1:5000';
+const http = axios.create({
+  baseURL: serverUrl
+})
+
 
 export default class SignUpScreen extends Component {
 
@@ -15,7 +23,33 @@ export default class SignUpScreen extends Component {
         lastName: '',
         email: '',
         password: '',
+        signUpButtonPressed: false,
+        userName: '',
+        registered: false,
+        responseMessage: ''
     }
+  }
+
+  createTwoButtonAlert = () =>
+  
+    Alert.alert(
+      "Alert!",
+      "Account Created Successfully!"
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    
+    );
+  
+
+  renderAlertBox(){
+    return(<Button title={"2-Button Alert"} onPress={this.createTwoButtonAlert}/>);
   }
   
   //Sends the user to the loading screen.
@@ -32,20 +66,66 @@ export default class SignUpScreen extends Component {
     the backend api with the endpoint "/login".
   */
   signUpNetworkRequestToBackend(){
-    fetch('http://PUTIPADDRESSHERE!!!/login', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-                    'Content-Type': 'application/json',
-        },
+    var firstName = this.state.firstName;
+    var lastName = this.state.lastName;
+    var email = this.state.email;
+    var password = this.state.password;
+    var username = this.state.userName;
 
-        body: {
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          email: this.state.email,
-          password: this.state.password
+    console.log("This is the first name: " + firstName);
+    console.log("this is last name: " + lastName);
+    console.log("this is the email: " + email);
+    console.log("this is the password: " + password);
+    console.log("this is the username: " + username);
+    
+    axios({
+      method: 'post',
+      
+      url: 'http://192.168.68.1:5000/api/register',
+      data: {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+        user_name: username
+      }
+    })
+    .then((response) => {
+        
+        this.setState({registered: true});
+        var responsejson = JSON.stringify(response);
+        var responseObj = JSON.parse(response["request"]["_response"]);
+        var rpsMessage = responseObj["status_info"];
+    
+        this.setState({responseMessage: rpsMessage});
+        this.setState({registered: true});
+        
+
+        if(this.state.registered === true){
+          //this.createTwoButtonAlert();
+          this.navigateToLoginScreen();
+        }else{
+          console.log("registered value: " + this.state.registered);
         }
-            
+
+    }, (error) => {
+      
+        console.log(error);
+    });
+  }
+
+  fetchSignUpNetworkResponseFromBackend(){
+    return fetch('http://127.0.0.1:5000/api/register')
+
+    .then((response) => response.json())
+
+    .then((responseJson) => {
+      return responseJson['status'];
+    })
+
+    .catch((error) => {
+      console.log("This is the status value: " + responseJson['status']);
+      throw error;
     });
   }
 
@@ -60,11 +140,28 @@ export default class SignUpScreen extends Component {
     then navigates the user to the app's
     main screen.
   */
- signUpButtonPressed(){
+signUpButtonPressed(){
+  this.showLoaderComponent();
   this.signUpNetworkRequestToBackend();
-  this.navigateToSchedulerMainScreen();
+
+  //this.navigateToSchedulerMainScreen();
+
+  if (this.fetchSignUpNetworkResponseFromBackend() == true){
+    this.navigateToSchedulerMainScreen();
+  }else{
+    //Alert.alert("Invalid SignUp!");
+    this.showLoaderComponent();
+  }
+
 }
 
+showLoaderComponent = () => {
+  if(this.state.signUpButtonPressed == true){
+    this.setState({signUpButtonPressed: false})
+  }else{
+    this.setState({signUpButtonPressed: true})
+  }
+}
   
   /*
     The following renders the text Scheduler at
@@ -78,21 +175,21 @@ export default class SignUpScreen extends Component {
           
           <Image
             style={styles.logo}
-            source={require('../../../../pics/PersonalScheduler.png')}
+            source={require('../../../../pics/scriptscheduler.png')}
           />
 
           <TextInput
             placeholder="First Name"
             placeholderTextColor='#000000'
             style={styles.input1}
-            onChangeText={(email) => this.setState({email})}
+            onChangeText={(firstName) => this.setState({firstName})}
           />
 
           <TextInput
             placeholder="Last Name"
             placeholderTextColor='#000000'
             style={styles.input2}
-            onChangeText={(password) => this.setState({password})}
+            onChangeText={(lastName) => this.setState({lastName})}
           />
 
           <TextInput
@@ -102,10 +199,17 @@ export default class SignUpScreen extends Component {
             onChangeText={(email) => this.setState({email})}
           />
 
+          <TextInput
+            placeholder="Username"
+            placeholderTextColor='#000000'
+            style={styles.input4}
+            onChangeText={(userName) => this.setState({userName})}
+          />
+
           <PasswordTextInput
             placeholder="Password"
             placeholderTextColor='#000000'
-            style={styles.input4}
+            style={styles.input5}
             onChange={(password) => this.setState({password})}
           />
 
@@ -122,6 +226,8 @@ export default class SignUpScreen extends Component {
           <TouchableOpacity 
             style={styles.buttonContainer2}
             onPress={() => this.signUpButtonPressed()}>
+
+            { this.state.signUpButtonPressed == true ? <Loader style={{position: 'absolute', top: '-1000%', left: '-100%', width: '200%', height: '500%', backgroundColor: 'black', borderRadius: 20}}/> : null }
 
             <Text 
               style={styles.buttonText}>SIGN UP

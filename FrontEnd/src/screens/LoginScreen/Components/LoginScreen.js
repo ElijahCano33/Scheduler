@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground} from 'react-native';
 import styles from '../Styles/LoginScreenStyles.js';
 import PasswordTextInput from './PasswordTextInput.js';
+import Loader from './Loader.js';
+import axios from "axios";
 
 
 export default class LoginScreen extends Component {
@@ -14,6 +16,9 @@ export default class LoginScreen extends Component {
     this.state = {
         email: '',
         password: '',
+        loginButtonPressed: false,
+        authenticated: '',
+        loginMessage: ''
     }
   }
   
@@ -31,18 +36,39 @@ export default class LoginScreen extends Component {
     the backend api with the endpoint "/login".
   */
   loginNetworkRequestToBackend(){
-    fetch('http://PUTIPADDRESSHERE!!!/login', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-                    'Content-Type': 'application/json',
-        },
+    var email = this.state.email;
+    var password = this.state.password; 
 
-        body: {
-          email: this.state.email,
-          password: this.state.password
+    axios({
+      method: 'post',
+      
+      url: 'http://192.168.68.1:5000/api/login',
+      data: {
+        email: email,
+        password: password,
+        
+      }
+    })
+    .then((response) => {
+        
+        this.setState({authenticated: true});
+        var responsejson = JSON.stringify(response);
+        var responseObj = JSON.parse(response["request"]["_response"]);
+        var rpsMessage = responseObj["status_info"];
+        console.log("info: " + rpsMessage);
+    
+        this.setState({loginMessage: rpsMessage});
+        
+        if(this.state.authenticated === true){
+          //this.createTwoButtonAlert();
+          this.navigateToSchedulerMainScreen();
+        }else{
+          console.log("registered value: " + this.state.authenticated);
         }
-            
+
+    }, (error) => {
+      
+        console.log(error);
     });
   }
 
@@ -53,12 +79,37 @@ export default class LoginScreen extends Component {
     screen.
   */
   loginButtonPressed(){
-    this.loginNetworkRequestToBackend();
-    this.navigateToSchedulerMainScreen();
+    this.showLoaderComponent();
+    //this.loginNetworkRequestToBackend();
+    //this.navigateToSchedulerMainScreen();
   }
 
   navigateToSignUpScreen(){
     this.props.navigation.navigate('SignUpScreen');
+  }
+
+  fetchLoginNetworkResponseFromBackend(){
+    return fetch('http://127.0.0.1:5000/api/login')
+
+    .then((response) => response.json())
+
+    .then((responseJson) => {
+      return responseJson['status'];
+    })
+
+    .catch((error) => {
+      console.log("This is the status value: " + responseJson['status']);
+      throw error;
+    });
+
+  }
+
+  showLoaderComponent = () => {
+    if(this.state.loginButtonPressed == true){
+      this.setState({loginButtonPressed: false})
+    }else{
+      this.setState({loginButtonPressed: true})
+    }
   }
   
   /*
@@ -71,10 +122,10 @@ export default class LoginScreen extends Component {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
           
-          <Image
-              style={styles.logo}
-              source={require('../../../../pics/PersonalScheduler.png')}
-          />
+        <Image
+            style={styles.logo}
+            source={require('../../../../pics/scriptscheduler.png')}
+        />
 
           <TextInput
             placeholder="Email"
@@ -92,7 +143,10 @@ export default class LoginScreen extends Component {
 
           <TouchableOpacity 
             style={styles.buttonContainer1} 
-            onPress={() => this.loginButtonPressed()}> 
+            onPress={() => this.loginButtonPressed()}>
+
+            { this.state.loginButtonPressed === true ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: 'black', borderRadius: 20}}/> : null }
+
             <Text 
               style={styles.buttonText}>LOGIN
             </Text>

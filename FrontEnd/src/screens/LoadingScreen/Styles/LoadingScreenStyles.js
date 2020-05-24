@@ -5,5 +5,9 @@ export default StyleSheet.create({
         justifyContent: 'center', 
         alignItems: 'center', 
         flex: 1
+    },
+    image: {
+        left: '-18.5%',
+        position: 'absolute'
     }
 });
