@@ -10,9 +10,9 @@ export default StyleSheet.create({
     logo: {
         height: 650,
         width: 800,
-        top: -200,//-35
-        left: '14%'
-        //position: 'absolute'
+        top: -210,//-35
+        left: '-37%',
+        position: 'absolute'
     },
     container: {
         width: 395,
