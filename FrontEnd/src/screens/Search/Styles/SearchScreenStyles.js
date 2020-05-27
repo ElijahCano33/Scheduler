@@ -10,7 +10,7 @@ export default StyleSheet.create({
     logo: {
         height: 650,
         width: 800,
-        top: -200,//-35
+        top: -210,//-35
         left: '14%'
         //position: 'absolute'
     },
