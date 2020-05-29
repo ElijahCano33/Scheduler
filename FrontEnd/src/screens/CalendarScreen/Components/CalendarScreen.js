@@ -4,7 +4,7 @@ import styles from '../Styles/CalendarScreenStyles.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
 import SearchScreen from '../../Search/Components/SearchScreen.js';
-import ProfileScreen from '../../Profile/Components/ProfileScreen.js';
+import AddScreen from '../../Add/Components/AddScreen.js';
 import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
 import NotificationsScreen from '../../NotificationsScreen/Components/NotificationsScreen.js';
 import Icon from './Icon.js';
@@ -241,8 +241,8 @@ const TabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => <FontAwesome name="search" color={tintColor} size={25} style={{top: '15%'}} />
       }
     },
-    Profile: {
-      screen: ProfileScreen,
+    Add: {
+      screen: AddScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
         tabBarIcon: ({ tintColor }) => <MaterialIcons name="add" color={tintColor} size={35} style={{top: '15%'}} />
