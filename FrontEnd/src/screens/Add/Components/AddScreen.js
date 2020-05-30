@@ -12,42 +12,77 @@ export default class AddScreen extends Component{
     
         //sets up current states of component.
         this.state = {
-            username: 0,
-            friendUsername: 0,
+            friend: '',
             requestType: '',
-            userId: '',
-            friendId: '',
+            userId: 0,
+            friendId: 0,
             modalVisible: false,
+            isFocused: false,
+            resp: ''
         }
       }
+
+    componentDidMount(){
+        axios({
+            method: 'post',
+            
+            url: 'http://192.168.68.1:5000/api/userId',
+        })
+        .then((response) => {
+            this.setState({userId: response['data']['user_id']});
+        }, (error) => {
+            console.log(error);
+        });
+        
+    }
     
     
     friendServicesCall(){
-        var currentUserId = this.state.username;
-        var currentFriendUserId = this.state.friendUsername;
+        var currentUserId = this.state.userId;
+        console.log("this is the current user id: " + currentUserId);
+        var friend = this.state.friend;
         var requestType = this.state.requestType;
+        var friendId;
 
         axios({
             method: 'post',
             
-            url: 'http://192.168.68.1:5000/api/friendship/update',
+            url: 'http://192.168.68.1:5000/api/friendId',
             data: {
-              request_user_id: currentUserId,
-              befriend_user_id: currentFriendUserId,
-              requested_friendship_type: requestType
+              friend: friend
 
             }
           })
           .then((response) => {
+            this.setState({friendId: response['data']['friend_id']});
+            friendId = this.state.friendId;
               
-              console.log("THIS IS THE RESPONSE: " + response);
-              var RESS = JSON.stringify(response);
-              console.log("this is ress: " + RESS);
-      
+            axios({
+                method: 'post',
+                
+                url: 'http://192.168.68.1:5000/api/friendship/update',
+                data: {
+                  request_user_id: currentUserId,
+                  befriend_user_id: friendId,
+                  requested_friendship_type: requestType
+    
+                }
+              })
+              .then((response) => {
+                  
+                  this.setState({resp: response['data']['status_info']});
+                  Alert.alert(this.state.resp);
+          
+              }, (error) => {
+                
+                  console.log(error);
+              });
+    
           }, (error) => {
             
               console.log(error);
           });
+        
     }
 
 
@@ -94,7 +129,7 @@ export default class AddScreen extends Component{
                             placeholder="friend username"
                             placeholderTextColor='#000000'
                             style={styles.input2}
-                            onChangeText={(friendUsername) => this.setState({friendUsername})}
+                            onChangeText={(friend) => this.setState({friend})}
                         />
 
                         <Dropdown
