@@ -10,7 +10,10 @@ export default class FriendBox extends Component{
         return (
             
             <View style={styles.container}>
-                <Text style={styles.eventDescriptionText}>{this.props.friend}</Text>
+                <Text style={styles.eventDescriptionText}>{this.props.firstName}</Text>
+                <Text style={styles.eventDescriptionText}>{this.props.lastName}</Text>
+                <Text style={styles.eventDescriptionText}>{this.props.email}</Text>
+                <Text style={styles.eventDescriptionText}>{this.props.userName}</Text>
             </View>
             
         );

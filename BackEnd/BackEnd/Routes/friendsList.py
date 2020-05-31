@@ -39,7 +39,9 @@ def fetchAllFriends():
                     raise Exception(response)
 
                 response = []
+                counter = 0
                 for info in friends:
+                    counter += 1
                     friendInfo = {}
                     cursor.execute(f"SELECT first_name, last_name, email, username FROM Scheduler.users WHERE user_id = '{info}'")
                     result = cursor.fetchone()
@@ -47,9 +49,9 @@ def fetchAllFriends():
                     lastName = result[1]
                     email = result[2]
                     userName = result[3]
-                    friendInfo['user_id'] = info
-                    friendInfo['first_name'] = firstName
-                    friendInfo['last_name'] = lastName
+                    friendInfo['id'] = counter
+                    friendInfo['first'] = firstName
+                    friendInfo['last'] = lastName
                     friendInfo['email'] = email
                     friendInfo['username'] = userName
                     response.append(friendInfo)

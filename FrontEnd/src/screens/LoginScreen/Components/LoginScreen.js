@@ -23,7 +23,7 @@ export default class LoginScreen extends Component {
   }
   
   //Sends the user to the app's main screen.
-  navigateToSchedulerMainScreen(){
+  navigateToCalendarScreen(){
     this.props.navigation.navigate('CalendarScreen');
   }
   
@@ -61,7 +61,7 @@ export default class LoginScreen extends Component {
         
         if(this.state.authenticated === true){
           //this.createTwoButtonAlert();
-          this.navigateToSchedulerMainScreen();
+          this.navigateToCalendarScreen();
         }else{
           console.log("registered value: " + this.state.authenticated);
         }

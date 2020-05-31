@@ -5,7 +5,7 @@ import {View, Text, TextInput} from 'react-native';
 
 export default class PasswordTextInput extends Component {
     state = {
-        icon: "eye-off",
+        icon: "eye",
         password: true
     };
 
