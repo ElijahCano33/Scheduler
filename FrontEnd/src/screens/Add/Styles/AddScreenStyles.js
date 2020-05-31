@@ -127,5 +127,24 @@ export default StyleSheet.create({
     position: 'absolute'
   },
 
+  friendServicesText: {
+    position: 'absolute',
+    top: '60%',
+    left: '18%',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white'
+  },
+
+  calendarServicesText: {
+    position: 'absolute',
+    top: '60%',
+    left: '9%',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white'
+  },
+
+
 
 });

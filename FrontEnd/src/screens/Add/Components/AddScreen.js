@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { Alert, StyleSheet, Button, Modal, View, Text, Image, TextInput, KeyboardAvoidingView, TouchableHighlight, Keyboard, TouchableWithoutFeedback, ImageBackground} from 'react-native';
+import { Alert, StyleSheet, Button, Modal, View, Text, Image, TextInput, KeyboardAvoidingView, TouchableHighlight, Keyboard, TouchableWithoutFeedback, ImageBackground, TouchableOpacity} from 'react-native';
 import styles from '../Styles/AddScreenStyles.js';
 import { Dropdown } from 'react-native-material-dropdown';
-//import SchedulerIconButtonsContainer from '../../../components/SchedulerIconButtonsContainer.js';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Foundation from 'react-native-vector-icons/Foundation';
 import axios from "axios";
 
 export default class AddScreen extends Component{
@@ -85,8 +86,6 @@ export default class AddScreen extends Component{
         
     }
 
-
-
     render() {
         let data = [{
             value: 'befriend',
@@ -115,8 +114,6 @@ export default class AddScreen extends Component{
                         Alert.alert("Modal has been closed.");
                         }}
                     >
-
-                    
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
                                 <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black', top: '3%', position: 'absolute'}}>Friend Services</Text>
@@ -161,12 +158,17 @@ export default class AddScreen extends Component{
                         </View>
                     </Modal>
                 </TouchableWithoutFeedback>  
-                <View style={{top: '50%', left: '50%', position: 'absolute'}}>
-                    <Button
-                        title="Press me"
-                        onPress={() => { this.setState({modalVisible: true})}}//() => Alert.alert('Cannot press this one')}
-                    />
-                </View>
+
+                <TouchableOpacity style={{top: '0%', left: '50%', position: 'absolute', backgroundColor: 'transparent', width: '50%', height: '100%'}} onPress={() => { this.setState({modalVisible: true})}}>
+                    <MaterialIcons name="group-add" color={'#2f4f4f'} size={120} style={{top: '45%', left: '19%', position: 'absolute'}} />
+                    <Text style={styles.friendServicesText}>Friend Services</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{top: '0%', left: '0%', position: 'absolute', backgroundColor: 'transparent', width: '50%', height: '100%'}}>
+                    <Foundation name="calendar" color={'#2f4f4f'} size={120} style={{top: '45%', left: '28%', position: 'absolute'}} />
+                    <Text style={styles.calendarServicesText}>Calendar Services</Text>
+                </TouchableOpacity>
+
             </ImageBackground>
             
         );

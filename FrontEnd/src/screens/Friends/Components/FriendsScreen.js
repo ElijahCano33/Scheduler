@@ -15,7 +15,7 @@ const FRIENDS = [
       "username": 'coco123'
     },
       
-  ]
+]
 
 
 export default class FriendsScreen extends Component{
@@ -30,6 +30,21 @@ export default class FriendsScreen extends Component{
     }
 
     componentDidMount(){
+        axios({
+            method: 'get',
+            
+            url: 'http://192.168.68.1:5000/api/friendsList',
+            
+          })
+          .then((response) => {
+              this.setState({friends: response['data']})
+          }, (error) => {
+            
+              console.log(error);
+          });
+    }
+
+    componentDidUpdate(){
         axios({
             method: 'get',
             
