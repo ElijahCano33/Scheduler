@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground} from 'react-native';
+import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground, Alert} from 'react-native';
 import styles from '../Styles/LoginScreenStyles.js';
 import PasswordTextInput from './PasswordTextInput.js';
 import Loader from './Loader.js';
@@ -17,7 +17,7 @@ export default class LoginScreen extends Component {
         email: '',
         password: '',
         loginButtonPressed: false,
-        authenticated: '',
+        authenticated: false,
         loginMessage: ''
     }
   }
@@ -52,24 +52,25 @@ export default class LoginScreen extends Component {
     .then((response) => {
         
         this.setState({authenticated: true});
-        var responsejson = JSON.stringify(response);
-        var responseObj = JSON.parse(response["request"]["_response"]);
-        var rpsMessage = responseObj["status_info"];
-        console.log("info: " + rpsMessage);
+        var resp = JSON.parse(response["request"]["_response"]);
+        var repsMessage = resp["status_info"];
     
-        this.setState({loginMessage: rpsMessage});
+        this.setState({loginMessage: repsMessage});
         
-        if(this.state.authenticated === true){
-          //this.createTwoButtonAlert();
+        if(this.state.authenticated){
           this.navigateToCalendarScreen();
         }else{
           console.log("registered value: " + this.state.authenticated);
         }
 
     }, (error) => {
-      
-        console.log(error);
+      var errorJSON = JSON.parse(error["request"]["_response"]);
+      var errorMessage = errorJSON['error'];
+      Alert.alert(errorMessage);
+      this.showLoaderComponent();
+
     });
+
   }
 
   /*
@@ -81,33 +82,14 @@ export default class LoginScreen extends Component {
   loginButtonPressed(){
     this.showLoaderComponent();
     this.loginNetworkRequestToBackend();
-    //this.navigateToSchedulerMainScreen();
   }
 
   navigateToSignUpScreen(){
     this.props.navigation.navigate('SignUpScreen');
   }
 
-  /*
-  fetchLoginNetworkResponseFromBackend(){
-    return fetch('http://127.0.0.1:5000/api/login')
-
-    .then((response) => response.json())
-
-    .then((responseJson) => {
-      return responseJson['status'];
-    })
-
-    .catch((error) => {
-      console.log("This is the status value: " + responseJson['status']);
-      throw error;
-    });
-
-  }
-  */
-
   showLoaderComponent = () => {
-    if(this.state.loginButtonPressed == true){
+    if(this.state.loginButtonPressed){
       this.setState({loginButtonPressed: false})
     }else{
       this.setState({loginButtonPressed: true})
