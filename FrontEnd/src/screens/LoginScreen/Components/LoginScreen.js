@@ -17,7 +17,7 @@ export default class LoginScreen extends Component {
         email: '',
         password: '',
         loginButtonPressed: false,
-        authenticated: '',
+        authenticated: false,
         loginMessage: ''
     }
   }
@@ -54,12 +54,10 @@ export default class LoginScreen extends Component {
         this.setState({authenticated: true});
         var resp = JSON.parse(response["request"]["_response"]);
         var repsMessage = resp["status_info"];
-        console.log("info: " + rpsMessage);
     
         this.setState({loginMessage: repsMessage});
         
-        if(this.state.authenticated === true){
-          //this.createTwoButtonAlert();
+        if(this.state.authenticated){
           this.navigateToCalendarScreen();
         }else{
           console.log("registered value: " + this.state.authenticated);
@@ -84,30 +82,11 @@ export default class LoginScreen extends Component {
   loginButtonPressed(){
     this.showLoaderComponent();
     this.loginNetworkRequestToBackend();
-    //this.navigateToSchedulerMainScreen();
   }
 
   navigateToSignUpScreen(){
     this.props.navigation.navigate('SignUpScreen');
   }
-
-  /*
-  fetchLoginNetworkResponseFromBackend(){
-    return fetch('http://127.0.0.1:5000/api/login')
-
-    .then((response) => response.json())
-
-    .then((responseJson) => {
-      return responseJson['status'];
-    })
-
-    .catch((error) => {
-      console.log("This is the status value: " + responseJson['status']);
-      throw error;
-    });
-
-  }
-  */
 
   showLoaderComponent = () => {
     if(this.state.loginButtonPressed){

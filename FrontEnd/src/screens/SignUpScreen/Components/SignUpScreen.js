@@ -27,7 +27,7 @@ export default class SignUpScreen extends Component {
         userName: '',
         registered: false,
         responseMessage: '',
-        authenticated: '',
+        authenticated: false,
         loginMessage: ''
     }
   }
@@ -104,15 +104,17 @@ export default class SignUpScreen extends Component {
         
 
         if(this.state.registered === true){
-          //this.createTwoButtonAlert();
           this.loginNetworkRequestToBackend();
         }else{
           console.log("registered value: " + this.state.registered);
+          this.showLoaderComponent();
         }
 
     }, (error) => {
-      
-        console.log(error);
+        var errorJSON = JSON.parse(error["request"]["_response"]);
+        var errorMessage = errorJSON['error'];
+        Alert.alert(errorMessage);
+        this.showLoaderComponent();
     });
   }
 
@@ -140,8 +142,7 @@ export default class SignUpScreen extends Component {
     
         this.setState({loginMessage: rpsMessage});
         
-        if(this.state.authenticated === true){
-          //this.createTwoButtonAlert();
+        if(this.state.authenticated){
           this.navigateToCalendarScreen();
         }else{
           console.log("registered value: " + this.state.authenticated);
@@ -150,21 +151,6 @@ export default class SignUpScreen extends Component {
     }, (error) => {
       
         console.log(error);
-    });
-  }
-
-  fetchSignUpNetworkResponseFromBackend(){
-    return fetch('http://127.0.0.1:5000/api/register')
-
-    .then((response) => response.json())
-
-    .then((responseJson) => {
-      return responseJson['status'];
-    })
-
-    .catch((error) => {
-      console.log("This is the status value: " + responseJson['status']);
-      throw error;
     });
   }
 
@@ -179,28 +165,21 @@ export default class SignUpScreen extends Component {
     then navigates the user to the app's
     main screen.
   */
-signUpButtonPressed(){
-  this.showLoaderComponent();
-  this.signUpNetworkRequestToBackend();
-
-  //this.navigateToSchedulerMainScreen();
-
-  if (this.fetchSignUpNetworkResponseFromBackend() == true){
-    this.navigateToSchedulerMainScreen();
-  }else{
-    //Alert.alert("Invalid SignUp!");
+  signUpButtonPressed(){
     this.showLoaderComponent();
+    this.signUpNetworkRequestToBackend();
+
+    //this.navigateToSchedulerMainScreen();
+
   }
 
-}
-
-showLoaderComponent = () => {
-  if(this.state.signUpButtonPressed == true){
-    this.setState({signUpButtonPressed: false})
-  }else{
-    this.setState({signUpButtonPressed: true})
+  showLoaderComponent = () => {
+    if(this.state.signUpButtonPressed){
+      this.setState({signUpButtonPressed: false})
+    }else{
+      this.setState({signUpButtonPressed: true})
+    }
   }
-}
   
   /*
     The following renders the text Scheduler at
@@ -266,11 +245,9 @@ showLoaderComponent = () => {
             style={styles.buttonContainer2}
             onPress={() => this.signUpButtonPressed()}>
 
-            { this.state.signUpButtonPressed == true ? <Loader style={{position: 'absolute', top: '-1000%', left: '-100%', width: '200%', height: '500%', backgroundColor: 'black', borderRadius: 20}}/> : null }
+            { this.state.signUpButtonPressed === true ? <Loader style={{position: 'absolute', top: '-1000%', left: '-100%', width: '200%', height: '500%', backgroundColor: 'black', borderRadius: 20}}/> : null }
 
-            <Text 
-              style={styles.buttonText}>SIGN UP
-            </Text>
+            <Text style={styles.buttonText}>SIGN UP</Text>
 
           </TouchableOpacity>
 
