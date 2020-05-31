@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground} from 'react-native';
+import {StyleSheet,Text,View,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboard, ImageBackground, Alert} from 'react-native';
 import styles from '../Styles/LoginScreenStyles.js';
 import PasswordTextInput from './PasswordTextInput.js';
 import Loader from './Loader.js';
@@ -52,12 +52,11 @@ export default class LoginScreen extends Component {
     .then((response) => {
         
         this.setState({authenticated: true});
-        var responsejson = JSON.stringify(response);
-        var responseObj = JSON.parse(response["request"]["_response"]);
-        var rpsMessage = responseObj["status_info"];
+        var resp = JSON.parse(response["request"]["_response"]);
+        var repsMessage = resp["status_info"];
         console.log("info: " + rpsMessage);
     
-        this.setState({loginMessage: rpsMessage});
+        this.setState({loginMessage: repsMessage});
         
         if(this.state.authenticated === true){
           //this.createTwoButtonAlert();
@@ -67,9 +66,13 @@ export default class LoginScreen extends Component {
         }
 
     }, (error) => {
-      
-        console.log(error);
+      var errorJSON = JSON.parse(error["request"]["_response"]);
+      var errorMessage = errorJSON['error'];
+      Alert.alert(errorMessage);
+      this.showLoaderComponent();
+
     });
+
   }
 
   /*
@@ -107,7 +110,7 @@ export default class LoginScreen extends Component {
   */
 
   showLoaderComponent = () => {
-    if(this.state.loginButtonPressed == true){
+    if(this.state.loginButtonPressed){
       this.setState({loginButtonPressed: false})
     }else{
       this.setState({loginButtonPressed: true})
