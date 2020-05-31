@@ -4,65 +4,60 @@ import styles from '../Styles/FriendsScreenStyles.js';
 import FriendBox from './FriendBox.js';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import axios from "axios";
 
 const FRIENDS = [
     {
-      id: 1,
-      friend: 'Jose Friend #1',
-    },
-    {
-      id: 2,
-      friend: 'Lopez Friend #2'
-    },
-    {
-      id: 3,
-      friend: 'Jerry friend #3',
-    },
-    {
-      id: 4,
-      friend: 'Elijah friend #4'
-    },
-    {
-      id: 5,
-      friend: 'William friend #5'
-    },
-    {
-      id: 6,
-      friend: 'Perry friend $6',
-    },
-    {
-        id: 7,
-        friend: 'William friend #5'
-    },
-    {
-        id: 8,
-        friend: 'William friend #5'
-    },
-    {
-        id: 9,
-        friend: 'Elijah friend #4'
-    },
-    {
-        id: 10,
-        friend: 'William friend #5'
-    },
-    {
-        id: 11,
-        friend: 'Perry friend $6',
-    },
-    {
-        id: 12,
-        friend: 'William friend #5'
-    },
-    {
-        id: 13,
-        friend: 'William friend #5'
+      "id": 1,
+      "first": 'Jose',
+      "last": 'bozo',
+      "email": 'johnnyyyyyy@gmail.com',
+      "username": 'coco123'
     },
       
-  ]
+]
 
 
 export default class FriendsScreen extends Component{
+    //The constructor will both initalize and give access to "this"
+    constructor(props) {
+        super(props)
+
+        //sets up current states of component.
+        this.state = {
+            friends: []
+        }
+    }
+
+    componentDidMount(){
+        axios({
+            method: 'get',
+            
+            url: 'http://192.168.68.1:5000/api/friendsList',
+            
+          })
+          .then((response) => {
+              this.setState({friends: response['data']})
+          }, (error) => {
+            
+              console.log(error);
+          });
+    }
+
+    componentDidUpdate(){
+        axios({
+            method: 'get',
+            
+            url: 'http://192.168.68.1:5000/api/friendsList',
+            
+          })
+          .then((response) => {
+              this.setState({friends: response['data']})
+          }, (error) => {
+            
+              console.log(error);
+          });
+    }
     
     render() {
         return (
@@ -72,12 +67,12 @@ export default class FriendsScreen extends Component{
                     source={require('../../../../pics/scriptscheduler.png')}
                 /> 
                 {
-                    FRIENDS.length !== 0 ?
+                    this.state.friends.length !== 0 ?
                 <View style={{top: '18%', marginBottom: 0, bottom: 50, width: '100%', height: '80%', backgroundColor: 'transparent', position: 'absolute'}}>
                     <FlatList
-                        data={FRIENDS}
+                        data={this.state.friends}
                         keyExtractor={item => item.id}
-                        renderItem={({ item }) => (<FriendBox friend={item.friend}/>)}
+                        renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username}/>)}
                     />
                 </View>
                 :

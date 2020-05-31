@@ -4,7 +4,7 @@ import styles from '../Styles/CalendarScreenStyles.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
 import SearchScreen from '../../Search/Components/SearchScreen.js';
-import ProfileScreen from '../../Profile/Components/ProfileScreen.js';
+import AddScreen from '../../Add/Components/AddScreen.js';
 import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
 import NotificationsScreen from '../../NotificationsScreen/Components/NotificationsScreen.js';
 import Icon from './Icon.js';
@@ -154,56 +154,9 @@ class CalendarScreen extends Component{
                 // Set custom calendarWidth.
                 calendarWidth={320}
               />
-              
-
-                {/*
-                <Calendar
-                  horizontal={true}
-                  // Specify style for calendar container element. Default = {}
-                  style={{
-                    top: '10%',
-                    width: '100%',
-                    borderWidth: 1,
-                    borderColor: 'transparent',
-                    height: 350,
-                    position: 'absolute',
-                    //borderColor: 'pink',
-                    
-                  }}
-                  // Specify theme properties to override specific styles for calendar parts. Default = {}
-                  theme={{
-                    backgroundColor: 'transparent',
-                    calendarBackground: 'transparent',
-                    textSectionTitleColor: '#c71585',
-                    selectedDayBackgroundColor: '#00adf5',
-                    selectedDayTextColor: '#ffffff',
-                    todayTextColor: 'yellow',
-                    dayTextColor: '#2d4150',
-                    textDisabledColor: 'white',
-                    dotColor: '#00adf5',
-                    selectedDotColor: '#ffffff',
-                    arrowColor: 'transparent',
-                    disabledArrowColor: '#d9e1e8',
-                    monthTextColor: 'white',
-                    indicatorColor: 'yellow',
-                    textDayFontFamily: 'monospace',
-                    textMonthFontFamily: 'monospace',
-                    textDayHeaderFontFamily: 'monospace',
-                    textDayFontWeight: '300',
-                    textMonthFontWeight: 'bold',
-                    textDayHeaderFontWeight: '300',
-                    textDayFontSize: 16,
-                    textMonthFontSize: 30,
-                    textDayHeaderFontSize: 17,
-                    textMonthFontWeight: 'bold',
-                    textDayFontWeight: 'bold'
-                  }}
-                />
-                */}
 
                 <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
-                  <MaterialIcons name="add" color="#c71585" size={35} style={{top: '-6%', left: '5%', position: 'absolute'}} />
-                  <Text style={styles.createEventsText}>Create Events</Text>
+                <MaterialIcons name="add" color="#c71585" size={50} style={{top: '4%', left: '7.5%', position: 'absolute'}} />
                 </TouchableOpacity>
               
 
@@ -241,8 +194,8 @@ const TabNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => <FontAwesome name="search" color={tintColor} size={25} style={{top: '15%'}} />
       }
     },
-    Profile: {
-      screen: ProfileScreen,
+    Add: {
+      screen: AddScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
         tabBarIcon: ({ tintColor }) => <MaterialIcons name="add" color={tintColor} size={35} style={{top: '15%'}} />

@@ -5,6 +5,8 @@ from BackEnd.Routes.register import reg
 from BackEnd.Routes.login import log, User
 from BackEnd.Routes.friendship import friendship
 from BackEnd.Routes.friendsList import fl
+from BackEnd.Routes.userId import uid
+from BackEnd.Routes.friendId import fid
 import mysql.connector
 
 app = Flask(__name__)
@@ -16,6 +18,8 @@ app.register_blueprint(reg)
 app.register_blueprint(log)
 app.register_blueprint(friendship)
 app.register_blueprint(fl)
+app.register_blueprint(uid)
+app.register_blueprint(fid)
 
 @authenticationManager.user_loader
 def load_user(id):

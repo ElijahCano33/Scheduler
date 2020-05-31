@@ -63,6 +63,7 @@ def friend_request(request_user_id, befriend_user_id, current_relationship_statu
             )
         database.commit()
         response['status'] = True
+        response['status_info'] = 'Friendship created!'
     else:
         response['status'] = False
         response['status_info'] = 'Relationship already exist in the database'

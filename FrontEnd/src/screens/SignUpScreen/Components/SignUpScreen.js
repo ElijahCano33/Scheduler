@@ -26,7 +26,9 @@ export default class SignUpScreen extends Component {
         signUpButtonPressed: false,
         userName: '',
         registered: false,
-        responseMessage: ''
+        responseMessage: '',
+        authenticated: '',
+        loginMessage: ''
     }
   }
 
@@ -103,9 +105,46 @@ export default class SignUpScreen extends Component {
 
         if(this.state.registered === true){
           //this.createTwoButtonAlert();
-          this.navigateToLoginScreen();
+          this.loginNetworkRequestToBackend();
         }else{
           console.log("registered value: " + this.state.registered);
+        }
+
+    }, (error) => {
+      
+        console.log(error);
+    });
+  }
+
+  loginNetworkRequestToBackend(){
+    var email = this.state.email;
+    var password = this.state.password; 
+
+    axios({
+      method: 'post',
+      
+      url: 'http://192.168.68.1:5000/api/login',
+      data: {
+        email: email,
+        password: password,
+        
+      }
+    })
+    .then((response) => {
+        
+        this.setState({authenticated: true});
+        var responsejson = JSON.stringify(response);
+        var responseObj = JSON.parse(response["request"]["_response"]);
+        var rpsMessage = responseObj["status_info"];
+        console.log("info: " + rpsMessage);
+    
+        this.setState({loginMessage: rpsMessage});
+        
+        if(this.state.authenticated === true){
+          //this.createTwoButtonAlert();
+          this.navigateToCalendarScreen();
+        }else{
+          console.log("registered value: " + this.state.authenticated);
         }
 
     }, (error) => {
@@ -130,8 +169,8 @@ export default class SignUpScreen extends Component {
   }
 
   //Sends the user to the app's main screen.
-  navigateToSchedulerMainScreen(){
-    this.props.navigation.navigate('SchedulerMainScreen');
+  navigateToCalendarScreen(){
+    this.props.navigation.navigate('CalendarScreen');
   }
 
   /*
