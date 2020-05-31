@@ -16,7 +16,6 @@ def fetchAllFriends():
                 friends = []
                 cursor = database.cursor()
                 currentUserId = current_user.get_id()
-                print("this is the user's id: ", currentUserId)
 
                 cursor.execute(f"SELECT user_one_id FROM Scheduler.friendship WHERE user_two_id = '{currentUserId}'")
                 firstFriendsResult = cursor.fetchall()
@@ -34,10 +33,26 @@ def fetchAllFriends():
                 for ids in friendIds:
                     friends.insert(0, ids)
 
+                if len(friends) == 0:
+                    error = "No Current Friends!"
+                    response['error'] = error
+                    raise Exception(response)
+
+                response = []
                 for info in friends:
-                    cursor.execute(f"SELECT first_name FROM Scheduler.users WHERE user_id = '{info}'")
-                    friendFirstName = cursor.fetchone()[0]
-                    response[info] = friendFirstName
+                    friendInfo = {}
+                    cursor.execute(f"SELECT first_name, last_name, email, username FROM Scheduler.users WHERE user_id = '{info}'")
+                    result = cursor.fetchone()
+                    firstName = result[0]
+                    lastName = result[1]
+                    email = result[2]
+                    userName = result[3]
+                    friendInfo['user_id'] = info
+                    friendInfo['first_name'] = firstName
+                    friendInfo['last_name'] = lastName
+                    friendInfo['email'] = email
+                    friendInfo['username'] = userName
+                    response.append(friendInfo)
         else:
             error = "Connection To Database Failed!"
             response['error'] = error
@@ -45,6 +60,6 @@ def fetchAllFriends():
     except Exception:
         return response, 400
 
-    return response
+    return jsonify(response)
 
 
