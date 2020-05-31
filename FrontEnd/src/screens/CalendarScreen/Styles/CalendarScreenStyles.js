@@ -18,7 +18,7 @@ export default StyleSheet.create({
         flex: 1
     },
     upcomingEventsText: {
-        top: '66%',
+        top: '69%',
         left: '3%',
         fontSize: 22,
         color: 'white',
@@ -32,11 +32,14 @@ export default StyleSheet.create({
         backgroundColor: 'red'
     },
     createEventsButton: {
-        width: '50%',
-        height: '5%',
-        borderRadius: 20,
-        top: '90%',
-        backgroundColor: 'white',
+        width: '15%',
+        height: '9%',
+        borderRadius: 100,
+        borderWidth: 1,
+        borderColor: 'white',
+        top: '88.7%',
+        left: '80%',
+        backgroundColor: '#2f4f4f',
         position: 'absolute'
     },
     createEventsText: {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Alert, StyleSheet, Button, Modal, View, Text, Image, TextInput, TouchableHighlight, ImageBackground} from 'react-native';
+import { Alert, StyleSheet, Button, Modal, View, Text, Image, TextInput, KeyboardAvoidingView, TouchableHighlight, Keyboard, TouchableWithoutFeedback, ImageBackground} from 'react-native';
 import styles from '../Styles/AddScreenStyles.js';
 import { Dropdown } from 'react-native-material-dropdown';
 //import SchedulerIconButtonsContainer from '../../../components/SchedulerIconButtonsContainer.js';
@@ -104,64 +104,63 @@ export default class AddScreen extends Component{
                 <Image
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
-                />   
-                <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={this.state.modalVisible}
-                    onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    }}
-                >
-
+                />
                 
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black'}}>Friend Services</Text>
-                        <TextInput
-                            placeholder="username"
-                            placeholderTextColor='#000000'
-                            style={styles.input1}
-                            onChangeText={(username) => this.setState({username})}
-                        />
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        }}
+                    >
 
-                        <TextInput
-                            placeholder="friend username"
-                            placeholderTextColor='#000000'
-                            style={styles.input2}
-                            onChangeText={(friend) => this.setState({friend})}
-                        />
+                    
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black', top: '3%', position: 'absolute'}}>Friend Services</Text>
+                            
+                            <TextInput
+                                placeholder="Type Friend's Email Or Username: "
+                                placeholderTextColor='black'
+                                style={styles.input2}
+                                onChangeText={(friend) => this.setState({friend})}
+                            />
 
-                        <Dropdown
-                            label='Friend Request Type'
-                            data={data}
-                            containerStyle={{backgroundColor: 'white', width: 250, top: '70%', position: 'absolute'}}
-                            onChangeText={(requestType) => this.setState({requestType})}
-                        />
+                            <Dropdown
+                                label='Friend Request Type'
+                                data={data}
+                                containerStyle={{backgroundColor: 'white', width: 250, top: '55%', height: 60, position: 'absolute', color: 'grey'}}
+                                textColor={'red'}
+                                itemColor={'blue'}
+                                onChangeText={(requestType) => this.setState({requestType})}
+                            />
 
-                        <TouchableHighlight
-                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                            onPress={() => {
-                            this.setState({modalVisible: false}, this.friendServicesCall())
-                            }}
-                        >
-                        
-                            <Text style={styles.textStyle}>Submit</Text>
-                        </TouchableHighlight>
+                            <TouchableHighlight
+                                style={{ ...styles.openButton, backgroundColor: "red" }}
+                                onPress={() => {
+                                this.setState({modalVisible: false}, this.friendServicesCall())
+                                }}
+                            >
+                            
+                                <Text style={styles.textStyle2}>Submit</Text>
+                            </TouchableHighlight>
 
-                        <TouchableHighlight
-                            style={{ ...styles.closeButton, backgroundColor: "red" }}
-                            onPress={() => {
-                            this.setState({modalVisible: false})
-                            }}
-                        >
-                        
-                            <Text style={styles.textStyle}>Hide Modal</Text>
-                        </TouchableHighlight>
+                            <TouchableHighlight
+                                style={{ ...styles.closeButton, backgroundColor: "grey" }}
+                                onPress={() => {
+                                this.setState({modalVisible: false})
+                                }}
+                            >
+                            
+                                <Text style={styles.textStyle1}>Cancel</Text>
+                            </TouchableHighlight>
 
+                            </View>
                         </View>
-                    </View>
-                </Modal>
+                    </Modal>
+                </TouchableWithoutFeedback>  
                 <View style={{top: '50%', left: '50%', position: 'absolute'}}>
                     <Button
                         title="Press me"
