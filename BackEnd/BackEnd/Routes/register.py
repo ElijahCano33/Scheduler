@@ -6,7 +6,6 @@ import bcrypt
 import mysql.connector
 from validate_email import validate_email
 
-
 reg = Blueprint('register', __name__)
 
 @reg.route("/api/register", methods=['POST'])
@@ -14,12 +13,9 @@ def register_():
     try:
         database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com', database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
         if database:
-            print("right up to here!!1")
             cursor = database.cursor()
             response = dict()
-            print("rggnkbnkbntkbn")
             data = request.get_json()
-            print("this is the data: ", data)
 
             for key, value in data.items():
                 error = checkValidityOfData(value, key)

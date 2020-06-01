@@ -3,7 +3,6 @@ import {Dimensions, StyleSheet} from 'react-native';
 const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 4;
 
-
 export default StyleSheet.create({
     container: {
         backgroundColor: '#fbfbfb',
@@ -20,15 +19,22 @@ export default StyleSheet.create({
         top: '8%',
         left: '27%',
         fontSize: 20,
-        marginRight: 50,
         fontWeight: 'bold'
     },
     lastName: {
         position: 'absolute',
         top: '8%',
-        left: '45%',
+        left: '27%',
         fontSize: 20,
-        //marginRight: 10,
+        paddingLeft: 30,
+        fontWeight: 'bold'
+    },
+    lastName2: {
+        position: 'absolute',
+        top: '8%',
+        left: '27%',
+        fontSize: 20,
+        paddingLeft: 90,
         fontWeight: 'bold'
     },
     email: {
