@@ -19,5 +19,15 @@ export default StyleSheet.create({
         height: 110,
         bottom: '-12%',
         backgroundColor: 'red'
-    }
+    },
+    input1: {
+        height: 40,
+        width: 340,
+        paddingLeft: 38,
+        borderRadius: 20,
+        backgroundColor: '#2f4f4f',
+        marginBottom: 20,
+        top: '20%',
+        position: 'absolute'
+    },
 });

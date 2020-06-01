@@ -35,11 +35,9 @@ export default StyleSheet.create({
         width: '15%',
         height: '9%',
         borderRadius: 100,
-        borderWidth: 1,
-        borderColor: 'white',
         top: '88.7%',
         left: '80%',
-        backgroundColor: '#2f4f4f',
+        backgroundColor: '#7ffff4',
         position: 'absolute'
     },
     createEventsText: {

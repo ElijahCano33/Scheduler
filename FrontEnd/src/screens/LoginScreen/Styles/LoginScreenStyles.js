@@ -42,7 +42,7 @@ export default StyleSheet.create({
   
     buttonContainer1: {
       width: 120,
-      backgroundColor: '#000000',
+      backgroundColor: '#7ffff4',
       borderRadius: 20,
       paddingHorizontal: 30,
       textAlign: 'left',
@@ -53,7 +53,7 @@ export default StyleSheet.create({
 
     buttonContainer2: {
         width: 120,
-        backgroundColor: '#000000',
+        backgroundColor: '#7ffff4',
         paddingHorizontal: 30,
         borderRadius: 20,
         textAlign: 'left',
