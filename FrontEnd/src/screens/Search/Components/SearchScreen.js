@@ -31,7 +31,7 @@ export default class SearchScreen extends Component{
                     source={require('../../../../pics/scriptscheduler.png')}
                 />
                 <TextInput
-                    placeholder="Search for events or friends..."
+                    placeholder="Search for personal or friend events"
                     placeholderTextColor='#FFFFFF'
                     style={styles.input1}
                     onChangeText={(search) => this.setState({search})}

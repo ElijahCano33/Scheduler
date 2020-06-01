@@ -66,11 +66,29 @@ export default class LoginScreen extends Component {
     }, (error) => {
       var errorJSON = JSON.parse(error["request"]["_response"]);
       var errorMessage = errorJSON['error'];
-      Alert.alert(errorMessage);
+      this.errorAlert(errorMessage);
       this.showLoaderComponent();
 
     });
 
+  }
+
+  errorAlert(err){
+    Alert.alert(
+      "Failed Login!",
+      err,
+      [
+        /*
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        */
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
   }
 
   /*
@@ -129,7 +147,7 @@ export default class LoginScreen extends Component {
             style={styles.buttonContainer1} 
             onPress={() => this.loginButtonPressed()}>
 
-            { this.state.loginButtonPressed === true ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: 'black', borderRadius: 20}}/> : null }
+            { this.state.loginButtonPressed === true ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: '#7c40ff', borderRadius: 20}}/> : null }
 
             <Text 
               style={styles.buttonText}>LOGIN

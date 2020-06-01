@@ -41,18 +41,18 @@ def login():
                 email = data['email'].lower()
 
                 if len(email) == 0:
-                    error = "Email Needs Value!"
+                    error = "Email Needs A Value!"
                     response["error"] = error
                     raise Exception(response)
 
                 isValid = validate_email(email)
                 if(not isValid):
-                    response['error'] = "Entered Email Is Not Valid!" 
+                    response['error'] = "The Entered Email Is Not Valid!" 
                     raise Exception(response)
 
                 password = data['password']
                 if(len(password) == 0):
-                    error = "Password Needs Value!"
+                    error = "Password Needs A Value!"
                     response["error"] = error
                     raise Exception(response)
 
@@ -69,7 +69,7 @@ def login():
                     
                     if len(results) > 0:
                         response['status']= False
-                        response['status_info'] = 'invalid password'
+                        response['status_info'] = 'Invalid Password!'
                     cursor.execute(f'SELECT salts FROM Scheduler.users WHERE email = "{email}"')
                     salt_result = cursor.fetchone()[0]
                     salt_result = str.encode(salt_result)
@@ -81,7 +81,7 @@ def login():
                             }))
                             login_user(User(email), remember=True, duration=timedelta(days=1))
                         else:
-                            error = "Incorrect Password"
+                            error = "Incorrect Password!"
                             response['error'] = error
                             raise Exception(response)
                 

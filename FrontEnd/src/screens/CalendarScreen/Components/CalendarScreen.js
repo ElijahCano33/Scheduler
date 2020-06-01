@@ -156,7 +156,7 @@ class CalendarScreen extends Component{
               />
 
                 <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
-                <MaterialIcons name="add" color="#c71585" size={50} style={{top: '4%', left: '7.5%', position: 'absolute'}} />
+                  <MaterialIcons name="add" color="white" size={50} style={{top: '4%', left: '7.5%', position: 'absolute'}} />
                 </TouchableOpacity>
               
 

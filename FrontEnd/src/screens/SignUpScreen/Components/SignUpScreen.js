@@ -73,12 +73,6 @@ export default class SignUpScreen extends Component {
     var email = this.state.email;
     var password = this.state.password;
     var username = this.state.userName;
-
-    console.log("This is the first name: " + firstName);
-    console.log("this is last name: " + lastName);
-    console.log("this is the email: " + email);
-    console.log("this is the password: " + password);
-    console.log("this is the username: " + username);
     
     axios({
       method: 'post',
@@ -113,9 +107,28 @@ export default class SignUpScreen extends Component {
     }, (error) => {
         var errorJSON = JSON.parse(error["request"]["_response"]);
         var errorMessage = errorJSON['error'];
-        Alert.alert(errorMessage);
+        //Alert.alert(errorMessage);
+        this.errorAlert(errorMessage);
         this.showLoaderComponent();
     });
+  }
+
+  errorAlert(err){
+    Alert.alert(
+      "Sign Up Failed!",
+      err,
+      [
+        /*
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        */
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
   }
 
   loginNetworkRequestToBackend(){
@@ -245,7 +258,7 @@ export default class SignUpScreen extends Component {
             style={styles.buttonContainer2}
             onPress={() => this.signUpButtonPressed()}>
 
-            { this.state.signUpButtonPressed === true ? <Loader style={{position: 'absolute', top: '-1000%', left: '-100%', width: '200%', height: '500%', backgroundColor: 'black', borderRadius: 20}}/> : null }
+            { this.state.signUpButtonPressed === true ? <Loader style={{position: 'absolute', top: '-1000%', left: '-100%', width: '200%', height: '500%', backgroundColor: '#7c40ff', borderRadius: 20}}/> : null }
 
             <Text style={styles.buttonText}>SIGN UP</Text>
 
