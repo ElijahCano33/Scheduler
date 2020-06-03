@@ -7,20 +7,11 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from "axios";
 
-const FRIENDS = [
-    {
-      "id": 1,
-      "first": 'Jose',
-      "last": 'bozo',
-      "email": 'johnnyyyyyy@gmail.com',
-      "username": 'coco123',
-    },    
-]
-
 export default class FriendsScreen extends Component{
     //The constructor will both initalize and give access to "this"
     constructor(props) {
         super(props)
+        this.searchFriends = this.searchFriends.bind(this);
 
         //sets up current states of component.
         this.state = {
@@ -63,25 +54,25 @@ export default class FriendsScreen extends Component{
     }
     */
 
-    /*
-    searchFriends(search){
+    searchFriends = (search) => {
         var unfiltered = [];
         var filtered = [];
 
         if(search !== ''){
-            unfiltered = this.state.unfilteredData;
+            unfiltered = this.state.unfilteredFriends;
 
-            filtered = unfiltered.filter(function(version){
+            filtered = unfiltered.filter(function(item){
             var input = search;
-            return versionStr.includes(input);
+            return item.first.includes(input);
             })
         }else{
-            filtered = this.state.unfilteredData;
+            ;
+            
+        }
+    
+    this.setState({filteredFriends: filtered})
+    console.log(this.state.filteredFriends);
     }
-    this.setState({filteredData: filtered})
-
-    }
-    */
     
     render() {
         return (
@@ -95,11 +86,11 @@ export default class FriendsScreen extends Component{
                     placeholder="Search for friends"
                     placeholderTextColor='#FFFFFF'
                     style={styles.input1}
-                    onChangeText={(search) => this.setState({search})}
+                    onChangeText={this.searchFriends}
                 />
                 <FontAwesome name="search" color={'white'} size={25} style={{top: '21%', left: '9%', position: 'absolute'}} />
                 {
-                    this.state.filteredFriends.length === 0 && this.state.unfilteredFriends.length === 0 ?
+                    (this.state.filteredFriends.length === 0 && this.state.unfilteredFriends.length === 0) ?
                     <View style={{flex: 1}}>
                         <FontAwesome5 name="sad-cry" color={'#2f4f4f'} size={200} style={{top: '35%', left: '-4%', position: 'absolute'}}/>
                         <Text style={{top: '68%', fontWeight: 'bold', color: 'white'}}>No Friends At This Time!</Text>
@@ -107,17 +98,26 @@ export default class FriendsScreen extends Component{
                 
                 :
 
-                    //this.state.filteredFriends === 0 && this.state.unfilteredFriends !== 0 ?
+                    (this.state.filteredFriends.length === 0 && this.state.unfilteredFriends.length !== 0) ?
                     <View style={{top: '28%', marginBottom: 0, bottom: 50, width: '100%', height: '80%', backgroundColor: 'transparent', position: 'absolute'}}>
                         <FlatList
                             data={this.state.unfilteredFriends}
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username}/>)}
                         />
+                        
                     </View>
 
-                    
-                    
+                    :
+
+                    <View style={{top: '28%', marginBottom: 0, bottom: 50, width: '100%', height: '80%', backgroundColor: 'transparent', position: 'absolute'}}>
+                        <FlatList
+                            data={this.state.filteredFriends}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username}/>)}
+                        />
+                        
+                    </View>
                 }
             </ImageBackground>
             
