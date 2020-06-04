@@ -1,4 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const windowWidth= Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
 
 export default StyleSheet.create({
     fadeBackgroundStyles: {
@@ -7,7 +10,7 @@ export default StyleSheet.create({
         flex: 1
     },
     image: {
-        left: '-18.5%',
+        left: windowWidth/2-270,
         position: 'absolute'
     }
 });
