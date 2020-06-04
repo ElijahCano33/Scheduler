@@ -60,10 +60,19 @@ export default class FriendsScreen extends Component{
 
         if(search !== ''){
             unfiltered = this.state.unfilteredFriends;
+            console.log("this is state: " + this.state.unfilteredFriends);
 
             filtered = unfiltered.filter(function(item){
-            var input = search;
-            return item.first.includes(input);
+                var input = search;
+                if(item.first.includes(input)){
+                    return item.first.includes(input);
+                }else if(item.last.includes(input)){
+                    return item.last.includes(input);
+                }else if(item.email.includes(input)){
+                    return item.email.includes(input);
+                }else if(item.username.includes(input)){
+                    return item.username.includes(input);
+                }       
             })
         }else{
             ;
