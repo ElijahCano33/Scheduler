@@ -17,7 +17,7 @@ def fetchAllFriends():
                 cursor = database.cursor()
                 currentUserId = current_user.get_id()
 
-                cursor.execute(f"SELECT user_one_id FROM Scheduler.friendship WHERE user_two_id = '{currentUserId}'")
+                cursor.execute(f"SELECT user_one_id FROM Scheduler.friendship WHERE user_two_id = '{currentUserId}' AND relationship='mutual-friends'")
                 firstFriendsResult = cursor.fetchall()
 
                 friendIds = [tup[0] for tup in firstFriendsResult]
@@ -25,7 +25,7 @@ def fetchAllFriends():
                 for ids in friendIds:
                     friends.insert(0, ids) 
                 
-                cursor.execute(f"SELECT user_two_id FROM Scheduler.friendship WHERE user_one_id = '{currentUserId}'")
+                cursor.execute(f"SELECT user_two_id FROM Scheduler.friendship WHERE user_one_id = '{currentUserId}' AND relationship='mutual-friends'")
                 secondFriendsResult = cursor.fetchall()
 
                 friendIds = [tup[0] for tup in secondFriendsResult]

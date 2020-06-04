@@ -31,16 +31,16 @@ export default class AddScreen extends Component{
         })
         .then((response) => {
             this.setState({userId: response['data']['user_id']});
+            //await cache.set("user_id", this.state.userId);
         }, (error) => {
             console.log(error);
         });
         
     }
     
-    
     friendServicesCall(){
         var currentUserId = this.state.userId;
-        console.log("this is the current user id: " + currentUserId);
+        console.log("this is the user's id: " + currentUserId);
         var friend = this.state.friend;
         var requestType = this.state.requestType;
         var friendId;

@@ -21,6 +21,7 @@ export default class FriendsScreen extends Component{
         }
     }
 
+    
     componentDidMount(){
         axios({
             method: 'get',
@@ -36,24 +37,6 @@ export default class FriendsScreen extends Component{
           });
     }
 
-    
-    /*
-    componentDidUpdate(){
-        axios({
-            method: 'get',
-            
-            url: 'http://192.168.68.1:5000/api/friendsList',
-            
-          })
-          .then((response) => {
-              this.setState({friends: response['data']})
-          }, (error) => {
-            
-              console.log(error);
-          });
-    }
-    */
-
     searchFriends = (search) => {
         var unfiltered = [];
         var filtered = [];
@@ -64,12 +47,16 @@ export default class FriendsScreen extends Component{
 
             filtered = unfiltered.filter(function(item){
                 var input = search;
+                
                 if(item.first.includes(input)){
                     return item.first.includes(input);
+
                 }else if(item.last.includes(input)){
                     return item.last.includes(input);
+
                 }else if(item.email.includes(input)){
                     return item.email.includes(input);
+
                 }else if(item.username.includes(input)){
                     return item.username.includes(input);
                 }       
