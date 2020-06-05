@@ -81,10 +81,10 @@ export default class FriendsScreen extends Component{
                 <TextInput
                     placeholder="Search for friends"
                     placeholderTextColor='#FFFFFF'
-                    style={styles.input1}
+                    style={styles.searchBar}
                     onChangeText={this.searchFriends}
                 />
-                <FontAwesome name="search" color={'white'} size={25} style={{top: '21%', left: '9%', position: 'absolute'}} />
+                <FontAwesome name="search" color={'white'} size={25} style={{top: '21%', left: '5.5%', position: 'absolute'}} />
                 {
                     (this.state.filteredFriends.length === 0 && this.state.unfilteredFriends.length === 0) ?
                     <View style={{flex: 1}}>

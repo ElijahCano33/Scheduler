@@ -33,12 +33,13 @@ export default StyleSheet.create({
     },
     createEventsButton: {
         width: '15%',
-        height: '9%',
-        borderRadius: 100,
+        height: '8.5%',
+        borderRadius: 30,
         top: '88.7%',
         left: '80%',
         backgroundColor: '#7ffff4',
-        position: 'absolute'
+        position: 'absolute',
+        
     },
     createEventsText: {
         color: '#c71585',

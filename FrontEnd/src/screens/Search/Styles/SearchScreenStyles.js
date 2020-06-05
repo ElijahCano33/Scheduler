@@ -21,15 +21,18 @@ export default StyleSheet.create({
         backgroundColor: 'red'
     },
 
-    input1: {
+    searchBar: {
         height: 40,
-        width: 300,
+        width: 380,
         paddingLeft: 38,
         borderRadius: 20,
         backgroundColor: '#2f4f4f',
         marginBottom: 20,
         top: '20%',
-        position: 'absolute'
+        position: 'absolute',
+        fontFamily: 'sans-serif-thin',
+        fontWeight: 'bold',
+        fontSize: 15
     },
     
     noSearchResults: {
@@ -37,7 +40,8 @@ export default StyleSheet.create({
         top: '370%',
         left: '43%',
         color: 'white',
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: 'sans-serif-thin'
     }
 
 });
