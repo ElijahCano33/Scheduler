@@ -4,7 +4,6 @@ export default StyleSheet.create({
   fadeBackgroundStyles: {
     justifyContent: 'center', 
     alignItems: 'center', 
-    //flexDirection: 'row',
     flex: 1
   },
   logo: {
@@ -12,7 +11,6 @@ export default StyleSheet.create({
     width: 800,
     top: -200,//-35
     left: '14%'
-    //position: 'absolute'
   },
   container: {
     width: 395,
@@ -30,9 +28,9 @@ export default StyleSheet.create({
   modalView: {
     margin: 20,
     width: '70%',
+    top: '25%',
     height: '35%',
     backgroundColor: "white",
-    //borderRadius: 20,
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
@@ -42,7 +40,8 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
+    position: 'absolute'
   },
   openButton: {
     backgroundColor: "#F194FF",
@@ -66,13 +65,15 @@ export default StyleSheet.create({
     textAlign: "center",
     position: 'absolute',
     top: '26%',
-    left: '34%'
+    left: '34%',
+    fontFamily: 'sans-serif-thin'
   },
   textStyle2: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
     position: 'absolute',
+    fontFamily: 'sans-serif-thin',
     top: '23%',
     left: '40%'
   },
@@ -83,7 +84,6 @@ export default StyleSheet.create({
   input1: {
     height: 40,
     width: 250,
-    //backgroundColor: 'grey',
     paddingLeft: 10,
     marginBottom: 20,
     top: '35%',
@@ -102,19 +102,14 @@ export default StyleSheet.create({
     height: 40,
     width: 250,
     backgroundColor: 'white',
-    paddingLeft: 10,
+    paddingLeft: 0,
+    fontSize: 15,
     marginBottom: 20,
     top: '30%',
     position: 'absolute',
-    borderWidth: 1,
     borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
+    borderColor: 'grey',
+    borderBottomWidth: 0.3,
   },
   input3: {
     height: 40,
@@ -133,7 +128,8 @@ export default StyleSheet.create({
     left: '18%',
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
+    fontFamily: 'sans-serif-thin'
   },
 
   calendarServicesText: {
@@ -142,9 +138,7 @@ export default StyleSheet.create({
     left: '9%',
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
+    fontFamily: 'sans-serif-thin'
   },
-
-
-
 });

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Alert, StyleSheet, Button, Modal, View, Text, Image, TextInput, KeyboardAvoidingView, TouchableHighlight, Keyboard, TouchableWithoutFeedback, ImageBackground, TouchableOpacity} from 'react-native';
+import { StatusBar, Alert, StyleSheet, Button, Modal, View, Text, Image, TextInput, KeyboardAvoidingView, TouchableHighlight, Keyboard, TouchableWithoutFeedback, ImageBackground, TouchableOpacity} from 'react-native';
 import styles from '../Styles/AddScreenStyles.js';
 import { Dropdown } from 'react-native-material-dropdown';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -31,7 +31,7 @@ export default class AddScreen extends Component{
         })
         .then((response) => {
             this.setState({userId: response['data']['user_id']});
-            //await cache.set("user_id", this.state.userId);
+            
         }, (error) => {
             console.log(error);
         });
@@ -100,6 +100,7 @@ export default class AddScreen extends Component{
       
         return (
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
+                <StatusBar hidden/>
                 <Image
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
@@ -116,11 +117,11 @@ export default class AddScreen extends Component{
                     >
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
-                                <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black', top: '3%', position: 'absolute'}}>Friend Services</Text>
+                                <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black', top: '3%', position: 'absolute', fontFamily: 'sans-serif-thin'}}>Friend Services</Text>
                             
                             <TextInput
                                 placeholder="Type Friend's Email Or Username: "
-                                placeholderTextColor='black'
+                                placeholderTextColor='grey'
                                 style={styles.input2}
                                 onChangeText={(friend) => this.setState({friend})}
                             />
@@ -129,8 +130,10 @@ export default class AddScreen extends Component{
                                 label='Friend Request Type'
                                 data={data}
                                 containerStyle={{backgroundColor: 'white', width: 250, top: '55%', height: 60, position: 'absolute', color: 'grey'}}
-                                textColor={'red'}
-                                itemColor={'blue'}
+                                //pickerStyle={{backgroundColor: 'white', position: 'absolute', top: '50%', left: '14%'}}
+                                //itemTextStyle
+                                textColor={'black'}
+                                //temColor={'blue'}
                                 onChangeText={(requestType) => this.setState({requestType})}
                             />
 
