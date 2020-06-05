@@ -23,7 +23,7 @@ export default StyleSheet.create({
 
     searchBar: {
         height: 40,
-        width: 380,
+        width: 368,
         paddingLeft: 38,
         borderRadius: 20,
         backgroundColor: '#2f4f4f',

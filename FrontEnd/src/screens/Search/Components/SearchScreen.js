@@ -36,7 +36,7 @@ export default class SearchScreen extends Component{
                     style={styles.searchBar}
                     onChangeText={(search) => this.setState({search})}
                 />
-                <FontAwesome name="search" color={'white'} size={25} style={{top: '20.7%', left: '4.2%', position: 'absolute'}} />
+                <FontAwesome name="search" color={'white'} size={25} style={{top: '20.85%', left: '5.5%', position: 'absolute'}} />
 
                 {this.state.unfilteredData.length === 0 ? 
                     <View style={{top: '37.5%', left: '8%', position: 'absolute', height: '10%', width: '50%'}}>

@@ -23,7 +23,8 @@ export default StyleSheet.create({
         fontSize: 22,
         color: 'white',
         position: 'absolute',
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: 'sans-serif-thin'
     },
     container: {
         width: 395,

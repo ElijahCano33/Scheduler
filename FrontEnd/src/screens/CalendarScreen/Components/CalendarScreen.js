@@ -20,31 +20,31 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 const EVENTS = [
   {
     id: 1,
-    event: '',
+    event: 'Birthday',
   },
   {
     id: 2,
-    event: ''
+    event: 'Anniversary'
   },
   {
     id: 3,
-    event: '',
+    event: 'Wedding',
   },
   {
     id: 4,
-    event: ''
+    event: 'Interview'
   },
   {
     id: 5,
-    event: ''
+    event: 'Picnic'
   },
   {
     id: 6,
-    event: '',
+    event: 'Business',
   },
   {
     id: 7,
-    event: ''
+    event: 'Dinner'
   }
 ]
 
@@ -102,7 +102,7 @@ class CalendarScreen extends Component{
         </Modal>
 
         <CalendarList
-          style={{bottom: '-16.5%', height: 200, width: 340, left: 9}}
+          style={{bottom: '-25%', height: 200, width: 340, left: 9}}
 
           theme={{
             backgroundColor: 'transparent',
