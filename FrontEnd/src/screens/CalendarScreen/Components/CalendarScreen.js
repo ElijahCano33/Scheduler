@@ -20,35 +20,33 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 const EVENTS = [
   {
     id: 1,
-    event: '',
+    event: 'Birthday',
   },
   {
     id: 2,
-    event: ''
+    event: 'Anniversary'
   },
   {
     id: 3,
-    event: '',
+    event: 'Wedding',
   },
   {
     id: 4,
-    event: ''
+    event: 'Interview'
   },
   {
     id: 5,
-    event: ''
+    event: 'Picnic'
   },
   {
     id: 6,
-    event: '',
+    event: 'Business',
   },
   {
     id: 7,
-    event: ''
+    event: 'Dinner'
   }
 ]
-
-
 
 class CalendarScreen extends Component{
   constructor(props) {
@@ -71,110 +69,106 @@ class CalendarScreen extends Component{
 
   
     
-    render() {
-        return (
-            <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
-              <Image
-                  style={styles.logo}
-                  source={require('../../../../pics/scriptscheduler.png')}
-              />
-             
-             <Modal
-                animationType="slide"
-                transparent={true}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
+  render() {
+    return (
+      <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
+        <Image
+            style={styles.logo}
+            source={require('../../../../pics/scriptscheduler.png')}
+        />
+        
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+          }}>
+
+          <View style={styless.centeredView}>
+            <View style={styless.modalView}>
+              <Text style={styless.modalText}>Hello World!</Text>
+
+              <TouchableHighlight
+                style={{ ...styless.openButton, backgroundColor: "#2196F3" }}
+                onPress={() => {
+                  this.setState({modalVisible: false})
                 }}
               >
+                <Text style={styless.textStyle}>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
 
+        <CalendarList
+          style={{bottom: '-25%', height: 200, width: 340, left: 9}}
+
+          theme={{
+            backgroundColor: 'transparent',
+            calendarBackground: 'transparent',
+            textSectionTitleColor: '#c71585',
+            selectedDayBackgroundColor: '#00adf5',
+            selectedDayTextColor: '#ffffff',
+            todayTextColor: 'yellow',
+            dayTextColor: '#2d4150',
+            textDisabledColor: 'white',
+            dotColor: '#00adf5',
+            selectedDotColor: '#ffffff',
+            arrowColor: 'transparent',
+            disabledArrowColor: '#d9e1e8',
+            monthTextColor: 'white',
+            indicatorColor: 'yellow',
+            textDayFontFamily: 'monospace',
+            textMonthFontFamily: 'monospace',
+            textDayHeaderFontFamily: 'monospace',
+            textDayFontWeight: '300',
+            textMonthFontWeight: 'bold',
+            textDayHeaderFontWeight: '300',
+            textDayFontSize: 16,
+            textMonthFontSize: 30,
+            textDayHeaderFontSize: 17,
+            textMonthFontWeight: 'bold',
+            textDayFontWeight: 'bold'
+          }}
             
-              <View style={styless.centeredView}>
-                <View style={styless.modalView}>
-                  <Text style={styless.modalText}>Hello World!</Text>
+          // Callback which gets executed when visible months change in scroll view. Default = undefined
+          onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
+          // Max amount of months allowed to scroll to the past. Default = 50
+          pastScrollRange={50}
+          // Max amount of months allowed to scroll to the future. Default = 50
+          futureScrollRange={50}
+          // Enable or disable scrolling of calendar list
+          scrollEnabled={true}
+          // Enable or disable vertical scroll indicator. Default = false
+          showScrollIndicator={true}
 
-                  <TouchableHighlight
-                    style={{ ...styless.openButton, backgroundColor: "#2196F3" }}
-                    onPress={() => {
-                      this.setState({modalVisible: false})
-                    }}
-                  >
-                    <Text style={styless.textStyle}>Hide Modal</Text>
-                  </TouchableHighlight>
-                </View>
-              </View>
-            </Modal>
+          // Enable horizontal scrolling, default = false
+          horizontal={true}
+          // Enable paging on horizontal, default = false
+          pagingEnabled={false}
+          // Set custom calendarWidth.
+          calendarWidth={320}
+        />
 
-              <CalendarList
-                style={{bottom: '-16.5%', height: -100, width: 340, left: 9}}
+        <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
+          <MaterialIcons name="add" color="white" size={50} style={{top: '5%', left: '8.5%', position: 'absolute'}} />
+        </TouchableOpacity>
+      
 
-                theme={{
-                  backgroundColor: 'transparent',
-                  calendarBackground: 'transparent',
-                  textSectionTitleColor: '#c71585',
-                  selectedDayBackgroundColor: '#00adf5',
-                  selectedDayTextColor: '#ffffff',
-                  todayTextColor: 'yellow',
-                  dayTextColor: '#2d4150',
-                  textDisabledColor: 'white',
-                  dotColor: '#00adf5',
-                  selectedDotColor: '#ffffff',
-                  arrowColor: 'transparent',
-                  disabledArrowColor: '#d9e1e8',
-                  monthTextColor: 'white',
-                  indicatorColor: 'yellow',
-                  textDayFontFamily: 'monospace',
-                  textMonthFontFamily: 'monospace',
-                  textDayHeaderFontFamily: 'monospace',
-                  textDayFontWeight: '300',
-                  textMonthFontWeight: 'bold',
-                  textDayHeaderFontWeight: '300',
-                  textDayFontSize: 16,
-                  textMonthFontSize: 30,
-                  textDayHeaderFontSize: 17,
-                  textMonthFontWeight: 'bold',
-                  textDayFontWeight: 'bold'
-                }}
-                  
-                // Callback which gets executed when visible months change in scroll view. Default = undefined
-                onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
-                // Max amount of months allowed to scroll to the past. Default = 50
-                pastScrollRange={50}
-                // Max amount of months allowed to scroll to the future. Default = 50
-                futureScrollRange={50}
-                // Enable or disable scrolling of calendar list
-                scrollEnabled={true}
-                // Enable or disable vertical scroll indicator. Default = false
-                showScrollIndicator={true}
+        <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
 
-                // Enable horizontal scrolling, default = false
-                horizontal={true}
-                // Enable paging on horizontal, default = false
-                pagingEnabled={false}
-                // Set custom calendarWidth.
-                calendarWidth={320}
-              />
-
-                <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
-                  <MaterialIcons name="add" color="white" size={50} style={{top: '4%', left: '7.5%', position: 'absolute'}} />
-                </TouchableOpacity>
-              
-
-              <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
-
-            <View style={{top: '73%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent', position: 'absolute'}}>
-              <FlatList
-                  data={EVENTS}
-                  horizontal={true}
-                  keyExtractor={item => item.id}
-                  renderItem={({ item }) => (<UpcomingEventBox event={item.event}/>)}
-              />
-              </View>
-                
-                        
-            </ImageBackground>
-            
-        );
+        <View style={{top: '73%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent', position: 'absolute'}}>
+          <FlatList
+              data={EVENTS}
+              horizontal={true}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (<UpcomingEventBox event={item.event}/>)}
+          />
+        </View>        
+                      
+      </ImageBackground>  
+      );
     }   
 }
 
@@ -269,9 +263,7 @@ const styless = StyleSheet.create({
   }
 });
 
-  
-  
-  export default createAppContainer(TabNavigator);
+export default createAppContainer(TabNavigator);
 
     
 

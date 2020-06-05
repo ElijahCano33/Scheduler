@@ -20,14 +20,17 @@ export default StyleSheet.create({
         bottom: '-12%',
         backgroundColor: 'red'
     },
-    input1: {
+    searchBar: {
         height: 40,
-        width: 340,
+        width: 368,
         paddingLeft: 38,
         borderRadius: 20,
         backgroundColor: '#2f4f4f',
         marginBottom: 20,
+        fontSize: 16,
+        fontFamily: 'sans-serif-thin',
         top: '20%',
-        position: 'absolute'
+        position: 'absolute',
+        fontWeight: 'bold'
     },
 });

@@ -16,7 +16,7 @@ export default StyleSheet.create({
     },
     eventDescriptionText: {
         alignContent: 'center',
-        top: '30%',
+        top: '60%',
         left: '35%',
         justifyContent: 'center',
         alignSelf: 'center',

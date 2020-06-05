@@ -33,10 +33,10 @@ export default class SearchScreen extends Component{
                 <TextInput
                     placeholder="Search for personal or friend events"
                     placeholderTextColor='#FFFFFF'
-                    style={styles.input1}
+                    style={styles.searchBar}
                     onChangeText={(search) => this.setState({search})}
                 />
-                <FontAwesome name="search" color={'white'} size={25} style={{top: '21%', left: '14%', position: 'absolute'}} />
+                <FontAwesome name="search" color={'white'} size={25} style={{top: '20.85%', left: '5.5%', position: 'absolute'}} />
 
                 {this.state.unfilteredData.length === 0 ? 
                     <View style={{top: '37.5%', left: '8%', position: 'absolute', height: '10%', width: '50%'}}>
