@@ -129,7 +129,7 @@ export default class AddScreen extends Component{
                             <Dropdown
                                 label='Friend Request Type'
                                 data={data}
-                                containerStyle={{backgroundColor: 'white', width: 250, top: '55%', height: 60, position: 'absolute', color: 'grey'}}
+                                containerStyle={{backgroundColor: 'white', width: 250, top: '55%', height: 60, position: 'absolute'}}
                                 //pickerStyle={{backgroundColor: 'white', position: 'absolute', top: '50%', left: '14%'}}
                                 //itemTextStyle
                                 textColor={'black'}

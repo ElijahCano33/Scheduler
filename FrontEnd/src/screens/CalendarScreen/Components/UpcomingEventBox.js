@@ -8,9 +8,11 @@ export default class UpcomingEventBox extends Component{
     
     render() {
         return (
-            
             <View style={styles.container}>
+                <Text style={styles.day}>{this.props.day}</Text>
+                <Text style={styles.time}>{this.props.time}</Text>
                 <Text style={styles.eventDescriptionText}>{this.props.event}</Text>
+                
             </View>
             
         );

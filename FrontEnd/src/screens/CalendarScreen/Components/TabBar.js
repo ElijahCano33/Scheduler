@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import styles from '../Styles/TabBarStyles.js';
 import posed from "react-native-pose";
 
-
 const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 4;
 
@@ -14,8 +13,6 @@ const SpotLight = posed.View({
     route3: { x: tabWidth*2.39 }, //235
     route4: {x: tabWidth*3.19} //314
   });
-
-
 
 export default class TabBar extends Component{
     render(){

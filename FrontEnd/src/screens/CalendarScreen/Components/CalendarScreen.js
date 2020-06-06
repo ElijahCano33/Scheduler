@@ -15,44 +15,58 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabBar, {tabBar} from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-
+import Arrow from './Arrow.js';
 
 const EVENTS = [
   {
     id: 1,
+    day: 'June 5th, 2020',
+    time: '3:00-5:00pm',
     event: 'Birthday',
   },
   {
     id: 2,
+    day: 'June 5th, 2020',
+    time: '3:00-5:00pm',
     event: 'Anniversary'
   },
   {
     id: 3,
+    day: 'June 5th, 2020',
+    time: '3:00-5:00pm',
     event: 'Wedding',
   },
   {
     id: 4,
+    day: 'June 5th, 2020',
+    time: '3:00-5:00pm',
     event: 'Interview'
   },
   {
     id: 5,
+    day: 'June 5th, 2020',
+    time: '3:00-5:00pm',
     event: 'Picnic'
   },
   {
     id: 6,
+    day: 'June 5th, 2020',
+    time: '3:00-5:00pm',
     event: 'Business',
   },
   {
     id: 7,
+    day: 'June 5th, 2020',
+    time: '3:00-5:00pm',
     event: 'Dinner'
   }
 ]
+
 
 class CalendarScreen extends Component{
   constructor(props) {
     super(props)
 
-    //sets up current states of component.
     this.state = {
         calendarIconPressed: false,
         searchBarIconPressed: false,
@@ -68,13 +82,28 @@ class CalendarScreen extends Component{
   }
 
   render() {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    let currentMonth = today.getMonth()+1;
+    let currentDay = today.getDay();
+    if (currentMonth < 10) currentMonth = '0' + currentMonth;
+    if (currentDay < 10) currentDay = '0' + currentDay;
+    const todayISOFormat = currentYear + "-"  + currentMonth + "-" + currentDay;
+    let markedDay = {};
+
+    const vacation = {key:'vacation', color: 'red', selectedDotColor: 'red'};
+    const massage = {key:'massage', color: 'blue', selectedDotColor: 'orange'};
+    const workout = {key:'workout', color: 'green'};
+
+    markedDay[todayISOFormat] = {dots: [vacation, massage, workout], selected: true, selectedColor: 'black'};
+
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
         <Image
             style={styles.logo}
             source={require('../../../../pics/scriptscheduler.png')}
         />
-        
+  
         <Modal
           animationType="slide"
           transparent={true}
@@ -83,38 +112,36 @@ class CalendarScreen extends Component{
             Alert.alert("Modal has been closed.");
           }}>
 
-          <View style={styless.centeredView}>
-            <View style={styless.modalView}>
-              <Text style={styless.modalText}>Hello World!</Text>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
 
               <TouchableHighlight
-                style={{ ...styless.openButton, backgroundColor: "#2196F3" }}
+                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
                 onPress={() => {
                   this.setState({modalVisible: false})
                 }}
               >
-                <Text style={styless.textStyle}>Hide Modal</Text>
+                <Text style={styles.textStyle}>Hide Modal</Text>
               </TouchableHighlight>
             </View>
           </View>
         </Modal>
 
-        <View  style={{height: '100%', position: 'absolute', top: '14.7%', left: '0%'}}>
+        <View  style={{height: '100%', position: 'absolute', top: '14.8%', left: '0%'}}>
           <CalendarList
             theme={{
-              calendarBackground: '#0099FF', //'#9BC3E1'
+              calendarBackground: 'transparent',
               textSectionTitleColor: 'black',
-              selectedDayBackgroundColor: 'red',
-              selectedDayTextColor: 'black',
-              todayTextColor: 'black',
+              selectedDayBackgroundColor: 'black',
+              selectedDayTextColor: 'white',
+              todayTextColor: 'white',
               dayTextColor: 'white',
               textDisabledColor: 'white',
-              dotColor: '#00adf5',
-              selectedDotColor: '#ffffff',
+              dotColor: 'orange',
+              selectedDotColor: 'orange',
               arrowColor: 'black',
-              disabledArrowColor: '#d9e1e8',
               monthTextColor: 'white',
-              indicatorColor: 'black',
               textDayFontFamily: 'sans-serif-thin',
               textMonthFontFamily: 'sans-serif-thin',
               textDayHeaderFontFamily: 'sans-serif-thin',
@@ -130,12 +157,18 @@ class CalendarScreen extends Component{
             }}
             pastScrollRange={12}
             futureScrollRange={60}
-            scrollEnabled={true}
+            scrollEnabled={false}
             hideArrows={false}
+            // Replace default arrows with custom ones (direction can be 'left' or 'right')
+            //renderArrow={(<Arrow name="left"/>)}
             horizontal={true}
+            onDayPress={(day) => {console.log('selected day', day)}}
             pagingEnabled={true}
             calendarWidth={395}
             calendarHeight={380}
+
+            markedDates={markedDay}
+            markingType={'multi-dot'}
           />
         </View>
         
@@ -152,10 +185,9 @@ class CalendarScreen extends Component{
               data={EVENTS}
               horizontal={true}
               keyExtractor={item => item.id}
-              renderItem={({ item }) => (<UpcomingEventBox event={item.event}/>)}
+              renderItem={({ item }) => (<UpcomingEventBox day={item.day} time={item.time} event={item.event}/>)}
           />
-        </View>        
-                      
+        </View>               
       </ImageBackground>  
       );
     }   
@@ -203,54 +235,12 @@ const TabNavigator = createBottomTabNavigator(
     tabBarComponent: TabBar,
     tabBarOptions: {
       activeTintColor: '#4F4F4F', //'#4F4F4F'
-      inactiveTintColor: 'ddd', //ddd
+      //inactiveTintColor: 'ddd', //ddd
       showIcon: true
 
     }
   },
 );
-
-
-const styless = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
-  },
-  modalView: {
-    margin: 20,
-    width: '70%',
-    height: '54%',
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
-});
 
 export default createAppContainer(TabNavigator);
 
