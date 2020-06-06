@@ -18,7 +18,7 @@ export default StyleSheet.create({
         flex: 1
     },
     upcomingEventsText: {
-        top: '69%',
+        top: '71%',
         left: '3%',
         fontSize: 22,
         color: 'white',
@@ -36,7 +36,7 @@ export default StyleSheet.create({
         width: '15%',
         height: '8.5%',
         borderRadius: 30,
-        top: '88.7%',
+        top: '89%',
         left: '80%',
         backgroundColor: '#7ffff4',
         position: 'absolute',
