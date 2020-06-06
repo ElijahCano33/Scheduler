@@ -38,12 +38,12 @@ export default StyleSheet.create({
         borderRadius: 30,
         top: '89.7%',
         left: '80%',
-        backgroundColor: '#7ffff4',
+        backgroundColor: '#0099FF',
         position: 'absolute',
         
     },
     createEventsText: {
-        color: '#c71585',
+        color: '#0099FF', //'#c71585'
         justifyContent: 'center', 
         alignItems: 'center', 
         top: '8%',
@@ -51,5 +51,48 @@ export default StyleSheet.create({
         alignSelf: 'center',
         fontWeight: "bold",
         fontSize: 18
+    },
+
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+
+    modalView: {
+    margin: 20,
+    width: '70%',
+    height: '54%',
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+    },
+
+    openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+    },
+
+    textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+    },
+
+    modalText: {
+    marginBottom: 15,
+    textAlign: "center"
     }
 });

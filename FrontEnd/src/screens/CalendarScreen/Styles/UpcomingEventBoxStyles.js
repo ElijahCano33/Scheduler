@@ -14,16 +14,36 @@ export default StyleSheet.create({
         borderRadius: 20,
         
     },
+
     eventDescriptionText: {
         alignContent: 'center',
-        top: '60%',
-        left: '35%',
+        top: '110%',
+        left: '22%',
         justifyContent: 'center',
         alignSelf: 'center',
         position: 'absolute',
         fontSize: 15,
         fontWeight: 'bold',
-        color: 'black'
+        color: 'black',
+        fontFamily: 'sans-serif-thin',
+    },
+
+    day: {
+        position: 'absolute',
+        top: '0%',
+        left: '22%',
+        fontSize: 15,
+       fontFamily: 'sans-serif-thin',
+       fontWeight: 'bold' 
+    },
+
+    time: {
+        position: 'absolute',
+        top: '60%',
+        left: '22%',
+        fontSize: 15,
+       fontFamily: 'sans-serif-thin',
+       fontWeight: 'bold' 
     }
     
 });
