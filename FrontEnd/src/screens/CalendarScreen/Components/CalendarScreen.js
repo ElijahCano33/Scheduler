@@ -67,8 +67,6 @@ class CalendarScreen extends Component{
     this.setState({calendarIconPressed: !calendarIconPressed});
   }
 
-  
-    
   render() {
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
@@ -101,55 +99,46 @@ class CalendarScreen extends Component{
           </View>
         </Modal>
 
-        <CalendarList
-          style={{bottom: '-25%', height: 200, width: 340, left: 9}}
-
-          theme={{
-            backgroundColor: 'transparent',
-            calendarBackground: 'transparent',
-            textSectionTitleColor: '#c71585',
-            selectedDayBackgroundColor: '#00adf5',
-            selectedDayTextColor: '#ffffff',
-            todayTextColor: 'yellow',
-            dayTextColor: '#2d4150',
-            textDisabledColor: 'white',
-            dotColor: '#00adf5',
-            selectedDotColor: '#ffffff',
-            arrowColor: 'transparent',
-            disabledArrowColor: '#d9e1e8',
-            monthTextColor: 'white',
-            indicatorColor: 'yellow',
-            textDayFontFamily: 'monospace',
-            textMonthFontFamily: 'monospace',
-            textDayHeaderFontFamily: 'monospace',
-            textDayFontWeight: '300',
-            textMonthFontWeight: 'bold',
-            textDayHeaderFontWeight: '300',
-            textDayFontSize: 16,
-            textMonthFontSize: 30,
-            textDayHeaderFontSize: 17,
-            textMonthFontWeight: 'bold',
-            textDayFontWeight: 'bold'
-          }}
-            
-          // Callback which gets executed when visible months change in scroll view. Default = undefined
-          onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
-          // Max amount of months allowed to scroll to the past. Default = 50
-          pastScrollRange={50}
-          // Max amount of months allowed to scroll to the future. Default = 50
-          futureScrollRange={50}
-          // Enable or disable scrolling of calendar list
-          scrollEnabled={true}
-          // Enable or disable vertical scroll indicator. Default = false
-          showScrollIndicator={true}
-
-          // Enable horizontal scrolling, default = false
-          horizontal={true}
-          // Enable paging on horizontal, default = false
-          pagingEnabled={false}
-          // Set custom calendarWidth.
-          calendarWidth={320}
-        />
+        <View  style={{height: '100%', position: 'absolute', top: '14.7%', left: '0%'}}>
+          <CalendarList
+            theme={{
+              calendarBackground: '#0099FF', //'#9BC3E1'
+              textSectionTitleColor: 'black',
+              selectedDayBackgroundColor: 'red',
+              selectedDayTextColor: 'black',
+              todayTextColor: 'black',
+              dayTextColor: 'white',
+              textDisabledColor: 'white',
+              dotColor: '#00adf5',
+              selectedDotColor: '#ffffff',
+              arrowColor: 'black',
+              disabledArrowColor: '#d9e1e8',
+              monthTextColor: 'white',
+              indicatorColor: 'black',
+              textDayFontFamily: 'sans-serif-thin',
+              textMonthFontFamily: 'sans-serif-thin',
+              textDayHeaderFontFamily: 'sans-serif-thin',
+              textDayFontWeight: 'bold',
+              textMonthFontWeight: 'bold',
+              textDayHeaderFontWeight: 'bold',
+              textDayFontSize: 15,
+              textMonthFontSize: 30,
+              textDayHeaderFontSize: 15,
+              textMonthFontWeight: 'bold',
+              textDayFontWeight: 'bold',
+              
+            }}
+            pastScrollRange={12}
+            futureScrollRange={60}
+            scrollEnabled={true}
+            hideArrows={false}
+            horizontal={true}
+            pagingEnabled={true}
+            calendarWidth={395}
+            calendarHeight={380}
+          />
+        </View>
+        
 
         <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
           <MaterialIcons name="add" color="white" size={50} style={{top: '5%', left: '8.5%', position: 'absolute'}} />
@@ -158,7 +147,7 @@ class CalendarScreen extends Component{
 
         <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
 
-        <View style={{top: '73%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent', position: 'absolute'}}>
+        <View style={{top: '75%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent', position: 'absolute'}}>
           <FlatList
               data={EVENTS}
               horizontal={true}

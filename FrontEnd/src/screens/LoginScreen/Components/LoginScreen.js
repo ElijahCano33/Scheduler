@@ -147,7 +147,7 @@ export default class LoginScreen extends Component {
             style={styles.buttonContainer1} 
             onPress={() => this.loginButtonPressed()}>
 
-            { this.state.loginButtonPressed === true ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: '#7c40ff', borderRadius: 20}}/> : null }
+            { this.state.loginButtonPressed === true ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: '#2f4f4f', borderRadius: 20}}/> : null }
 
             <Text 
               style={styles.buttonText}>LOGIN

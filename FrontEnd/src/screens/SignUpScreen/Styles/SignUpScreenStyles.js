@@ -74,18 +74,18 @@ export default StyleSheet.create({
   
     buttonContainer1: {
       width: 120,
-      backgroundColor: '#7ffff4',
+      backgroundColor: '#0099FF', //'#7ffff4
       paddingHorizontal: 30,
       borderRadius: 20,
       textAlign: 'left',
-      left: '18%', //16% for it to work on all android screens
+      left: '18%',
       top: '70%',
       position: 'absolute'
     },
 
     buttonContainer2: {
         width: 120,
-        backgroundColor: '#7ffff4',
+        backgroundColor: '#0099FF',
         paddingHorizontal: 30,
         borderRadius: 20,
         textAlign: 'left',
