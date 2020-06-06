@@ -36,7 +36,7 @@ export default StyleSheet.create({
         width: '15%',
         height: '8.5%',
         borderRadius: 30,
-        top: '89%',
+        top: '89.7%',
         left: '80%',
         backgroundColor: '#7ffff4',
         position: 'absolute',

@@ -48,11 +48,11 @@ const EVENTS = [
   }
 ]
 
+
 class CalendarScreen extends Component{
   constructor(props) {
     super(props)
 
-    //sets up current states of component.
     this.state = {
         calendarIconPressed: false,
         searchBarIconPressed: false,
@@ -68,13 +68,23 @@ class CalendarScreen extends Component{
   }
 
   render() {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    let currentMonth = today.getMonth()+1;
+    let currentDay = today.getDay();
+    if (currentMonth < 10) currentMonth = '0' + currentMonth;
+    if (currentDay < 10) currentDay = '0' + currentDay;
+    const todayISOFormat = currentYear + "-"  + currentMonth + "-" + currentDay;
+    let markedDay = {};
+    markedDay[todayISOFormat] = {selected: true, marked: true, selectedColor: '#c71585', dotColor: 'green'};
+
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
         <Image
             style={styles.logo}
             source={require('../../../../pics/scriptscheduler.png')}
         />
-        
+  
         <Modal
           animationType="slide"
           transparent={true}
@@ -99,7 +109,7 @@ class CalendarScreen extends Component{
           </View>
         </Modal>
 
-        <View  style={{height: '100%', position: 'absolute', top: '14.7%', left: '0%'}}>
+        <View  style={{height: '100%', position: 'absolute', top: '14%', left: '0%'}}>
           <CalendarList
             theme={{
               calendarBackground: '#0099FF', //'#9BC3E1'
@@ -136,6 +146,9 @@ class CalendarScreen extends Component{
             pagingEnabled={true}
             calendarWidth={395}
             calendarHeight={380}
+
+            markedDates={markedDay}
+            //markingType={'multi-dot'}
           />
         </View>
         
@@ -154,8 +167,7 @@ class CalendarScreen extends Component{
               keyExtractor={item => item.id}
               renderItem={({ item }) => (<UpcomingEventBox event={item.event}/>)}
           />
-        </View>        
-                      
+        </View>               
       </ImageBackground>  
       );
     }   
@@ -203,7 +215,7 @@ const TabNavigator = createBottomTabNavigator(
     tabBarComponent: TabBar,
     tabBarOptions: {
       activeTintColor: '#4F4F4F', //'#4F4F4F'
-      inactiveTintColor: 'ddd', //ddd
+      //inactiveTintColor: 'ddd', //ddd
       showIcon: true
 
     }
