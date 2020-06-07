@@ -59,11 +59,12 @@ def GetEvent():
             response = dict()
             data = request.get_json()
 
+
             userID = data["user_id"]
             requestType = data["request_type"]
 
             if requestType == "month":
-                month = data["month"]
+                month = data["year"]
                 year = data["year"]
             elif requestType == "year":
                 year = data["year"]
@@ -84,13 +85,21 @@ def GetEvent():
             
             eventList = cursor.fetchall()
 
+            cursor.execute("SELECT GROUP_CONCAT(column_name ORDER BY ordinal_position) FROM information_schema.columns WHERE table_schema = DATABASE() and table_name = 'events'")
+            columnLabels = list(cursor.fetchone())[0].split(',')
+
             if len(eventList) == 0:
-                    error = "No Events available for this period!"
-                    response['error'] = error
-                    raise Exception(response)
+                error = "No Events available for this period!"
+                response['error'] = error
+                print(error)
+                raise Exception(response)
 
-            response['events'] = eventList
+            toReturn = []
+            for event in eventList:
+                anEvent = [str(column) for column in event]
+                toReturn.append(dict(zip(columnLabels, anEvent)))
 
+            response["events"] = toReturn
         else:
             error = "Connection to database failed!"
             response['error'] = error
@@ -99,3 +108,4 @@ def GetEvent():
     except Exception:
         return response, 400
     return response
+
