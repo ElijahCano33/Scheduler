@@ -32,7 +32,7 @@ export default StyleSheet.create({
         position: 'absolute',
         fontFamily: 'sans-serif-thin',
         fontWeight: 'bold',
-        fontSize: 15
+        fontSize: 16
     },
     
     noSearchResults: {
