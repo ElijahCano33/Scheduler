@@ -258,7 +258,7 @@ export default class SignUpScreen extends Component {
             style={styles.buttonContainer2}
             onPress={() => this.signUpButtonPressed()}>
 
-            { this.state.signUpButtonPressed === true ? <Loader style={{position: 'absolute', top: '-1000%', left: '-100%', width: '200%', height: '500%', backgroundColor: '#2f4f4f', borderRadius: 20}}/> : null }
+            { this.state.signUpButtonPressed === true ? <Loader style={{position: 'absolute', top: '-1000%', left: '-100%', width: '200%', height: '500%', backgroundColor: '#FF1DCE', borderRadius: 20}}/> : null }
 
             <Text style={styles.buttonText}>SIGN UP</Text>
 

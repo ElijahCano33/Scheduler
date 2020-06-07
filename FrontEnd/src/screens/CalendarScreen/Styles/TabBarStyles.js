@@ -22,7 +22,7 @@ export default StyleSheet.create({
         left:'2%',
         top: '10%',
         height: "75%", //100
-        backgroundColor: '#7ffff4', //"rgba(128,128,255,0.2), #c71585", '#7c40ff'
+        backgroundColor: '#FF1DCE', //"rgba(128,128,255,0.2), #c71585", '#7c40ff', '#7ffff4'
         borderRadius: 20, //8
 
       }

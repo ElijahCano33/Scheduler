@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Alert, StyleSheet, View, TouchableHighlight, SafeAreaView, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
+import { Alert, StatusBar, TextInput, StyleSheet, View, TouchableHighlight, TouchableWithoutFeedback, Keyboard, SafeAreaView, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CalendarScreenStyles.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
@@ -16,6 +16,8 @@ import TabBar, {tabBar} from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import Arrow from './Arrow.js';
+import axios from "axios";
+import ToggleSwitch from 'toggle-switch-react-native';
 
 const EVENTS = [
   {
@@ -74,8 +76,27 @@ class CalendarScreen extends Component{
         friendsIconPressed: false,
         notificationsIconPressed: false,
         modalVisible: false,
+        userId: 0,
+        friend: '',
+        isOn: false
     }
   }
+
+  componentDidMount(){
+    axios({
+        method: 'post',
+        
+        url: 'http://192.168.68.1:5000/api/userId',
+    })
+    .then((response) => {
+        this.setState({userId: response['data']['user_id']});
+        console.log("this is the user's id: " + this.state.userId);
+        
+    }, (error) => {
+        console.log(error);
+    });
+    
+}
 
   changeCalendarIconState(){
     this.setState({calendarIconPressed: !calendarIconPressed});
@@ -96,37 +117,79 @@ class CalendarScreen extends Component{
     const workout = {key:'workout', color: 'green'};
 
     markedDay[todayISOFormat] = {dots: [vacation, massage, workout], selected: true, selectedColor: 'black'};
+    markedDay['2020-06-10'] = {dots: [vacation, massage, workout]};
+    markedDay['2020-06-12'] = {dots: [vacation, massage, workout]};
+    markedDay['2020-06-15'] = {dots: [vacation, massage, workout]};
+    markedDay['2020-06-18'] = {dots: [vacation, massage, workout]};
+    markedDay['2020-06-21'] = {dots: [vacation, massage, workout]};
+    markedDay['2020-06-24'] = {dots: [vacation, massage, workout]};
+    markedDay['2020-06-26'] = {dots: [workout]};
+    markedDay['2020-06-30'] = {dots: [vacation, massage]};
 
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
+        <StatusBar hidden/>
         <Image
             style={styles.logo}
             source={require('../../../../pics/scriptscheduler.png')}
         />
   
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-          }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Modal
+              animationType="fade"
+              transparent={true}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              }}
+            >
+              <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                      <Text style={{fontWeight: 'bold', fontSize: 20, color: 'black', top: '3%', position: 'absolute', fontFamily: 'sans-serif-thin'}}>Create A New Event</Text>
+                  
+                  <TextInput
+                      placeholder="Event Title: "
+                      placeholderTextColor='grey'
+                      style={styles.input2}
+                      onChangeText={(friend) => this.setState({friend})}
+                  />
 
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
+                  <View style={{position: 'absolute', top: '40%', left: '8%'}}>
+                    <ToggleSwitch
+                      isOn={false}
+                      onColor="green"
+                      offColor="grey"
+                      label="Single Day Event"
+                      labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin' }}
+                      size="small"
+                      onToggle={(isOn) => isOn }
+                    />
+                  </View>
 
-              <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                onPress={() => {
-                  this.setState({modalVisible: false})
-                }}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
+                  <TouchableHighlight
+                      style={{ ...styles.openButton, backgroundColor: "red" }}
+                      onPress={() => {
+                      this.setState({modalVisible: false})
+                      }}
+                  >
+                  
+                      <Text style={styles.textStyle2}>Submit</Text>
+                  </TouchableHighlight>
+
+                  <TouchableHighlight
+                      style={{ ...styles.closeButton, backgroundColor: "grey" }}
+                      onPress={() => {
+                      this.setState({modalVisible: false})
+                      }}
+                  >
+                  
+                      <Text style={styles.textStyle1}>Cancel</Text>
+                  </TouchableHighlight>
+
+                  </View>
+              </View>
+          </Modal>
+        </TouchableWithoutFeedback>  
 
         <View  style={{height: '100%', position: 'absolute', top: '14.8%', left: '0%'}}>
           <CalendarList
@@ -155,8 +218,8 @@ class CalendarScreen extends Component{
               textDayFontWeight: 'bold',
               
             }}
-            pastScrollRange={12}
-            futureScrollRange={60}
+            pastScrollRange={1}
+            futureScrollRange={1}
             scrollEnabled={false}
             hideArrows={false}
             // Replace default arrows with custom ones (direction can be 'left' or 'right')
@@ -174,7 +237,7 @@ class CalendarScreen extends Component{
         
 
         <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
-          <MaterialIcons name="add" color="white" size={50} style={{top: '5%', left: '8.5%', position: 'absolute'}} />
+          <MaterialIcons name="add" color="white" size={50} style={{top: '5%', left: '7%', position: 'absolute'}} />
         </TouchableOpacity>
       
 

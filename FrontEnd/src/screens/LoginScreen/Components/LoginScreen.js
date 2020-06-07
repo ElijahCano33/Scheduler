@@ -8,11 +8,9 @@ import axios from "axios";
 
 export default class LoginScreen extends Component {
 
-  //The constructor will both initalize and give access to "this"
   constructor(props) {
     super(props)
 
-    //sets up current states of component.
     this.state = {
         email: '',
         password: '',
@@ -22,19 +20,10 @@ export default class LoginScreen extends Component {
     }
   }
   
-  //Sends the user to the app's main screen.
   navigateToCalendarScreen(){
     this.props.navigation.navigate('CalendarScreen');
   }
   
-  /*
-    The following function establishes a POST network 
-    request to the backend using the fetch API. It
-    gets ahold of the email and password values that
-    the user entered in the login forms, converts
-    them from strings to JSON, and then sends them to 
-    the backend api with the endpoint "/login".
-  */
   loginNetworkRequestToBackend(){
     var email = this.state.email;
     var password = this.state.password; 
@@ -147,7 +136,7 @@ export default class LoginScreen extends Component {
             style={styles.buttonContainer1} 
             onPress={() => this.loginButtonPressed()}>
 
-            { this.state.loginButtonPressed === true ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: '#2f4f4f', borderRadius: 20}}/> : null }
+            { this.state.loginButtonPressed === true ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: '#FF1DCE', borderRadius: 20}}/> : null }
 
             <Text 
               style={styles.buttonText}>LOGIN
