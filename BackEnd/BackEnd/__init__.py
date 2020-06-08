@@ -30,7 +30,7 @@ def load_user(id):
         if database:
             response = dict()
             cursor = database.cursor()
-            cursor.execute("SELECT user_id from Scheduler.users WHERE email= %s ", id)
+            cursor.execute(f"""SELECT user_id from Scheduler.users WHERE email='{id}'""")
             result = cursor.fetchone()
             
             if result == None:

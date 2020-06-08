@@ -95,6 +95,30 @@ class CalendarScreen extends Component{
     .then((response) => {
         this.setState({userId: response['data']['user_id']});
         console.log("this is the user's id: " + this.state.userId);
+
+        let userId = this.state.userId;
+        let today = new Date();
+        let year = today.getFullYear().toString();
+
+        axios({
+          method: 'post',
+          
+          url: 'http://192.168.68.1:5000/api/event/read',
+          data: {
+            user_id: userId,
+            request_type: "year",
+            year: year
+          }
+        })
+        .then((response) => {
+            
+            let DATA = JSON.stringify(response);
+            console.log("this is the response data from event request: " + DATA);
+    
+        }, (error) => {
+          
+            console.log(error);
+        });
         
     }, (error) => {
         console.log(error);
