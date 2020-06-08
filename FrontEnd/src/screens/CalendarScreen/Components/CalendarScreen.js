@@ -64,7 +64,6 @@ const EVENTS = [
   }
 ]
 
-
 class CalendarScreen extends Component{
   constructor(props) {
     super(props)
@@ -82,7 +81,9 @@ class CalendarScreen extends Component{
         eventStartDate: '',
         eventEndDate: '',
         eventDescription: '',
-        eventAlert: ''
+        eventAlert: '',
+        userEvents: [],
+        markedEvents: {}
     }
   }
 
@@ -111,9 +112,8 @@ class CalendarScreen extends Component{
           }
         })
         .then((response) => {
-            
-            let DATA = JSON.stringify(response);
-            console.log("this is the response data from event request: " + DATA);
+          this.setState({userEvents: response['data']['events']});
+          this.markCalendarWithUserEvents();
     
         }, (error) => {
           
@@ -133,6 +133,37 @@ class CalendarScreen extends Component{
   onToggle(singleDayEvent) {
     console.log("Changed to " + singleDayEvent);
   }
+
+  markCalendarWithUserEvents(){
+    let events = this.state.userEvents;
+    let eventTitle = '';
+    let eventDay = '';
+    let randomColor = ''
+    let markedDay = {};
+    let markedEvents = {};
+
+    for(var i = 0; i < events.length; i++){
+      randomColor = this.randColor();
+      for(var eventInfo in events[i]){
+        if (eventInfo === 'title') eventTitle = events[i][eventInfo];
+        if (eventInfo === 'startDate') eventDay = events[i][eventInfo];
+
+        markedDay = {key: eventTitle, color: randomColor};
+
+      }
+      markedEvents[eventDay] = {dots: [markedDay]};
+    }
+
+    this.setState({markedEvents: markedEvents});
+  }
+
+  randColor() {
+    for (var i=0, col=''; i<6; i++) {
+        col += (Math.random()*16|0).toString(16);
+    }
+    return '#'+col;
+}
+
 
   createEvent() {
     let userId = this.state.userId;
@@ -192,6 +223,9 @@ class CalendarScreen extends Component{
     markedDay['2020-06-24'] = {dots: [vacation, massage, workout]};
     markedDay['2020-06-26'] = {dots: [workout]};
     markedDay['2020-06-30'] = {dots: [vacation, massage]};
+    
+    var EVENTO = JSON.stringify(markedDay);
+    console.log("this is the evento: " + EVENTO);
 
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
@@ -321,7 +355,7 @@ class CalendarScreen extends Component{
             calendarWidth={395}
             calendarHeight={380}
 
-            markedDates={markedDay}
+            markedDates={this.state.markedEvents}
             markingType={'multi-dot'}
           />
         </View>
