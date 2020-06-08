@@ -78,7 +78,11 @@ class CalendarScreen extends Component{
         modalVisible: false,
         userId: 0,
         friend: '',
-        isOn: false
+        singleDayEvent: false,
+        eventStartDate: '',
+        eventEndDate: '',
+        eventDescription: '',
+        eventAlert: ''
     }
   }
 
@@ -100,6 +104,45 @@ class CalendarScreen extends Component{
 
   changeCalendarIconState(){
     this.setState({calendarIconPressed: !calendarIconPressed});
+  }
+
+  onToggle(singleDayEvent) {
+    console.log("Changed to " + singleDayEvent);
+  }
+
+  createEvent() {
+    let userId = this.state.userId;
+    let eventTitle = this.state.eventTitle;
+    let description = this.state.eventDescription;
+    let location = 'Hunter College';
+    let startDate = this.state.eventStartDate.toString().substring(0, 10);
+    let endDate = this.state.eventEndDate.toString().substring(0, 10);
+    let startTime = this.state.eventStartDate.toString().substring(11, 19);
+    let endTime = this.state.eventEndDate.toString().substring(11, 19);
+
+    axios({
+      method: 'post',
+      
+      url: 'http://192.168.68.1:5000/api/event',
+
+      data: {
+        user_id: userId,
+        event_title: eventTitle,
+        description: description,
+        location: location,
+        starting_date: startDate,
+        ending_day: endDate,
+        starting_time: startTime,
+        ending_time: endTime
+      }
+    })
+    .then((response) => {
+      this.setState({eventAlert: response['data']['status_info']});
+      Alert.alert(this.state.eventAlert);
+        
+    }, (error) => {
+        console.log(error);
+    });
   }
 
   render() {
@@ -151,25 +194,49 @@ class CalendarScreen extends Component{
                       placeholder="Event Title: "
                       placeholderTextColor='grey'
                       style={styles.input2}
-                      onChangeText={(friend) => this.setState({friend})}
+                      onChangeText={(eventTitle) => this.setState({eventTitle})}
                   />
 
-                  <View style={{position: 'absolute', top: '40%', left: '8%'}}>
+                  <TextInput
+                    placeholder="Event Description: "
+                    placeholderTextColor='grey'
+                    style={styles.eventDescriptionInput}
+                    onChangeText={(eventDescription) => this.setState({eventDescription})}
+                  />
+
+                  <View style={{position: 'absolute', top: '60%', left: '8%'}}>
                     <ToggleSwitch
-                      isOn={false}
+                      isOn={this.state.singleDayEvent}
                       onColor="green"
                       offColor="grey"
                       label="Single Day Event"
-                      labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin' }}
+                      labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 14 }}
                       size="small"
-                      onToggle={(isOn) => isOn }
+                      onToggle={singleDayEvent => {
+                        this.setState({ singleDayEvent });
+                        this.onToggle(singleDayEvent);
+                      }}
                     />
                   </View>
+
+                  <TextInput
+                    placeholder="Start Date: 'YYYY-MM-DD HH:MM:SS' "
+                    placeholderTextColor='grey'
+                    style={styles.startDateInput}
+                    onChangeText={(eventStartDate) => this.setState({eventStartDate})}
+                  />
+
+                  <TextInput
+                    placeholder="End Date: 'YYYY-MM-DD HH:MM:SS' "
+                    placeholderTextColor='grey'
+                    style={styles.endDateInput}
+                    onChangeText={(eventEndDate) => this.setState({eventEndDate})}
+                  />
 
                   <TouchableHighlight
                       style={{ ...styles.openButton, backgroundColor: "red" }}
                       onPress={() => {
-                      this.setState({modalVisible: false})
+                        this.setState({modalVisible: false}, this.createEvent())
                       }}
                   >
                   
