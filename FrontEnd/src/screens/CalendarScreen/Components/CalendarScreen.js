@@ -113,7 +113,7 @@ class CalendarScreen extends Component{
         })
         .then((response) => {
           this.setState({userEvents: response['data']['events']});
-          this.markCalendarWithUserEvents();
+          this.markCalendarWithSingleEvents();
     
         }, (error) => {
           
@@ -134,13 +134,63 @@ class CalendarScreen extends Component{
     console.log("Changed to " + singleDayEvent);
   }
 
-  markCalendarWithUserEvents(){
+  markCalendarWithMultiEvents(events){
+    let sameDayEvents = {};
+    let originalDayMarked = false;
+    let repeatingDays = [];
+
+    for(var key in events){
+      if(key.includes('_')){
+        let repeatedDay = key;
+        repeatingDays.push(repeatedDay);
+        let originalDay = key.substring(0, 10);
+
+        if(originalDay in sameDayEvents){
+          sameDayEvents[originalDay].push(events[repeatedDay]);
+          if (!originalDayMarked){
+            sameDayEvents[originalDay].push(events[originalDay]);
+            repeatingDays.push(originalDay);
+            originalDayMarked = true;
+          }
+        }else{
+
+          sameDayEvents[originalDay] = [];
+          sameDayEvents[originalDay].push(events[repeatedDay]);
+          if (!originalDayMarked){
+            sameDayEvents[originalDay].push(events[originalDay]);
+            repeatingDays.push(originalDay);
+            originalDayMarked = true;
+          }
+        }
+      } 
+    }
+
+    for(var i =0; i < repeatingDays.length; i++){
+      delete events[repeatingDays[i]];
+    }
+
+    for(var day in sameDayEvents){
+      for(var i =0; i < sameDayEvents[day].length; i++){
+        if(i === 0){
+          events[day] = sameDayEvents[day][0];
+        }else{
+          events[day]['dots'].push(sameDayEvents[day][i]['dots'][0]);
+        }
+      }
+      
+    }
+
+    this.setState({markedEvents: events});
+  }
+
+  markCalendarWithSingleEvents(){
     let events = this.state.userEvents;
     let eventTitle = '';
     let eventDay = '';
     let randomColor = ''
     let markedDay = {};
     let markedEvents = {};
+    let daysCounter = {};
 
     for(var i = 0; i < events.length; i++){
       randomColor = this.randColor();
@@ -148,13 +198,30 @@ class CalendarScreen extends Component{
         if (eventInfo === 'title') eventTitle = events[i][eventInfo];
         if (eventInfo === 'startDate') eventDay = events[i][eventInfo];
 
-        markedDay = {key: eventTitle, color: randomColor};
-
       }
-      markedEvents[eventDay] = {dots: [markedDay]};
+      if(eventDay in daysCounter){
+        daysCounter[eventDay] += 1;
+      }else{
+        daysCounter[eventDay] = 1;
+      }
+
+      markedDay = {key: eventTitle, color: randomColor};
+
+      if (eventDay in markedEvents){
+        let repeatingNumber = '_' + daysCounter[eventDay].toString(); 
+        eventDay += repeatingNumber;
+        markedEvents[eventDay] = {dots: [markedDay]};
+      }else{
+        markedEvents[eventDay] = {dots: [markedDay]};
+      }
+      
     }
 
-    this.setState({markedEvents: markedEvents});
+    let DATA = JSON.stringify(markedEvents);
+    console.log("this is events: " + DATA); 
+
+    this.markCalendarWithMultiEvents(markedEvents);
+
   }
 
   randColor() {
@@ -169,7 +236,7 @@ class CalendarScreen extends Component{
     let userId = this.state.userId;
     let eventTitle = this.state.eventTitle;
     let description = this.state.eventDescription;
-    let location = 'Hunter College';
+    let location = '';
     let startDate = this.state.eventStartDate.toString().substring(0, 10);
     let endDate = this.state.eventEndDate.toString().substring(0, 10);
     let startTime = this.state.eventStartDate.toString().substring(11, 19);
@@ -201,31 +268,6 @@ class CalendarScreen extends Component{
   }
 
   render() {
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    let currentMonth = today.getMonth()+1;
-    let currentDay = today.getDay();
-    if (currentMonth < 10) currentMonth = '0' + currentMonth;
-    if (currentDay < 10) currentDay = '0' + currentDay;
-    const todayISOFormat = currentYear + "-"  + currentMonth + "-" + currentDay;
-    let markedDay = {};
-
-    const vacation = {key:'vacation', color: 'red', selectedDotColor: 'red'};
-    const massage = {key:'massage', color: 'blue', selectedDotColor: 'orange'};
-    const workout = {key:'workout', color: 'green'};
-
-    markedDay[todayISOFormat] = {dots: [vacation, massage, workout], selected: true, selectedColor: 'black'};
-    markedDay['2020-06-10'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-12'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-15'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-18'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-21'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-24'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-26'] = {dots: [workout]};
-    markedDay['2020-06-30'] = {dots: [vacation, massage]};
-    
-    var EVENTO = JSON.stringify(markedDay);
-    console.log("this is the evento: " + EVENTO);
 
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
