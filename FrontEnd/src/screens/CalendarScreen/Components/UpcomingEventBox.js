@@ -3,7 +3,6 @@ import { View,Text } from "react-native";
 import styles from '../Styles/UpcomingEventBoxStyles.js';
 
 export default class UpcomingEventBox extends Component{
-    
     render() {
         return (
             <View style={styles.container}>
@@ -14,7 +13,6 @@ export default class UpcomingEventBox extends Component{
                 <Text style={styles.endDay}>{this.props.endDay}</Text>
                 <Text style={styles.endTime}>{this.props.endTime}</Text>
             </View>
-            
         );
     }   
 }

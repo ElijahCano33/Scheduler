@@ -3,7 +3,6 @@ import {Dimensions, StyleSheet} from 'react-native';
 const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 4;
 
-
 export default StyleSheet.create({
     container: {
         backgroundColor: '#fbfbfb',
