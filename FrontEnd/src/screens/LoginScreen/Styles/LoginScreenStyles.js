@@ -70,5 +70,5 @@ export default StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '700'
   }
-  });
+});
   

@@ -16,5 +16,11 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
         fontFamily: 'sans-serif-thin'
+    },
+
+    loadingAnimation: {
+        position: 'absolute', 
+        alignSelf: 'center', 
+        top: '40%'
     }
 });
