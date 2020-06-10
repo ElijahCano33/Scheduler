@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import { View,Text } from "react-native";
 import styles from '../Styles/UpcomingEventBoxStyles.js';
 
-
-
 export default class UpcomingEventBox extends Component{
     
     render() {

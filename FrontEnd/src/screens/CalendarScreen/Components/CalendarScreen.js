@@ -117,9 +117,7 @@ class CalendarScreen extends Component{
         })
         .then((response) => {
           this.setState({currentMonthUserEvents: response['data']['events']});
-          var DATA = JSON.stringify(this.state.currentMonthUserEvents);
-          console.log("THESE ARE THE CURRENT'T MONTH EVENTS: " + DATA);
-    
+
         }, (error) => {
           
             console.log(error);
@@ -260,6 +258,8 @@ class CalendarScreen extends Component{
     let endTime = this.state.eventEndDate.toString().substring(11, 19);
     let today = new Date();
     let year = today.getFullYear().toString();
+    let month = (today.getMonth()+1).toString();
+    if (month < 10) month = "0" + month;
 
     axios({
       method: 'post',
@@ -279,6 +279,25 @@ class CalendarScreen extends Component{
     })
     .then((response) => {
       this.setState({eventAlert: response['data']['status_info']});
+
+      axios({
+        method: 'post',
+        
+        url: 'http://192.168.68.1:5000/api/event/read',
+        data: {
+          user_id: userId,
+          request_type: "month",
+          month: month,
+          year: year
+        }
+      })
+      .then((response) => {
+        this.setState({currentMonthUserEvents: response['data']['events']});
+
+      }, (error) => {
+        
+          console.log(error);
+      });
 
       axios({
         method: 'post',
