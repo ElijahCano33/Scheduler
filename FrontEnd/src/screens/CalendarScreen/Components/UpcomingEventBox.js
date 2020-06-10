@@ -9,10 +9,12 @@ export default class UpcomingEventBox extends Component{
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.day}>{this.props.day}</Text>
-                <Text style={styles.time}>{this.props.time}</Text>
-                <Text style={styles.eventDescriptionText}>{this.props.event}</Text>
-                
+                <Text style={styles.eventTitle}>Event Title: {this.props.title}</Text>
+                <Text style={styles.eventDescription}>Event Description: {this.props.description}</Text>
+                <Text style={styles.startDay}>{this.props.startDay}</Text>
+                <Text style={styles.startTime}>{this.props.startTime}</Text>
+                <Text style={styles.endDay}>{this.props.endDay}</Text>
+                <Text style={styles.endTime}>{this.props.endTime}</Text>
             </View>
             
         );

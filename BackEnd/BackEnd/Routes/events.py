@@ -58,22 +58,16 @@ def GetEvent():
             cursor = database.cursor()
             response = dict()
             data = request.get_json()
-            print("this is the data: ", data)
-
 
             userID = data["user_id"]
             requestType = data["request_type"]
             
 
             if requestType == "month":
-                month = data["year"]
+                month = data["month"]
                 year = data["year"]
             elif requestType == "year":
                 year = data["year"]
-
-            print("this is the user's id: ", userID)
-            print("this is the request type: ", requestType);
-            print("this is the year: ", year)
 
             if not userID or not requestType or not year:
                 error = "Can't create event because of missing essential parameters"

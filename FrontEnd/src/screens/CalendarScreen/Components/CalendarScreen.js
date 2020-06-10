@@ -82,7 +82,8 @@ class CalendarScreen extends Component{
         eventEndDate: '',
         eventDescription: '',
         eventAlert: '',
-        userEvents: [],
+        currentYearUserEvents: [],
+        currentMonthUserEvents: [],
         markedEvents: {}
     }
   }
@@ -100,6 +101,29 @@ class CalendarScreen extends Component{
         let userId = this.state.userId;
         let today = new Date();
         let year = today.getFullYear().toString();
+        let month = (today.getMonth()+1).toString();
+        if (month < 10) month = "0" + month;
+
+        axios({
+          method: 'post',
+          
+          url: 'http://192.168.68.1:5000/api/event/read',
+          data: {
+            user_id: userId,
+            request_type: "month",
+            month: month,
+            year: year
+          }
+        })
+        .then((response) => {
+          this.setState({currentMonthUserEvents: response['data']['events']});
+          var DATA = JSON.stringify(this.state.currentMonthUserEvents);
+          console.log("THESE ARE THE CURRENT'T MONTH EVENTS: " + DATA);
+    
+        }, (error) => {
+          
+            console.log(error);
+        });
 
         axios({
           method: 'post',
@@ -112,7 +136,7 @@ class CalendarScreen extends Component{
           }
         })
         .then((response) => {
-          this.setState({userEvents: response['data']['events']});
+          this.setState({currentYearUserEvents: response['data']['events']});
           this.markCalendarWithSingleEvents();
     
         }, (error) => {
@@ -136,7 +160,6 @@ class CalendarScreen extends Component{
 
   markCalendarWithMultiEvents(events){
     let sameDayEvents = {};
-    let originalDayMarked = false;
     let repeatingDays = [];
 
     for(var key in events){
@@ -147,19 +170,13 @@ class CalendarScreen extends Component{
 
         if(originalDay in sameDayEvents){
           sameDayEvents[originalDay].push(events[repeatedDay]);
-          if (!originalDayMarked){
-            sameDayEvents[originalDay].push(events[originalDay]);
-            repeatingDays.push(originalDay);
-            originalDayMarked = true;
-          }
         }else{
-
           sameDayEvents[originalDay] = [];
           sameDayEvents[originalDay].push(events[repeatedDay]);
-          if (!originalDayMarked){
+          
+          if (!(originalDay in repeatingDays)){
             sameDayEvents[originalDay].push(events[originalDay]);
             repeatingDays.push(originalDay);
-            originalDayMarked = true;
           }
         }
       } 
@@ -184,7 +201,7 @@ class CalendarScreen extends Component{
   }
 
   markCalendarWithSingleEvents(){
-    let events = this.state.userEvents;
+    let events = this.state.currentYearUserEvents;
     let eventTitle = '';
     let eventDay = '';
     let randomColor = ''
@@ -241,6 +258,8 @@ class CalendarScreen extends Component{
     let endDate = this.state.eventEndDate.toString().substring(0, 10);
     let startTime = this.state.eventStartDate.toString().substring(11, 19);
     let endTime = this.state.eventEndDate.toString().substring(11, 19);
+    let today = new Date();
+    let year = today.getFullYear().toString();
 
     axios({
       method: 'post',
@@ -260,7 +279,27 @@ class CalendarScreen extends Component{
     })
     .then((response) => {
       this.setState({eventAlert: response['data']['status_info']});
-      Alert.alert(this.state.eventAlert);
+
+      axios({
+        method: 'post',
+        
+        url: 'http://192.168.68.1:5000/api/event/read',
+        data: {
+          user_id: userId,
+          request_type: "year",
+          year: year
+        }
+      })
+      .then((response) => {
+        this.setState({currentYearUserEvents: response['data']['events']});
+        this.markCalendarWithSingleEvents();
+        Alert.alert(this.state.eventAlert);
+
+  
+      }, (error) => {
+        
+          console.log(error);
+      });
         
     }, (error) => {
         console.log(error);
@@ -385,8 +424,8 @@ class CalendarScreen extends Component{
               textDayFontWeight: 'bold',
               
             }}
-            pastScrollRange={1}
-            futureScrollRange={1}
+            pastScrollRange={5}
+            futureScrollRange={5}
             scrollEnabled={false}
             hideArrows={false}
             // Replace default arrows with custom ones (direction can be 'left' or 'right')
@@ -412,10 +451,10 @@ class CalendarScreen extends Component{
 
         <View style={{top: '75%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent', position: 'absolute'}}>
           <FlatList
-              data={EVENTS}
+              data={this.state.currentMonthUserEvents}
               horizontal={true}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => (<UpcomingEventBox day={item.day} time={item.time} event={item.event}/>)}
+              keyExtractor={item => item.ID}
+              renderItem={({ item }) => (<UpcomingEventBox title={item.title} description={item.description} startDay={item.startDate} startTime={item.startTime} endDay={item.endDate} endTime={item.endTIme}/>)}
           />
         </View>               
       </ImageBackground>  
