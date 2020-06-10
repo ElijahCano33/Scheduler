@@ -144,7 +144,7 @@ export default StyleSheet.create({
         width: 250,
         backgroundColor: 'white',
         paddingLeft: 0,
-        fontSize: 15,
+        fontSize: 14,
         marginBottom: 20,
         top: '16%',
         position: 'absolute',
@@ -152,5 +152,47 @@ export default StyleSheet.create({
         borderColor: 'grey',
         borderBottomWidth: 0.3,
       },
+
+      startDateInput: {
+        height: 40,
+        width: 250,
+        backgroundColor: 'white',
+        paddingLeft: 0,
+        fontSize: 14,
+        marginBottom: 20,
+        top: '70%',
+        position: 'absolute',
+        borderRadius: 2,
+        borderColor: 'grey',
+        borderBottomWidth: 0.3,
+       
+      },
+      endDateInput: {
+        height: 40,
+        width: 250,
+        backgroundColor: 'white',
+        paddingLeft: 0,
+        fontSize: 14,
+        marginBottom: 20,
+        top: '90%',
+        position: 'absolute',
+        borderRadius: 2,
+        borderColor: 'grey',
+        borderBottomWidth: 0.3,
+       
+      },
+      eventDescriptionInput: {
+        height: 40,
+        width: 250,
+        backgroundColor: 'white',
+        paddingLeft: 0,
+        fontSize: 14,
+        marginBottom: 20,
+        top: '36%',
+        position: 'absolute',
+        borderRadius: 2,
+        borderColor: 'grey',
+        borderBottomWidth: 0.3,
+      }
     
 });

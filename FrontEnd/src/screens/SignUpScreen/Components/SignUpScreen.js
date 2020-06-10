@@ -89,13 +89,8 @@ export default class SignUpScreen extends Component {
     .then((response) => {
         
         this.setState({registered: true});
-        var responsejson = JSON.stringify(response);
-        var responseObj = JSON.parse(response["request"]["_response"]);
-        var rpsMessage = responseObj["status_info"];
-    
-        this.setState({responseMessage: rpsMessage});
-        this.setState({registered: true});
-        
+        var status = response['data']['status_info'];
+        this.setState({responseMessage: status});
 
         if(this.state.registered === true){
           this.loginNetworkRequestToBackend();
@@ -107,7 +102,7 @@ export default class SignUpScreen extends Component {
     }, (error) => {
         var errorJSON = JSON.parse(error["request"]["_response"]);
         var errorMessage = errorJSON['error'];
-        //Alert.alert(errorMessage);
+
         this.errorAlert(errorMessage);
         this.showLoaderComponent();
     });

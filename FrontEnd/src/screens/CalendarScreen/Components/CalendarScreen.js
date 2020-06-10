@@ -64,7 +64,6 @@ const EVENTS = [
   }
 ]
 
-
 class CalendarScreen extends Component{
   constructor(props) {
     super(props)
@@ -78,7 +77,14 @@ class CalendarScreen extends Component{
         modalVisible: false,
         userId: 0,
         friend: '',
-        isOn: false
+        singleDayEvent: false,
+        eventStartDate: '',
+        eventEndDate: '',
+        eventDescription: '',
+        eventAlert: '',
+        currentYearUserEvents: [],
+        currentMonthUserEvents: [],
+        markedEvents: {}
     }
   }
 
@@ -91,6 +97,52 @@ class CalendarScreen extends Component{
     .then((response) => {
         this.setState({userId: response['data']['user_id']});
         console.log("this is the user's id: " + this.state.userId);
+
+        let userId = this.state.userId;
+        let today = new Date();
+        let year = today.getFullYear().toString();
+        let month = (today.getMonth()+1).toString();
+        if (month < 10) month = "0" + month;
+
+        axios({
+          method: 'post',
+          
+          url: 'http://192.168.68.1:5000/api/event/read',
+          data: {
+            user_id: userId,
+            request_type: "month",
+            month: month,
+            year: year
+          }
+        })
+        .then((response) => {
+          this.setState({currentMonthUserEvents: response['data']['events']});
+          var DATA = JSON.stringify(this.state.currentMonthUserEvents);
+          console.log("THESE ARE THE CURRENT'T MONTH EVENTS: " + DATA);
+    
+        }, (error) => {
+          
+            console.log(error);
+        });
+
+        axios({
+          method: 'post',
+          
+          url: 'http://192.168.68.1:5000/api/event/read',
+          data: {
+            user_id: userId,
+            request_type: "year",
+            year: year
+          }
+        })
+        .then((response) => {
+          this.setState({currentYearUserEvents: response['data']['events']});
+          this.markCalendarWithSingleEvents();
+    
+        }, (error) => {
+          
+            console.log(error);
+        });
         
     }, (error) => {
         console.log(error);
@@ -102,29 +154,159 @@ class CalendarScreen extends Component{
     this.setState({calendarIconPressed: !calendarIconPressed});
   }
 
-  render() {
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    let currentMonth = today.getMonth()+1;
-    let currentDay = today.getDay();
-    if (currentMonth < 10) currentMonth = '0' + currentMonth;
-    if (currentDay < 10) currentDay = '0' + currentDay;
-    const todayISOFormat = currentYear + "-"  + currentMonth + "-" + currentDay;
+  onToggle(singleDayEvent) {
+    console.log("Changed to " + singleDayEvent);
+  }
+
+  markCalendarWithMultiEvents(events){
+    let sameDayEvents = {};
+    let repeatingDays = [];
+
+    for(var key in events){
+      if(key.includes('_')){
+        let repeatedDay = key;
+        repeatingDays.push(repeatedDay);
+        let originalDay = key.substring(0, 10);
+
+        if(originalDay in sameDayEvents){
+          sameDayEvents[originalDay].push(events[repeatedDay]);
+        }else{
+          sameDayEvents[originalDay] = [];
+          sameDayEvents[originalDay].push(events[repeatedDay]);
+          
+          if (!(originalDay in repeatingDays)){
+            sameDayEvents[originalDay].push(events[originalDay]);
+            repeatingDays.push(originalDay);
+          }
+        }
+      } 
+    }
+
+    for(var i =0; i < repeatingDays.length; i++){
+      delete events[repeatingDays[i]];
+    }
+
+    for(var day in sameDayEvents){
+      for(var i =0; i < sameDayEvents[day].length; i++){
+        if(i === 0){
+          events[day] = sameDayEvents[day][0];
+        }else{
+          events[day]['dots'].push(sameDayEvents[day][i]['dots'][0]);
+        }
+      }
+      
+    }
+
+    this.setState({markedEvents: events});
+  }
+
+  markCalendarWithSingleEvents(){
+    let events = this.state.currentYearUserEvents;
+    let eventTitle = '';
+    let eventDay = '';
+    let randomColor = ''
     let markedDay = {};
+    let markedEvents = {};
+    let daysCounter = {};
 
-    const vacation = {key:'vacation', color: 'red', selectedDotColor: 'red'};
-    const massage = {key:'massage', color: 'blue', selectedDotColor: 'orange'};
-    const workout = {key:'workout', color: 'green'};
+    for(var i = 0; i < events.length; i++){
+      randomColor = this.randColor();
+      for(var eventInfo in events[i]){
+        if (eventInfo === 'title') eventTitle = events[i][eventInfo];
+        if (eventInfo === 'startDate') eventDay = events[i][eventInfo];
 
-    markedDay[todayISOFormat] = {dots: [vacation, massage, workout], selected: true, selectedColor: 'black'};
-    markedDay['2020-06-10'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-12'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-15'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-18'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-21'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-24'] = {dots: [vacation, massage, workout]};
-    markedDay['2020-06-26'] = {dots: [workout]};
-    markedDay['2020-06-30'] = {dots: [vacation, massage]};
+      }
+      if(eventDay in daysCounter){
+        daysCounter[eventDay] += 1;
+      }else{
+        daysCounter[eventDay] = 1;
+      }
+
+      markedDay = {key: eventTitle, color: randomColor};
+
+      if (eventDay in markedEvents){
+        let repeatingNumber = '_' + daysCounter[eventDay].toString(); 
+        eventDay += repeatingNumber;
+        markedEvents[eventDay] = {dots: [markedDay]};
+      }else{
+        markedEvents[eventDay] = {dots: [markedDay]};
+      }
+      
+    }
+
+    let DATA = JSON.stringify(markedEvents);
+    console.log("this is events: " + DATA); 
+
+    this.markCalendarWithMultiEvents(markedEvents);
+
+  }
+
+  randColor() {
+    for (var i=0, col=''; i<6; i++) {
+        col += (Math.random()*16|0).toString(16);
+    }
+    return '#'+col;
+}
+
+
+  createEvent() {
+    let userId = this.state.userId;
+    let eventTitle = this.state.eventTitle;
+    let description = this.state.eventDescription;
+    let location = '';
+    let startDate = this.state.eventStartDate.toString().substring(0, 10);
+    let endDate = this.state.eventEndDate.toString().substring(0, 10);
+    let startTime = this.state.eventStartDate.toString().substring(11, 19);
+    let endTime = this.state.eventEndDate.toString().substring(11, 19);
+    let today = new Date();
+    let year = today.getFullYear().toString();
+
+    axios({
+      method: 'post',
+      
+      url: 'http://192.168.68.1:5000/api/event',
+
+      data: {
+        user_id: userId,
+        event_title: eventTitle,
+        description: description,
+        location: location,
+        starting_date: startDate,
+        ending_day: endDate,
+        starting_time: startTime,
+        ending_time: endTime
+      }
+    })
+    .then((response) => {
+      this.setState({eventAlert: response['data']['status_info']});
+
+      axios({
+        method: 'post',
+        
+        url: 'http://192.168.68.1:5000/api/event/read',
+        data: {
+          user_id: userId,
+          request_type: "year",
+          year: year
+        }
+      })
+      .then((response) => {
+        this.setState({currentYearUserEvents: response['data']['events']});
+        this.markCalendarWithSingleEvents();
+        Alert.alert(this.state.eventAlert);
+
+  
+      }, (error) => {
+        
+          console.log(error);
+      });
+        
+    }, (error) => {
+        console.log(error);
+    });
+  }
+
+  render() {
 
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
@@ -151,25 +333,49 @@ class CalendarScreen extends Component{
                       placeholder="Event Title: "
                       placeholderTextColor='grey'
                       style={styles.input2}
-                      onChangeText={(friend) => this.setState({friend})}
+                      onChangeText={(eventTitle) => this.setState({eventTitle})}
                   />
 
-                  <View style={{position: 'absolute', top: '40%', left: '8%'}}>
+                  <TextInput
+                    placeholder="Event Description: "
+                    placeholderTextColor='grey'
+                    style={styles.eventDescriptionInput}
+                    onChangeText={(eventDescription) => this.setState({eventDescription})}
+                  />
+
+                  <View style={{position: 'absolute', top: '60%', left: '8%'}}>
                     <ToggleSwitch
-                      isOn={false}
+                      isOn={this.state.singleDayEvent}
                       onColor="green"
                       offColor="grey"
                       label="Single Day Event"
-                      labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin' }}
+                      labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 14 }}
                       size="small"
-                      onToggle={(isOn) => isOn }
+                      onToggle={singleDayEvent => {
+                        this.setState({ singleDayEvent });
+                        this.onToggle(singleDayEvent);
+                      }}
                     />
                   </View>
+
+                  <TextInput
+                    placeholder="Start Date: 'YYYY-MM-DD HH:MM:SS' "
+                    placeholderTextColor='grey'
+                    style={styles.startDateInput}
+                    onChangeText={(eventStartDate) => this.setState({eventStartDate})}
+                  />
+
+                  <TextInput
+                    placeholder="End Date: 'YYYY-MM-DD HH:MM:SS' "
+                    placeholderTextColor='grey'
+                    style={styles.endDateInput}
+                    onChangeText={(eventEndDate) => this.setState({eventEndDate})}
+                  />
 
                   <TouchableHighlight
                       style={{ ...styles.openButton, backgroundColor: "red" }}
                       onPress={() => {
-                      this.setState({modalVisible: false})
+                        this.setState({modalVisible: false}, this.createEvent())
                       }}
                   >
                   
@@ -218,8 +424,8 @@ class CalendarScreen extends Component{
               textDayFontWeight: 'bold',
               
             }}
-            pastScrollRange={1}
-            futureScrollRange={1}
+            pastScrollRange={5}
+            futureScrollRange={5}
             scrollEnabled={false}
             hideArrows={false}
             // Replace default arrows with custom ones (direction can be 'left' or 'right')
@@ -230,7 +436,7 @@ class CalendarScreen extends Component{
             calendarWidth={395}
             calendarHeight={380}
 
-            markedDates={markedDay}
+            markedDates={this.state.markedEvents}
             markingType={'multi-dot'}
           />
         </View>
@@ -245,10 +451,10 @@ class CalendarScreen extends Component{
 
         <View style={{top: '75%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent', position: 'absolute'}}>
           <FlatList
-              data={EVENTS}
+              data={this.state.currentMonthUserEvents}
               horizontal={true}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => (<UpcomingEventBox day={item.day} time={item.time} event={item.event}/>)}
+              keyExtractor={item => item.ID}
+              renderItem={({ item }) => (<UpcomingEventBox title={item.title} description={item.description} startDay={item.startDate} startTime={item.startTime} endDay={item.endDate} endTime={item.endTIme}/>)}
           />
         </View>               
       </ImageBackground>  

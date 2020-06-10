@@ -50,7 +50,7 @@ def createEvent():
     return response
 
 
-@event.route("/api/event", methods=['GET'])
+@event.route("/api/event/read", methods=['POST'])
 def GetEvent():
     try:
         database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com', database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
@@ -59,12 +59,12 @@ def GetEvent():
             response = dict()
             data = request.get_json()
 
-
             userID = data["user_id"]
             requestType = data["request_type"]
+            
 
             if requestType == "month":
-                month = data["year"]
+                month = data["month"]
                 year = data["year"]
             elif requestType == "year":
                 year = data["year"]
