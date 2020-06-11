@@ -15,33 +15,13 @@ export default StyleSheet.create({
         borderRadius: 30,  
     },
     
-    firstName: {
+    name: {
         position: 'absolute',
         top: '8%',
         left: '20%',
         fontSize: 20,
         fontWeight: 'bold',
-        fontFamily: 'sans-serif-thin'
-    },
-
-    lastName: {
-        position: 'absolute',
-        top: '8%',
-        left: '24%',
-        fontSize: 20,
-        paddingLeft: 30,
-        fontWeight: 'bold',
-        fontFamily: 'sans-serif-thin'
-    },
-
-    lastName2: {
-        position: 'absolute',
-        top: '8%',
-        left: '8.5%',
-        fontSize: 20,
-        paddingLeft: 90,
-        fontWeight: 'bold',
-        fontFamily: 'sans-serif-thin'
+        fontFamily: 'sans-serif-thin',
     },
 
     email: {
