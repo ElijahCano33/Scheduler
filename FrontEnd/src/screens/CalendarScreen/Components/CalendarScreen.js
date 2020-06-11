@@ -32,6 +32,7 @@ class CalendarScreen extends Component{
         eventAlert: '',
         currentYearUserEvents: [],
         currentMonthUserEvents: [],
+        upcomingUserEvents: [], 
         markedEvents: {}
     }
   }
@@ -60,6 +61,7 @@ class CalendarScreen extends Component{
     })
     .then((response) => {
       this.setState({currentMonthUserEvents: response['data']['events']});
+      this.filterMonthEvents();
     }, (error) => {
         console.log(error);
     });
@@ -86,6 +88,7 @@ class CalendarScreen extends Component{
     let month = (today.getMonth()+1).toString();
     if (month < 10) month = "0" + month;
     this.fetchUserId(userId, month, year);
+    
   }
 
   onToggle(singleDayEvent) {
@@ -203,6 +206,34 @@ class CalendarScreen extends Component{
     }, (error) => {
         console.log(error);
     });
+  }
+
+  filterMonthEvents(){
+    let today = new Date();
+    let year = today.getFullYear().toString();
+    let month = (today.getMonth()+1).toString();
+    let day = today.getDate();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    let seconds = today.getSeconds();
+    let upcomingEvents = [];
+    let monthEvents = this.state.currentMonthUserEvents;
+
+    if (month < 10) month = "0" + month;
+    if (day < 10 ) day = "0" + day;
+    if (hours < 10) hours = "0" + hours;
+    if (minutes < 10) minutes = "0" + minutes;
+    if (seconds < 10) seconds = "0" + seconds;
+
+    let currentDay = year + "-" + month + "-" + day;
+    let currentTime = hours + ":" + minutes + ":" + seconds;
+
+    for(var i = 0; i < monthEvents.length; i++){
+      if(monthEvents[i]['endDate'] >= currentDay && monthEvents[i]['endTIme'] >= currentTime) upcomingEvents.push(monthEvents[i]);
+    }
+
+    this.setState({upcomingUserEvents: upcomingEvents});
+
   }
 
   render() {
@@ -332,7 +363,7 @@ class CalendarScreen extends Component{
 
             <View style={styles.upcomingEventsList}>
               <FlatList
-                  data={this.state.currentMonthUserEvents}
+                  data={this.state.upcomingUserEvents}
                   horizontal={true}
                   keyExtractor={item => item.ID}
                   renderItem={({ item }) => (<UpcomingEventBox title={item.title} description={item.description} startDay={item.startDate} startTime={item.startTime} endDay={item.endDate} endTime={item.endTIme}/>)}
