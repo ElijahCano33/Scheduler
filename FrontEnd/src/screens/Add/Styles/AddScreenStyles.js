@@ -1,30 +1,27 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  fadeBackgroundStyles: {
+  fadeBackground: {
     justifyContent: 'center', 
     alignItems: 'center', 
     flex: 1
   },
+
   logo: {
     height: 650,
     width: 800,
-    top: -200,//-35
+    top: -200,
     left: '14%'
   },
-  container: {
-    width: 395,
-    height: 110,
-    bottom: '-12%',
-    backgroundColor: 'red'
-  },
+
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: 'rgba(0,0,0,0.5)',
     marginTop: 0
-    },
+  },
+
   modalView: {
     margin: 20,
     width: '70%',
@@ -43,6 +40,7 @@ export default StyleSheet.create({
     elevation: 5,
     position: 'absolute'
   },
+
   openButton: {
     backgroundColor: "#F194FF",
     top: '119%',
@@ -51,6 +49,7 @@ export default StyleSheet.create({
     height: '20%',
     position: 'absolute'
   },
+
   closeButton: {
     backgroundColor: "#F194FF",
     top: '119%',
@@ -59,7 +58,8 @@ export default StyleSheet.create({
     width: '70%',
     position: 'absolute'
   },
-  textStyle1: {
+
+  friendModalCancelText: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
@@ -68,7 +68,8 @@ export default StyleSheet.create({
     left: '34%',
     fontFamily: 'sans-serif-thin'
   },
-  textStyle2: {
+
+  friendModalSubmitText: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
@@ -77,28 +78,13 @@ export default StyleSheet.create({
     top: '23%',
     left: '40%'
   },
+
   modalText: {
     marginBottom: 15,
     textAlign: "center"
   },
-  input1: {
-    height: 40,
-    width: 250,
-    paddingLeft: 10,
-    marginBottom: 20,
-    top: '35%',
-    position: 'absolute',
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-  input2: {
+
+  friendEmailUsernameInput: {
     height: 40,
     width: 250,
     backgroundColor: 'white',
@@ -110,16 +96,6 @@ export default StyleSheet.create({
     borderRadius: 2,
     borderColor: 'grey',
     borderBottomWidth: 0.3,
-  },
-  input3: {
-    height: 40,
-    width: 250,
-    backgroundColor: 'white',
-    paddingLeft: 10,
-    marginBottom: 20,
-    top: '75%',
-    left: '0%',
-    position: 'absolute'
   },
 
   friendServicesText: {
@@ -141,4 +117,44 @@ export default StyleSheet.create({
     color: 'white',
     fontFamily: 'sans-serif-thin'
   },
+
+  friendServicesModalText: {
+    fontWeight: 'bold', 
+    fontSize: 20, 
+    color: 'black', 
+    top: '3%', 
+    position: 'absolute', 
+    fontFamily: 'sans-serif-thin'
+  },
+
+  friendServicesButton: {
+    top: '0%', 
+    left: '50%', 
+    position: 'absolute', 
+    backgroundColor: 'transparent', 
+    width: '50%', 
+    height: '100%'
+  },
+
+  friendServicesIcon: {
+    top: '45%', 
+    left: '19%', 
+    position: 'absolute'
+  },
+
+  calendarServicesButton: {
+    top: '0%', 
+    left: '0%', 
+    position: 'absolute', 
+    backgroundColor: 'transparent', 
+    width: '50%', 
+    height: '100%'
+  },
+
+  calendarServicesIcon: {
+    top: '45%', 
+    left: '28%', 
+    position: 'absolute'
+  }
+
 });

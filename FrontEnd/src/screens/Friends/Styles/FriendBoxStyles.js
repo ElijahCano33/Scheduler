@@ -14,6 +14,7 @@ export default StyleSheet.create({
         left: '-2.1%',
         borderRadius: 30,  
     },
+    
     firstName: {
         position: 'absolute',
         top: '8%',
@@ -22,6 +23,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin'
     },
+
     lastName: {
         position: 'absolute',
         top: '8%',
@@ -31,6 +33,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin'
     },
+
     lastName2: {
         position: 'absolute',
         top: '8%',
@@ -40,6 +43,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin'
     },
+
     email: {
         position: 'absolute',
         top: '65%',
@@ -48,6 +52,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin'
     },
+
     username: {
         position: 'absolute',
         top: '125%',
@@ -56,6 +61,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin'
     },
+
     image: {
         width: 75,
         height: 75,
@@ -63,6 +69,4 @@ export default StyleSheet.create({
         left: '1%',
         position: 'absolute'
     }
-    
-    
 });

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Item, Input, Icon} from 'native-base';
-import {View, Text, TextInput} from 'react-native';
-
+import styles from '../Styles/PasswordTextInputStyles';
 
 export default class PasswordTextInput extends Component {
     state = {
@@ -18,10 +17,9 @@ export default class PasswordTextInput extends Component {
 
     render(){
         return(
-
             <Item style={this.props.style}>
-                <Input placeholderTextColor={this.props.placeholderTextColor} placeholder={this.props.placeholder} style={{paddingLeft: 10, fontSize: 14}} secureTextEntry={this.state.password} onChangeText={(e) => this.props.onChange(e)}/>
-                <Icon name={this.state.icon} style={{bottom: '0%', left: '-10%'}} onPress={() => this.togglePasswordVisibilityIcon()}/>
+                <Input placeholderTextColor={this.props.placeholderTextColor} placeholder={this.props.placeholder} style={styles.placeHolder} secureTextEntry={this.state.password} onChangeText={(e) => this.props.onChange(e)}/>
+                <Icon name={this.state.icon} style={styles.icon} onPress={() => this.togglePasswordVisibilityIcon()}/>
             </Item>
         );
     }
