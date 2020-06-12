@@ -76,7 +76,7 @@ export default class LoginScreen extends Component {
             style={styles.logo}
             source={require('../../../../pics/scriptscheduler.png')}
         />
-
+                    
         <TextInput
           placeholder="Email"
           placeholderTextColor='#000000'
@@ -107,6 +107,7 @@ export default class LoginScreen extends Component {
         </ImageBackground>
 
       </TouchableWithoutFeedback>
+
     );
   }
 }
