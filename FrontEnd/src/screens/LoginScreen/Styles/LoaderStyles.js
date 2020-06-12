@@ -14,6 +14,13 @@ export default StyleSheet.create({
         left: '20%',
         fontSize: 15,
         fontWeight: 'bold',
-        color: 'white'
+        color: 'white',
+        fontFamily: 'sans-serif-thin'
+    },
+
+    loadingAnimation: {
+        position: 'absolute', 
+        alignSelf: 'center', 
+        top: '40%'
     }
 });

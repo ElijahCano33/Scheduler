@@ -9,55 +9,44 @@ export default StyleSheet.create({
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
-        width: 350,
-        height: 80,
-        left: '1.5%',
+        width: 380,
+        height: 70,
+        left: '-2.1%',
         borderRadius: 30,  
     },
-    firstName: {
+    
+    name: {
         position: 'absolute',
         top: '8%',
-        left: '27%',
+        left: '20%',
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif-thin',
     },
-    lastName: {
-        position: 'absolute',
-        top: '8%',
-        left: '27%',
-        fontSize: 20,
-        paddingLeft: 30,
-        fontWeight: 'bold'
-    },
-    lastName2: {
-        position: 'absolute',
-        top: '8%',
-        left: '27%',
-        fontSize: 20,
-        paddingLeft: 90,
-        fontWeight: 'bold'
-    },
+
     email: {
         position: 'absolute',
         top: '65%',
-        left: '27%',
+        left: '20%',
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif-thin'
     },
+
     username: {
         position: 'absolute',
         top: '125%',
-        left: '27%',
+        left: '20%',
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif-thin'
     },
+
     image: {
-        width: 90,
-        height: 90,
-        top: '-12%',
+        width: 75,
+        height: 75,
+        top: '-10%',
         left: '1%',
         position: 'absolute'
     }
-    
-    
 });

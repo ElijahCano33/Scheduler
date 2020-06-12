@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Alert, StyleSheet, View, TouchableHighlight, SafeAreaView, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
+import { Alert, StatusBar, TextInput, View, TouchableHighlight, TouchableWithoutFeedback, Keyboard, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CalendarScreenStyles.js';
 import { createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
@@ -7,174 +7,392 @@ import SearchScreen from '../../Search/Components/SearchScreen.js';
 import AddScreen from '../../Add/Components/AddScreen.js';
 import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
 import NotificationsScreen from '../../NotificationsScreen/Components/NotificationsScreen.js';
-import Icon from './Icon.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import TabBar, {tabBar} from './TabBar.js';
+import TabBar from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-
-
-const EVENTS = [
-  {
-    id: 1,
-    event: '',
-  },
-  {
-    id: 2,
-    event: ''
-  },
-  {
-    id: 3,
-    event: '',
-  },
-  {
-    id: 4,
-    event: ''
-  },
-  {
-    id: 5,
-    event: ''
-  },
-  {
-    id: 6,
-    event: '',
-  },
-  {
-    id: 7,
-    event: ''
-  }
-]
-
-
+import {CalendarList} from 'react-native-calendars';
+import axios from "axios";
+import ToggleSwitch from 'toggle-switch-react-native';
 
 class CalendarScreen extends Component{
   constructor(props) {
     super(props)
 
-    //sets up current states of component.
     this.state = {
-        calendarIconPressed: false,
-        searchBarIconPressed: false,
-        addIconPressed: false,
-        friendsIconPressed: false,
-        notificationsIconPressed: false,
         modalVisible: false,
+        userId: 0,
+        friend: '',
+        singleDayEvent: false,
+        hideEvent: false,
+        eventStartDate: '',
+        eventEndDate: '',
+        eventDescription: '',
+        eventAlert: '',
+        currentYearUserEvents: [],
+        currentMonthUserEvents: [],
+        upcomingUserEvents: [], 
+        markedEvents: {}
     }
   }
 
-  changeCalendarIconState(){
-    this.setState({calendarIconPressed: !calendarIconPressed});
+  fetchUserId(usrId, m, y){
+    axios({
+      method: 'post',
+      url: 'http://192.168.68.1:5000/api/userId',
+    })
+    .then((response) => {
+      this.setState({userId: response['data']['user_id']});
+      usrId = this.state.userId;
+      this.fetchMonthEvents(usrId, m, y);
+      this.fetchAnnualEvents(usrId, y);
+    }, (error) => {
+          
+      console.log(error);
+    });
   }
 
-  
+  fetchMonthEvents(usrId, m, y){
+    axios({
+      method: 'post',
+      url: 'http://192.168.68.1:5000/api/event/read',
+      data: {user_id: usrId, request_type: "month", month: m, year: y}
+    })
+    .then((response) => {
+      this.setState({currentMonthUserEvents: response['data']['events']});
+      this.filterMonthEvents();
+    }, (error) => {
+        console.log(error);
+    });
+  }
+
+  fetchAnnualEvents(usrId, y){
+    axios({
+      method: 'post',
+      url: 'http://192.168.68.1:5000/api/event/read',
+      data: {user_id: usrId, request_type: "year", year: y}
+    })
+    .then((response) => {
+      this.setState({currentYearUserEvents: response['data']['events']});
+      this.markCalendarWithSingleEvents();
+    },(error) => {
+      console.log(error);
+    });
+  }
+
+  componentDidMount(){
+    let userId = 0;
+    let today = new Date();
+    let year = today.getFullYear().toString();
+    let month = (today.getMonth()+1).toString();
+    if (month < 10) month = "0" + month;
+    this.fetchUserId(userId, month, year);
     
-    render() {
-        return (
-            <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackgroundStyles}>
-              <Image
-                  style={styles.logo}
-                  source={require('../../../../pics/scriptscheduler.png')}
-              />
-             
-             <Modal
-                animationType="slide"
-                transparent={true}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                }}
-              >
+  }
 
-            
-              <View style={styless.centeredView}>
-                <View style={styless.modalView}>
-                  <Text style={styless.modalText}>Hello World!</Text>
+  onToggle(event) {
+    console.log("Changed to " + event);
+  }
 
-                  <TouchableHighlight
-                    style={{ ...styless.openButton, backgroundColor: "#2196F3" }}
-                    onPress={() => {
-                      this.setState({modalVisible: false})
-                    }}
-                  >
-                    <Text style={styless.textStyle}>Hide Modal</Text>
-                  </TouchableHighlight>
+  markCalendarWithMultiEvents(events){
+    let sameDayEvents = {};
+    let repeatingDays = [];
+
+    for(var key in events){
+      if(key.includes('_')){
+        let repeatedDay = key;
+        repeatingDays.push(repeatedDay);
+        let originalDay = key.substring(0, 10);
+
+        if(originalDay in sameDayEvents){
+          sameDayEvents[originalDay].push(events[repeatedDay]);
+        }else{
+          sameDayEvents[originalDay] = [];
+          sameDayEvents[originalDay].push(events[repeatedDay]);
+          
+          if (!(originalDay in repeatingDays)){
+            sameDayEvents[originalDay].push(events[originalDay]);
+            repeatingDays.push(originalDay);
+          }
+        }
+      } 
+    }
+
+    for(var i =0; i < repeatingDays.length; i++){
+      delete events[repeatingDays[i]];
+    }
+
+    for(var day in sameDayEvents){
+      for(var i =0; i < sameDayEvents[day].length; i++){
+        i === 0 ? events[day] = sameDayEvents[day][0] : events[day]['dots'].push(sameDayEvents[day][i]['dots'][0]);
+      }
+    }
+    this.setState({markedEvents: events});
+  }
+
+  markCalendarWithSingleEvents(){
+    let events = this.state.currentYearUserEvents;
+    let eventTitle = '';
+    let eventDay = '';
+    let randomColor = ''
+    let markedDay = {};
+    let markedEvents = {};
+    let daysCounter = {};
+
+    for(var i = 0; i < events.length; i++){
+      randomColor = this.generateRandomColor();
+      for(var eventInfo in events[i]){
+        if (eventInfo === 'title') eventTitle = events[i][eventInfo];
+        if (eventInfo === 'startDate') eventDay = events[i][eventInfo];
+      }
+
+      eventDay in daysCounter ? daysCounter[eventDay] += 1 : daysCounter[eventDay] = 1;
+      markedDay = {key: eventTitle, color: randomColor};
+
+      if (eventDay in markedEvents){
+        let repeatingNumber = '_' + daysCounter[eventDay].toString(); 
+        eventDay += repeatingNumber;
+        markedEvents[eventDay] = {dots: [markedDay]};
+      }else{
+        markedEvents[eventDay] = {dots: [markedDay]};
+      }
+      
+    }
+    this.markCalendarWithMultiEvents(markedEvents);
+  }
+
+  generateRandomColor() {
+    for (var i=0, color=''; i<6; i++) {
+      color += (Math.random()*16|0).toString(16);
+    }
+    return '#'+color;
+  }
+
+  createEvent() {
+    let userId = this.state.userId;
+    let eventTitle = this.state.eventTitle;
+    let description = this.state.eventDescription;
+    let location = '';
+    let startDate = this.state.eventStartDate.toString().substring(0, 10);
+    let endDate = this.state.eventEndDate.toString().substring(0, 10);
+    let startTime = this.state.eventStartDate.toString().substring(11, 19);
+    let endTime = this.state.eventEndDate.toString().substring(11, 19);
+    let today = new Date();
+    let year = today.getFullYear().toString();
+    let month = (today.getMonth()+1).toString();
+
+    if (month < 10) month = "0" + month;
+
+    axios({
+      method: 'post',
+      url: 'http://192.168.68.1:5000/api/event',
+      data: {
+        user_id: userId,
+        event_title: eventTitle,
+        description: description,
+        location: location,
+        starting_date: startDate,
+        ending_day: endDate,
+        starting_time: startTime,
+        ending_time: endTime
+      }
+    })
+    .then((response) => {
+      this.setState({eventAlert: response['data']['status_info']});
+      this.fetchMonthEvents(userId, month, year);
+      this.fetchAnnualEvents(userId, year);
+      Alert.alert(this.state.eventAlert);
+    }, (error) => {
+        console.log(error);
+    });
+  }
+
+  filterMonthEvents(){
+    let today = new Date();
+    let year = today.getFullYear().toString();
+    let month = (today.getMonth()+1).toString();
+    let day = today.getDate();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    let seconds = today.getSeconds();
+    let upcomingEvents = [];
+    let monthEvents = this.state.currentMonthUserEvents;
+
+    if (month < 10) month = "0" + month;
+    if (day < 10 ) day = "0" + day;
+    if (hours < 10) hours = "0" + hours;
+    if (minutes < 10) minutes = "0" + minutes;
+    if (seconds < 10) seconds = "0" + seconds;
+
+    let currentDay = year + "-" + month + "-" + day + " ";
+    let currentTime = hours + ":" + minutes + ":" + seconds;
+    let currentDate = currentDay + currentTime;
+
+    for(var i = 0; i < monthEvents.length; i++){
+      let event = monthEvents[i]['endDate'] + " " + monthEvents[i]['endTIme'];
+      if(event >= currentDate) upcomingEvents.push(monthEvents[i]);
+    }
+
+    this.setState({upcomingUserEvents: upcomingEvents});
+
+  }
+
+  render() {
+    return (
+      <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
+
+        <StatusBar hidden/>
+
+        <Image
+            style={styles.logo}
+            source={require('../../../../pics/scriptscheduler.png')}
+        />
+  
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {Alert.alert("Modal has been closed.")}}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.creatEventText}>Create A New Event</Text>
+
+                <TextInput
+                    placeholder="Event Title: "
+                    placeholderTextColor='grey'
+                    style={styles.eventTitleInput}
+                    onChangeText={(eventTitle) => this.setState({eventTitle})}
+                />
+
+                <TextInput
+                  placeholder="Event Description: "
+                  placeholderTextColor='grey'
+                  style={styles.eventDescriptionInput}
+                  onChangeText={(eventDescription) => this.setState({eventDescription})}
+                />
+
+                <View style={styles.singleDayEventButton}>
+                  <ToggleSwitch
+                    isOn={this.state.singleDayEvent}
+                    onColor="green"
+                    offColor="grey"
+                    label="Single Day Event"
+                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
+                    size="small"
+                    onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
+                  />
                 </View>
-              </View>
-            </Modal>
 
-              <CalendarList
-                style={{bottom: '-16.5%', height: -100, width: 340, left: 9}}
+                <View style={styles.hideEventButton}>
+                  <ToggleSwitch
+                    isOn={this.state.hideEvent}
+                    onColor="green"
+                    offColor="grey"
+                    label="Hide Event"
+                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
+                    size="small"
+                    onToggle={hideEvent => {this.setState({ hideEvent }); this.onToggle(hideEvent);}}
+                  />
+                </View>
 
-                theme={{
-                  backgroundColor: 'transparent',
-                  calendarBackground: 'transparent',
-                  textSectionTitleColor: '#c71585',
-                  selectedDayBackgroundColor: '#00adf5',
-                  selectedDayTextColor: '#ffffff',
-                  todayTextColor: 'yellow',
-                  dayTextColor: '#2d4150',
-                  textDisabledColor: 'white',
-                  dotColor: '#00adf5',
-                  selectedDotColor: '#ffffff',
-                  arrowColor: 'transparent',
-                  disabledArrowColor: '#d9e1e8',
-                  monthTextColor: 'white',
-                  indicatorColor: 'yellow',
-                  textDayFontFamily: 'monospace',
-                  textMonthFontFamily: 'monospace',
-                  textDayHeaderFontFamily: 'monospace',
-                  textDayFontWeight: '300',
-                  textMonthFontWeight: 'bold',
-                  textDayHeaderFontWeight: '300',
-                  textDayFontSize: 16,
-                  textMonthFontSize: 30,
-                  textDayHeaderFontSize: 17,
-                  textMonthFontWeight: 'bold',
-                  textDayFontWeight: 'bold'
-                }}
-                  
-                // Callback which gets executed when visible months change in scroll view. Default = undefined
-                onVisibleMonthsChange={(months) => {console.log('now these months are visible', months);}}
-                // Max amount of months allowed to scroll to the past. Default = 50
-                pastScrollRange={50}
-                // Max amount of months allowed to scroll to the future. Default = 50
-                futureScrollRange={50}
-                // Enable or disable scrolling of calendar list
-                scrollEnabled={true}
-                // Enable or disable vertical scroll indicator. Default = false
-                showScrollIndicator={true}
+                <TextInput
+                  placeholder="Start Date: 'YYYY-MM-DD HH:MM:SS' "
+                  placeholderTextColor='grey'
+                  style={styles.startDateInput}
+                  onChangeText={(eventStartDate) => this.setState({eventStartDate})}
+                />
 
-                // Enable horizontal scrolling, default = false
-                horizontal={true}
-                // Enable paging on horizontal, default = false
-                pagingEnabled={false}
-                // Set custom calendarWidth.
-                calendarWidth={320}
-              />
+                <TextInput
+                  placeholder="End Date: 'YYYY-MM-DD HH:MM:SS' "
+                  placeholderTextColor='grey'
+                  style={styles.endDateInput}
+                  onChangeText={(eventEndDate) => this.setState({eventEndDate})}
+                />
 
-                <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
-                  <MaterialIcons name="add" color="white" size={50} style={{top: '4%', left: '7.5%', position: 'absolute'}} />
-                </TouchableOpacity>
-              
+                <TouchableHighlight style={{ ...styles.openButton, backgroundColor: "red" }} onPress={() => {this.setState({modalVisible: false}, this.createEvent())}}>
+                  <Text style={styles.textStyle2}>Submit</Text>
+                </TouchableHighlight>
 
-              <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
+                <TouchableHighlight style={{ ...styles.closeButton, backgroundColor: "grey" }} onPress={() => {this.setState({modalVisible: false})}}>
+                  <Text style={styles.textStyle1}>Cancel</Text>
+                </TouchableHighlight>
+                </View>
+            </View>
+          </Modal>
+        </TouchableWithoutFeedback>  
 
-            <View style={{top: '73%', marginTop: 0, bottom: 50, width: '100%',  height: 100, backgroundColor: 'transparent', position: 'absolute'}}>
+        <View style={styles.calendarList}>
+          <CalendarList
+            theme={{
+              calendarBackground: 'transparent',
+              textSectionTitleColor: 'black',
+              selectedDayBackgroundColor: 'black',
+              selectedDayTextColor: 'white',
+              todayTextColor: 'white',
+              dayTextColor: 'white',
+              textDisabledColor: 'white',
+              dotColor: 'orange',
+              selectedDotColor: 'orange',
+              arrowColor: 'black',
+              monthTextColor: 'white',
+              textDayFontFamily: 'sans-serif-thin',
+              textMonthFontFamily: 'sans-serif-thin',
+              textDayHeaderFontFamily: 'sans-serif-thin',
+              textDayFontWeight: 'bold',
+              textMonthFontWeight: 'bold',
+              textDayHeaderFontWeight: 'bold',
+              textDayFontSize: 15,
+              textMonthFontSize: 30,
+              textDayHeaderFontSize: 15,
+              textMonthFontWeight: 'bold',
+              textDayFontWeight: 'bold', 
+            }}
+            pastScrollRange={5}
+            futureScrollRange={5}
+            scrollEnabled={false}
+            hideArrows={false}
+            horizontal={true}
+            onDayPress={(day) => {console.log('selected day', day)}}
+            pagingEnabled={true}
+            calendarWidth={395}
+            calendarHeight={380}
+            markedDates={this.state.markedEvents}
+            markingType={'multi-dot'}
+          />
+        </View>
+        
+
+        <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
+          <MaterialIcons name="add" color="white" size={50} style={styles.additionIcon} />
+        </TouchableOpacity>
+      
+        {this.state.upcomingUserEvents.length !== 0 
+          ? 
+
+          <View style={styles.upcomingEventsView}>
+            <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
+
+            <View style={styles.upcomingEventsList}>
               <FlatList
-                  data={EVENTS}
+                  data={this.state.upcomingUserEvents}
                   horizontal={true}
-                  keyExtractor={item => item.id}
-                  renderItem={({ item }) => (<UpcomingEventBox event={item.event}/>)}
+                  keyExtractor={item => item.ID}
+                  renderItem={({ item }) => (<UpcomingEventBox title={item.title} description={item.description} startDay={item.startDate} startTime={item.startTime} endDay={item.endDate} endTime={item.endTIme}/>)}
               />
-              </View>
-                
-                        
-            </ImageBackground>
-            
-        );
+            </View> 
+          </View>
+
+          : 
+
+          <Text style={styles.noUpcomingEventsText}>No Upcoming Events</Text>
+
+        }             
+      </ImageBackground>  
+      );
     }   
 }
 
@@ -184,95 +402,46 @@ const TabNavigator = createBottomTabNavigator(
       screen: CalendarScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <FontAwesome name="calendar" color={tintColor} size={25}style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <FontAwesome name="calendar" color={tintColor} size={25} style={styles.tabNavigatorIcon}/>
       },
     },
     Search: {
       screen: SearchScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <FontAwesome name="search" color={tintColor} size={25} style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <FontAwesome name="search" color={tintColor} size={25} style={styles.tabNavigatorIcon}/>
       }
     },
     Add: {
       screen: AddScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <MaterialIcons name="add" color={tintColor} size={35} style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <MaterialIcons name="add" color={tintColor} size={35} style={styles.tabNavigatorIcon}/>
       }
     },
     Friends: {
       screen: FriendsScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <FontAwesome5 name="user-friends" color={tintColor} size={25} style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <FontAwesome5 name="user-friends" color={tintColor} size={25} style={styles.tabNavigatorIcon}/>
       }
     },
     Notifications: {
       screen: NotificationsScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications" color={tintColor} size={35} style={{top: '15%'}} />
+        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications" color={tintColor} size={35} style={styles.tabNavigatorIcon}/>
       }
     }
   },
   {
     tabBarComponent: TabBar,
     tabBarOptions: {
-      activeTintColor: '#4F4F4F', //'#4F4F4F'
-      inactiveTintColor: 'ddd', //ddd
+      activeTintColor: '#4F4F4F', 
       showIcon: true
 
     }
   },
 );
 
-
-const styless = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
-  },
-  modalView: {
-    margin: 20,
-    width: '70%',
-    height: '54%',
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
-});
-
-  
-  
-  export default createAppContainer(TabNavigator);
-
-    
-
-
+export default createAppContainer(TabNavigator);

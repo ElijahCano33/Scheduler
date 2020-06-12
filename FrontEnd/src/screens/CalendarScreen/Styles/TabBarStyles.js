@@ -1,12 +1,9 @@
 import {Dimensions, StyleSheet} from 'react-native';
 
-
 const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 4;
 
-
 export default StyleSheet.create({
-    
     container: {
         flexDirection: 'row',
         height: 52,
@@ -18,12 +15,12 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     spotLight: {
-        width: '16%', //tabWidth
+        width: '16%',
         left:'2%',
         top: '10%',
-        height: "75%", //100
-        backgroundColor: '#7c40ff', //"rgba(128,128,255,0.2), #c71585"
-        borderRadius: 20, //8
+        height: "75%",
+        backgroundColor: '#FF1DCE',
+        borderRadius: 20,
 
-      }
+    }
 });

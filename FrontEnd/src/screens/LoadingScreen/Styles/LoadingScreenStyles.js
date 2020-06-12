@@ -4,7 +4,7 @@ const windowWidth= Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 export default StyleSheet.create({
-    fadeBackgroundStyles: {
+    fadeBackground: {
         justifyContent: 'center', 
         alignItems: 'center', 
         flex: 1

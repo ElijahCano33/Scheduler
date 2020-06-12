@@ -3,19 +3,15 @@ import React, {Component} from 'react';
 import styles from '../Styles/TabBarStyles.js';
 import posed from "react-native-pose";
 
-
 const windowWidth = Dimensions.get("window").width;
 const tabWidth = windowWidth / 4;
-
 const SpotLight = posed.View({
-    route0: { x: 0 }, //0
-    route1: { x: tabWidth*0.80}, //80
-    route2: { x: tabWidth*1.60 }, //156
-    route3: { x: tabWidth*2.39 }, //235
-    route4: {x: tabWidth*3.19} //314
+    route0: { x: 0 },
+    route1: { x: tabWidth*0.80},
+    route2: { x: tabWidth*1.60 },
+    route3: { x: tabWidth*2.39 },
+    route4: {x: tabWidth*3.19} 
   });
-
-
 
 export default class TabBar extends Component{
     render(){
@@ -30,22 +26,19 @@ export default class TabBar extends Component{
             navigation
           } = this.props;
 
-          const { routes, index: activeRouteIndex } = navigation.state;
+        const { routes, index: activeRouteIndex } = navigation.state;
 
         return (
 
             <View style={styles.container}>
                 <View style={StyleSheet.absoluteFillObject}>
                     <SpotLight style={styles.spotLight} pose={`route${activeRouteIndex}`} />
-                 </View>
+                </View>
             
-
-
                 {routes.map((route, routeIndex) => {
                     const isRouteActive = routeIndex === activeRouteIndex;
                     const tintColor = isRouteActive ? activeTintColor : inactiveTintColor;
                 
-
                     return (
                         <TouchableOpacity
                             key={routeIndex}
@@ -55,8 +48,8 @@ export default class TabBar extends Component{
                             accessibilityLabel={getAccessibilityLabel({ route })}
                         >
                             {renderIcon({ route, focused: isRouteActive, tintColor })}
-
                             <Text>{getLabelText({ route })}</Text>
+
                         </TouchableOpacity>
                     );
                 })}   
