@@ -26,6 +26,7 @@ class CalendarScreen extends Component{
         userId: 0,
         friend: '',
         singleDayEvent: false,
+        hideEvent: false,
         eventStartDate: '',
         eventEndDate: '',
         eventDescription: '',
@@ -91,8 +92,8 @@ class CalendarScreen extends Component{
     
   }
 
-  onToggle(singleDayEvent) {
-    console.log("Changed to " + singleDayEvent);
+  onToggle(event) {
+    console.log("Changed to " + event);
   }
 
   markCalendarWithMultiEvents(events){
@@ -274,15 +275,27 @@ class CalendarScreen extends Component{
                   onChangeText={(eventDescription) => this.setState({eventDescription})}
                 />
 
-                <View style={styles.toggleSwitchButton}>
+                <View style={styles.singleDayEventButton}>
                   <ToggleSwitch
                     isOn={this.state.singleDayEvent}
                     onColor="green"
                     offColor="grey"
                     label="Single Day Event"
-                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 14 }}
+                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
                     size="small"
                     onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
+                  />
+                </View>
+
+                <View style={styles.hideEventButton}>
+                  <ToggleSwitch
+                    isOn={this.state.hideEvent}
+                    onColor="green"
+                    offColor="grey"
+                    label="Hide Event"
+                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
+                    size="small"
+                    onToggle={hideEvent => {this.setState({ hideEvent }); this.onToggle(hideEvent);}}
                   />
                 </View>
 
