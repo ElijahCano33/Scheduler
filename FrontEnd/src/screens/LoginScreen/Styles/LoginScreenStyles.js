@@ -49,41 +49,29 @@ export default StyleSheet.create({
 
   loginButton: {
     width: windowWidth/16+95,
-    backgroundColor: '#FF1DCE', //'#7ffff4
+    backgroundColor: '#FF1DCE',
     borderRadius: 20,
     paddingHorizontal: 30,
     textAlign: 'left',
-    left: '18%', //16% for it to work on all android screens
+    left: '18%', 
     top: '54.5%',
     position: 'absolute'
   },
 
-  signUpButton2: {
-      width: 120,
-      backgroundColor: '#FF1DCE',
-      paddingHorizontal: 30,
-      borderRadius: 20,
-      textAlign: 'left',
-      left: '17.95%', //16% for it to work on all android screens windowWidth/4-30
-      top: '54.5%',
-      left: '51%',
-      position: 'absolute'
-    },
-
-    signUpButton: {
-      width: windowWidth/16+95, //120
-      backgroundColor: '#7ffff4',
-      paddingHorizontal: 30,
-      borderRadius: 20,
-      textAlign: 'left',
-      top: '54.5%',
-      left: '52%', //windowWidth/4+105
-      position: 'absolute'
-    },
+  signUpButton: {
+    width: windowWidth/16+95,
+    backgroundColor: '#FF1DCE',
+    paddingHorizontal: 30,
+    borderRadius: 20,
+    textAlign: 'left',
+    top: '54.5%',
+    left: '52%', 
+    position: 'absolute'
+  },
   
-    buttonText: {
-      textAlign: 'center',
-      color: '#FFFFFF',
-      fontWeight: '700'
-    }
+  buttonText: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontWeight: '700'
+  }
  });
