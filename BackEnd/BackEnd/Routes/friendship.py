@@ -63,7 +63,7 @@ def friend_request(request_user_id, befriend_user_id, current_relationship_statu
             )
         database.commit()
         response['status'] = True
-        response['status_info'] = 'Friendship created!'
+        response['status_info'] = 'Friend Request Sent!'
     else:
         response['status'] = False
         response['status_info'] = 'Relationship already exist in the database'
@@ -78,6 +78,7 @@ def friend_request_accepted(requester_user_id, other_user_id, current_relationsh
         )
         database.commit()
         response['status'] = True
+        response['status_info'] = 'Friendship Created!'
     elif current_relationship_status and current_relationship_status[-2] == int(requester_user_id):
         response['status'] = False
         response['status_info'] = 'user can\'t accept friend request they initiated'
@@ -95,6 +96,7 @@ def remove_friendship(requester_user_id, other_user_id, current_relationship_sta
         )
         database.commit()
         response['status'] = True
+        response['status_info'] = 'Friendship Disbanded!'
     else:
         response['Status'] = False
         response['status_info'] = 'The relationship doesnt exist in the table'
@@ -113,4 +115,5 @@ def block_someone(requester_user_id, other_user_id, current_relationship_status)
     database.commit()
     response = dict()
     response['status'] = True
+    response['status_info'] = 'Friend Blocked!'
     return response
