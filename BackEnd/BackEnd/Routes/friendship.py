@@ -24,7 +24,7 @@ def friendship_update():
 
     if cursor.fetchone()[0] != 2:
         response['status'] = False
-        response['status_info'] = "one of the user_id isn't valid"
+        response['status_info'] = "User Does Not Exist!"
 
     elif request.method == 'POST' and 'request_user_id' in data and 'befriend_user_id' in data:
         
