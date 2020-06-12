@@ -237,11 +237,18 @@ export default StyleSheet.create({
     fontFamily: 'sans-serif-thin'
   },
 
-  toggleSwitchButton: {
+  singleDayEventButton: {
     position: 'absolute', 
     top: '60%', 
     left: '8%'
   },
+
+  hideEventButton: {
+    position: 'absolute', 
+    top: '60%', 
+    left: '68%'
+  },
+
   noUpcomingEventsText: {
     top: '75%',
     left: '23.5%',
