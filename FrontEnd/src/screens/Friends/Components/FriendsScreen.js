@@ -13,8 +13,10 @@ export default class FriendsScreen extends Component{
 
         this.state = {
             unfilteredFriends: [],
+            unfilteredFriendsCopy: [],
             filteredFriends: [],
-            search: ''
+            search: '',
+            
         }
     }
     

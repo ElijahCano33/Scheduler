@@ -225,11 +225,13 @@ class CalendarScreen extends Component{
     if (minutes < 10) minutes = "0" + minutes;
     if (seconds < 10) seconds = "0" + seconds;
 
-    let currentDay = year + "-" + month + "-" + day;
+    let currentDay = year + "-" + month + "-" + day + " ";
     let currentTime = hours + ":" + minutes + ":" + seconds;
+    let currentDate = currentDay + currentTime;
 
     for(var i = 0; i < monthEvents.length; i++){
-      if(monthEvents[i]['endDate'] >= currentDay && monthEvents[i]['endTIme'] >= currentTime) upcomingEvents.push(monthEvents[i]);
+      let event = monthEvents[i]['endDate'] + " " + monthEvents[i]['endTIme'];
+      if(event >= currentDate) upcomingEvents.push(monthEvents[i]);
     }
 
     this.setState({upcomingUserEvents: upcomingEvents});
@@ -355,7 +357,7 @@ class CalendarScreen extends Component{
           <MaterialIcons name="add" color="white" size={50} style={styles.additionIcon} />
         </TouchableOpacity>
       
-        {this.state.currentMonthUserEvents.length !== 0 
+        {this.state.upcomingUserEvents.length !== 0 
           ? 
 
           <View style={styles.upcomingEventsView}>
@@ -430,7 +432,3 @@ const TabNavigator = createBottomTabNavigator(
 );
 
 export default createAppContainer(TabNavigator);
-
-    
-
-
