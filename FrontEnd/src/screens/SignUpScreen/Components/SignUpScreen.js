@@ -121,6 +121,7 @@ export default class SignUpScreen extends Component {
 
         <TextInput
           placeholder="First Name"
+          autoFocus={true}
           placeholderTextColor='#000000'
           style={styles.firstNameInput}
           onChangeText={(firstName) => this.setState({firstName})}

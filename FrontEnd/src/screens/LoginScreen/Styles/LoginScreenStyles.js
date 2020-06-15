@@ -18,8 +18,8 @@ export default StyleSheet.create({
   },
 
   emailInput: {
-    height: windowHeight/15, 
-    width: windowWidth/1.56, 
+    height: 40,
+    width: 250,
     backgroundColor: '#FFFFFF',
     paddingLeft: 10,
     marginBottom: 20,
@@ -28,8 +28,8 @@ export default StyleSheet.create({
   },
 
   passwordInput: {
-    height: windowHeight/16, 
-    width: windowWidth/1.56, 
+    height: 40,
+    width: 250, 
     backgroundColor: '#FFFFFF',
     paddingLeft: 0,
     marginBottom: 20,
