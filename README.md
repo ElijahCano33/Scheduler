@@ -1,6 +1,6 @@
 <div align="center">
   
-#  :calendar:  Welcome to Scheduler :calendar:
+#  :calendar:&nbsp;&nbsp;&nbsp;&nbsp;Welcome to Scheduler :calendar:
 *A powerful effective time-management and scheduling calendar service application for mobile devices*
 
 </div>

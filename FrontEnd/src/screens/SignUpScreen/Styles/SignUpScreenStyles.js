@@ -1,4 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const windowWidth= Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
 
 export default StyleSheet.create({
   fadeBackground: {
@@ -10,8 +13,10 @@ export default StyleSheet.create({
   logo: {
     height: 650,
     width: 800,
-    top: -220,
-    left: '14%'
+    top: windowWidth/100-250,
+    left: windowWidth/100-160,
+    alignItems: 'center',
+    position: 'absolute'
   },
 
   firstNameInput: {
@@ -20,7 +25,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: '#FFFFFF',
     marginBottom: 20,
-    top: '20%',
+    top: '10%',
     position: 'absolute'
   },
 
@@ -30,7 +35,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: '#FFFFFF',
     marginBottom: 20,
-    top: '30%', 
+    top: '20%', 
     position: 'absolute'
 
   },
@@ -41,7 +46,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: '#FFFFFF',
     marginBottom: 20,
-    top: '40%', 
+    top: '30%', 
     position: 'absolute'
   },
 
@@ -51,7 +56,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: '#FFFFFF',
     marginBottom: 20,
-    top: '50%',
+    top: '40%',
     position: 'absolute'
   },
 
@@ -61,29 +66,29 @@ export default StyleSheet.create({
     paddingLeft: 0,
     backgroundColor: '#FFFFFF',
     marginBottom: 20,
-    top: '60%', 
+    top: '50%', 
     position: 'absolute'
     },        
 
   loginButton: {
-    width: 120,
+    width: windowWidth/16+95,
     backgroundColor: '#FF1DCE', 
     paddingHorizontal: 30,
     borderRadius: 20,
     textAlign: 'left',
     left: '18%',
-    top: '70%',
+    top: '60%',
     position: 'absolute'
   },
 
   registerButton: {
-    width: 120,
+    width: windowWidth/16+95,
     backgroundColor: '#FF1DCE',
     paddingHorizontal: 30,
     borderRadius: 20,
     textAlign: 'left',
-    top: '70%',
-    left: '51%',
+    top: '60%',
+    left: '52%',
     position: 'absolute'
   },
 
