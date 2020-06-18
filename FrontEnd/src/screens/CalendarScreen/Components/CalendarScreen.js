@@ -34,7 +34,8 @@ class CalendarScreen extends Component{
         currentYearUserEvents: [],
         currentMonthUserEvents: [],
         upcomingUserEvents: [], 
-        markedEvents: {}
+        markedEvents: {},
+        tempAnnualEvents: []
     }
   }
 
@@ -239,9 +240,14 @@ class CalendarScreen extends Component{
 
   }
 
-  navigateToEventSscreen(){
-    console.log("navigating to event screen!!!");
-    this.props.navigation.navigate('EventScreen');
+  navigateToEventSscreen(day){
+    let annualEvents = this.state.currentYearUserEvents;
+    annualEvents.push(day);
+
+    this.setState({tempAnnualEvents: annualEvents}, function() {
+      this.props.navigation.navigate('EventScreen', {data: this.state.tempAnnualEvents});
+      this.setState({tempAnnualEvents: []});
+    });
   }
 
   render() {
@@ -362,7 +368,7 @@ class CalendarScreen extends Component{
             hideArrows={false}
             horizontal={true}
             //onDayPress={(day) => {console.log('selected day', day)}}
-            onDayPress={() => this.navigateToEventSscreen()}
+            onDayPress={(day) => this.navigateToEventSscreen(day)}
             pagingEnabled={true}
             calendarWidth={395}
             calendarHeight={380}
