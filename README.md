@@ -28,3 +28,4 @@ To check some of the current issues or upcoming features that we're working on, 
 
 ## Application Images:
 ![Loading Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-eventScreen/FrontEnd/pics/schedulerLoadingScreen.png)
+![Login Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-eventScreen/FrontEnd/pics/schedulerLoginScreen.png)
