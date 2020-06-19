@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Alert, StatusBar, TextInput, View, TouchableHighlight, TouchableWithoutFeedback, Keyboard, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CalendarScreenStyles.js';
-import { createAppContainer} from 'react-navigation';
+import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator } from "react-navigation-tabs";
 import SearchScreen from '../../Search/Components/SearchScreen.js';
 import AddScreen from '../../Add/Components/AddScreen.js';
@@ -34,7 +34,8 @@ class CalendarScreen extends Component{
         currentYearUserEvents: [],
         currentMonthUserEvents: [],
         upcomingUserEvents: [], 
-        markedEvents: {}
+        markedEvents: {},
+        tempAnnualEvents: []
     }
   }
 
@@ -239,6 +240,16 @@ class CalendarScreen extends Component{
 
   }
 
+  navigateToEventSscreen(day){
+    let annualEvents = this.state.currentYearUserEvents;
+    annualEvents.push(day);
+
+    this.setState({tempAnnualEvents: annualEvents}, function() {
+      this.props.navigation.navigate('EventScreen', {data: this.state.tempAnnualEvents});
+      this.setState({tempAnnualEvents: []});
+    });
+  }
+
   render() {
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
@@ -356,7 +367,8 @@ class CalendarScreen extends Component{
             scrollEnabled={false}
             hideArrows={false}
             horizontal={true}
-            onDayPress={(day) => {console.log('selected day', day)}}
+            //onDayPress={(day) => {console.log('selected day', day)}}
+            onDayPress={(day) => this.navigateToEventSscreen(day)}
             pagingEnabled={true}
             calendarWidth={395}
             calendarHeight={380}

@@ -1,4 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const windowWidth= Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
 
 export default StyleSheet.create({
     fadeBackground: {
@@ -15,12 +18,12 @@ export default StyleSheet.create({
     },
 
     searchBar: {
-        height: 40,
-        width: 368,
-        paddingLeft: 38,
+        height: windowHeight/100+30,
+        width: windowWidth/100+380,
+        //paddingLeft: 38,
         borderRadius: 20,
         backgroundColor: '#2f4f4f',
-        marginBottom: 20,
+        //marginBottom: 20,
         top: '20%',
         position: 'absolute',
         fontFamily: 'sans-serif-thin',
@@ -39,7 +42,7 @@ export default StyleSheet.create({
 
     searchIcon: {
         top: '20.85%', 
-        left: '5.5%', 
+        left: windowWidth/100+17, 
         position: 'absolute'
     },
 
