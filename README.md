@@ -25,3 +25,6 @@ Clone the repo: https://github.com/ElijahCano33/Scheduler.git
 
 ## Bugs, Issue Trackers, and List of Upcoming Features :clipboard:
 To check some of the current issues or upcoming features that we're working on, click on the "Projects" tab at the top of the web page and then select "App Assignments"
+
+## Application Images:
+![Loading Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-eventScreen/FrontEnd/pics/schedulerLoadingScreen.png)
