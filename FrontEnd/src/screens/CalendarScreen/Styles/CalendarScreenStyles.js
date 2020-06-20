@@ -40,7 +40,7 @@ export default StyleSheet.create({
     borderRadius: 30,
     top: '89.7%',
     left: '80%',
-    backgroundColor: '#FF1DCE', 
+    backgroundColor: '#2d2d2d', 
     position: 'absolute',
   },
 

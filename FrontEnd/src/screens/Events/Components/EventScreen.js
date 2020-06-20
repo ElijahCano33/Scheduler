@@ -56,14 +56,20 @@ export default class EventScreen extends Component{
         return(
             <View style={styles.container}>
                 <Text style={styles.eventScreenHeaderText}>Events For {this.state.selectedEventMonth}{' '}{this.state.selectedEventDay},{' '}{this.state.selectedEventYear}</Text>
-                <Feather name="x" color={'white'} size={30} style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}/>
-                <View style={styles.flatList}> 
+                <Feather name="x" color={'#FF1DCE'} size={30} style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}/>
+                {this.state.selectedEvents.length !== 0 ?  <View style={styles.flatList}> 
                     <FlatList
                         data={this.state.selectedEvents}
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (<EventInfo title={item.title} description={item.description} startTime={item.startTime} endTime={item.endTIme} endDate={item.endDate}/>)}
                     />
                 </View>
+                :
+                <View style={styles.noEventsView}>
+                    <Text style={styles.noEventsText}>No Events For This Day!</Text>
+                </View>
+
+                }
             </View>
         );
     }

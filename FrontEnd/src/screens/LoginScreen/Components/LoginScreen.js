@@ -94,7 +94,7 @@ export default class LoginScreen extends Component {
         <TouchableOpacity 
           style={styles.loginButton} 
           onPress={() => this.loginButtonPressed()}>
-          { this.state.loginButtonPressed ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: '#FF1DCE', borderRadius: 20}}/> : null }
+          { this.state.loginButtonPressed ? <Loader style={{position: 'absolute', top: '-650%', left: '110%', width: '200%', height: '500%', backgroundColor: '#2d2d2d', borderRadius: 20}}/> : null }
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
 

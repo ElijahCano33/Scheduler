@@ -20,11 +20,24 @@ export default StyleSheet.create({
     icon: {
         position: 'absolute', 
         top: '0.5%', 
-        left: '0%'
+        left: '1%'
     },
 
     flatList: {
         justifyContent: 'center', 
         alignItems: 'center'
+    },
+
+    noEventsView: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        flex: 1, 
+    },
+
+    noEventsText: {
+        fontFamily: 'sans-serif-thin',
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: 'white'
     }
 });
