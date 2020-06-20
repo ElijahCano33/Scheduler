@@ -79,6 +79,7 @@ export default class LoginScreen extends Component {
                     
         <TextInput
           placeholder="Email"
+          autoFocus={true}
           placeholderTextColor='#000000'
           style={styles.emailInput}
           onChangeText={(email) => this.setState({email})}
