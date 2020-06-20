@@ -31,3 +31,4 @@ To check some of the current issues or upcoming features that we're working on, 
 ![Login Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/Login.png)
 ![Register Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/Register.png)
 ![Calendar Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/CalendarPic.png)
+More On The Way Very Soon!
