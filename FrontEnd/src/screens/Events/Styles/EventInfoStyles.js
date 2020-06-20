@@ -4,7 +4,7 @@ export default StyleSheet.create({
     eventContainer: {
         paddingBottom: 10, 
         borderBottomWidth: 5, 
-        borderColor: 'pink'
+        borderColor: '#FF1DCE'
     },
 
     text: {

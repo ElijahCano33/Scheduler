@@ -49,7 +49,7 @@ export default StyleSheet.create({
 
   loginButton: {
     width: windowWidth/16+95,
-    backgroundColor: '#FF1DCE',
+    backgroundColor: '#2d2d2d',
     borderRadius: 20,
     paddingHorizontal: 30,
     textAlign: 'left',
@@ -60,7 +60,7 @@ export default StyleSheet.create({
 
   signUpButton: {
     width: windowWidth/16+95,
-    backgroundColor: '#FF1DCE',
+    backgroundColor: '#2d2d2d',
     paddingHorizontal: 30,
     borderRadius: 20,
     textAlign: 'left',

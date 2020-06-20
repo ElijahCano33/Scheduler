@@ -72,7 +72,7 @@ export default StyleSheet.create({
 
   loginButton: {
     width: windowWidth/16+95,
-    backgroundColor: '#FF1DCE', 
+    backgroundColor: '#2d2d2d', 
     paddingHorizontal: 30,
     borderRadius: 20,
     textAlign: 'left',
@@ -83,7 +83,7 @@ export default StyleSheet.create({
 
   registerButton: {
     width: windowWidth/16+95,
-    backgroundColor: '#FF1DCE',
+    backgroundColor: '#2d2d2d',
     paddingHorizontal: 30,
     borderRadius: 20,
     textAlign: 'left',
@@ -94,7 +94,7 @@ export default StyleSheet.create({
 
   buttonText: {
     textAlign: 'center',
-    color: '#FFFFFF',
+    color: 'white',
     fontWeight: '700'
   },
     

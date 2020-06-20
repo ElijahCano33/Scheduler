@@ -18,17 +18,17 @@ export default StyleSheet.create({
     },
 
     searchBar: {
-        height: windowHeight/100+30,
-        width: windowWidth/100+380,
-        //paddingLeft: 38,
+        height: 40,
+        width: 368,
+        paddingLeft: 38,
         borderRadius: 20,
-        backgroundColor: '#2f4f4f',
-        //marginBottom: 20,
+        backgroundColor: '#2d2d2d', //'#2f4f4f',
+        marginBottom: 20,
+        fontSize: 16,
+        fontFamily: 'sans-serif-thin',
         top: '20%',
         position: 'absolute',
-        fontFamily: 'sans-serif-thin',
-        fontWeight: 'bold',
-        fontSize: 16
+        fontWeight: 'bold'
     },
     
     noSearchResults: {
@@ -42,7 +42,7 @@ export default StyleSheet.create({
 
     searchIcon: {
         top: '20.85%', 
-        left: windowWidth/100+17, 
+        left: '5.5%', 
         position: 'absolute'
     },
 

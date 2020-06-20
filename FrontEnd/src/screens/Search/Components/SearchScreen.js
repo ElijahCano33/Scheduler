@@ -38,7 +38,7 @@ export default class SearchScreen extends Component{
                 {this.state.unfilteredData.length === 0 ?
 
                     <View style={styles.noSearchResultsView}>
-                        <FontAwesome name="search" color={'#2f4f4f'} size={200} style={styles.noSearchResultsIcon} />
+                        <FontAwesome name="search" color={'#2d2d2d'} size={200} style={styles.noSearchResultsIcon} />
                         <Text style={styles.noSearchResults}>No Current Search Results</Text>
                     </View>
                 

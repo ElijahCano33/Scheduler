@@ -141,6 +141,15 @@ class CalendarScreen extends Component{
     let markedDay = {};
     let markedEvents = {};
     let daysCounter = {};
+    let today = new Date();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+
+    if (month < 10) month = '0' + month.toString();
+    if (day < 10) day = '0' + day.toString();
+
+
+    today = today.getFullYear().toString() + "-" + month + "-" + day;
 
     for(var i = 0; i < events.length; i++){
       randomColor = this.generateRandomColor();
@@ -155,20 +164,19 @@ class CalendarScreen extends Component{
       if (eventDay in markedEvents){
         let repeatingNumber = '_' + daysCounter[eventDay].toString(); 
         eventDay += repeatingNumber;
-        markedEvents[eventDay] = {dots: [markedDay]};
+        markedEvents[eventDay] = {dots: [markedDay], selected: true, marked: true, selectedColor: 'black'};
       }else{
-        markedEvents[eventDay] = {dots: [markedDay]};
+        markedEvents[eventDay] = {dots: [markedDay], selected: true, marked: true, selectedColor: 'black'};
       }
       
     }
+
     this.markCalendarWithMultiEvents(markedEvents);
   }
 
-  generateRandomColor() {
-    for (var i=0, color=''; i<6; i++) {
-      color += (Math.random()*16|0).toString(16);
-    }
-    return '#'+color;
+  generateRandomColor(){
+    color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+    return color;
   }
 
   createEvent() {
@@ -336,6 +344,15 @@ class CalendarScreen extends Component{
           </Modal>
         </TouchableWithoutFeedback>  
 
+
+         {/*
+        <TouchableOpacity style={{position: 'absolute', top: '19.5%', left: '10%'}}>
+        <Image  
+            source={require('../../../../pics/leftArrow.png')}
+        />
+        </TouchableOpacity>
+         */}
+
         <View style={styles.calendarList}>
           <CalendarList
             theme={{
@@ -343,13 +360,14 @@ class CalendarScreen extends Component{
               textSectionTitleColor: 'black',
               selectedDayBackgroundColor: 'black',
               selectedDayTextColor: 'white',
-              todayTextColor: 'white',
+              todayTextColor: '#FF1DCE',
               dayTextColor: 'white',
               textDisabledColor: 'white',
-              dotColor: 'orange',
+              dotColor: 'red',
               selectedDotColor: 'orange',
               arrowColor: 'black',
               monthTextColor: 'white',
+              indicatorColor: 'blue',
               textDayFontFamily: 'sans-serif-thin',
               textMonthFontFamily: 'sans-serif-thin',
               textDayHeaderFontFamily: 'sans-serif-thin',
@@ -367,7 +385,6 @@ class CalendarScreen extends Component{
             scrollEnabled={false}
             hideArrows={false}
             horizontal={true}
-            //onDayPress={(day) => {console.log('selected day', day)}}
             onDayPress={(day) => this.navigateToEventSscreen(day)}
             pagingEnabled={true}
             calendarWidth={395}
@@ -379,7 +396,7 @@ class CalendarScreen extends Component{
         
 
         <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
-          <MaterialIcons name="add" color="white" size={50} style={styles.additionIcon} />
+          <MaterialIcons name="add" color='#FF1DCE' size={50} style={styles.additionIcon} />
         </TouchableOpacity>
       
         {this.state.upcomingUserEvents.length !== 0 

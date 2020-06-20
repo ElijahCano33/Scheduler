@@ -27,5 +27,9 @@ Clone the repo: https://github.com/ElijahCano33/Scheduler.git
 To check some of the current issues or upcoming features that we're working on, click on the "Projects" tab at the top of the web page and then select "App Assignments"
 
 ## Application Images:
-![Loading Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-eventScreen/FrontEnd/pics/schedulerLoadingScreen.png)
-![Login Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-eventScreen/FrontEnd/pics/schedulerLoginScreen.png)
+For the non tech savy viewers ;)
+![Loading Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/loading.png)
+![Login Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/Login.png)
+![Register Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/Register.png)
+![Calendar Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/CalendarPic.png)
+More On The Way Very Soon!

@@ -135,7 +135,7 @@ export default class AddScreen extends Component{
 
                 <TouchableOpacity style={styles.friendServicesButton} onPress={() => { this.setState({modalVisible: true})}}>
 
-                    <MaterialIcons name="group-add" color={'#2f4f4f'} size={120} style={styles.friendServicesIcon} />
+                    <MaterialIcons name="group-add" color={'#2d2d2d'} size={120} style={styles.friendServicesIcon} />
 
                     <Text style={styles.friendServicesText}>Friend Services</Text>
 
@@ -143,7 +143,7 @@ export default class AddScreen extends Component{
 
                 <TouchableOpacity style={styles.calendarServicesButton}>
 
-                    <Foundation name="calendar" color={'#2f4f4f'} size={120} style={styles.calendarServicesIcon} />
+                    <Foundation name="calendar" color={'#2d2d2d'} size={120} style={styles.calendarServicesIcon} />
 
                     <Text style={styles.calendarServicesText}>Calendar Services</Text>
                     
