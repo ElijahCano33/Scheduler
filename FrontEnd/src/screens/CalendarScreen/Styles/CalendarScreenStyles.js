@@ -9,7 +9,7 @@ export default StyleSheet.create({
   logo: {
     height: 650,
     width: 800,
-    bottom: '36%',
+    bottom: '41%',
     left: '-38%',
     position: 'absolute'
   },
@@ -19,7 +19,7 @@ export default StyleSheet.create({
   },
 
   upcomingEventsText: {
-    top: '2%',
+    top: '-65%',
     left: '3%',
     fontSize: 22,
     color: 'white',
@@ -212,11 +212,11 @@ export default StyleSheet.create({
   },
 
   upcomingEventsList: {
-    top: '31%', 
+    top: '-40%', 
     marginTop: 0, 
     bottom: 50, 
     width: '100%',  
-    height: 100, 
+    height: 200, 
     backgroundColor: 'transparent', 
     position: 'absolute'
   },
@@ -224,7 +224,7 @@ export default StyleSheet.create({
   calendarList: {
     height: '100%', 
     position: 'absolute', 
-    top: '14.8%', 
+    top: '6%', 
     left: '0%'
   },
 

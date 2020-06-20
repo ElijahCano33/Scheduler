@@ -344,6 +344,15 @@ class CalendarScreen extends Component{
           </Modal>
         </TouchableWithoutFeedback>  
 
+
+         {/*
+        <TouchableOpacity style={{position: 'absolute', top: '19.5%', left: '10%'}}>
+        <Image  
+            source={require('../../../../pics/leftArrow.png')}
+        />
+        </TouchableOpacity>
+         */}
+
         <View style={styles.calendarList}>
           <CalendarList
             theme={{

@@ -12,7 +12,16 @@ export default StyleSheet.create({
         width: 380,
         height: 70,
         left: '-2.1%',
-        borderRadius: 30,  
+        borderRadius: 30,
+        shadowColor: '#000000',
+    shadowOffset: {
+      width: 10,
+      height: 10
+    },
+    shadowRadius: 5,
+    shadowOpacity: 1.0,
+    elevation: 10
+  
     },
     
     name: {
