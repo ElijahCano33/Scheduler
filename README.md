@@ -5,6 +5,9 @@
 
 </div>
 
+## Important Notice: :boom:
+If you're a guest visiting and only care to see images concerning the app feel free to skip to the __Application Images__ section 
+
 ## Prerequisites :bell:
 The following technologies will need to be installed on your local machine in order to run this application successfully:
 *   Npm/Yarn  
