@@ -6,10 +6,10 @@ export default class FriendBox extends Component{
     render() {
         return (
             <View style={styles.eventContainer}>
-                <Text style={styles.text}>{this.props.title}</Text>
-                <Text style={styles.text}>{this.props.description}</Text>
-                <Text style={styles.text}>Starts At:{' '}{this.props.startTime}</Text>
-                <Text style={styles.text}>Finishes On: {' '}{this.props.endDate}{' '}At{' '}{this.props.endTime}</Text>
+                <Text style={styles.title}>{this.props.title}</Text>
+                <Text style={styles.description}>{this.props.description}</Text>
+                <Text style={styles.dates}>Starts At:{' '}{this.props.startTime}</Text>
+                <Text style={styles.dates}>Finishes On: {' '}{this.props.endDate}{' '}At{' '}{this.props.endTime}</Text>
             </View>
             
         );

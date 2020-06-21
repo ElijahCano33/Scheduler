@@ -13,8 +13,9 @@ export default StyleSheet.create({
     logo: {
         height: 650,
         width: 800,
-        top: -210,
-        left: '14%'
+        top: -230,
+        left: '-37%',
+        position: 'absolute'
     },
 
     searchBar: {
@@ -22,11 +23,11 @@ export default StyleSheet.create({
         width: 368,
         paddingLeft: 38,
         borderRadius: 20,
-        backgroundColor: '#2d2d2d', //'#2f4f4f',
+        backgroundColor: '#2d2d2d',
         marginBottom: 20,
         fontSize: 16,
         fontFamily: 'sans-serif-thin',
-        top: '20%',
+        top: '15%',
         position: 'absolute',
         fontWeight: 'bold'
     },
@@ -41,7 +42,7 @@ export default StyleSheet.create({
     },
 
     searchIcon: {
-        top: '20.85%', 
+        top: '15.8%',
         left: '5.5%', 
         position: 'absolute'
     },

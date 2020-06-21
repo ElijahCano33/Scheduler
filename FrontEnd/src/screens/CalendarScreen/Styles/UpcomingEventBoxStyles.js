@@ -13,14 +13,13 @@ export default StyleSheet.create({
         height: 150,
         borderRadius: 20,
         shadowColor: 'white',
-    shadowOffset: {
-      width: 10,
-      height: 10
-    },
-    shadowRadius: 20,
-    shadowOpacity: 5.0,
-    elevation: 30
- 
+        shadowOffset: {
+            width: 10,
+            height: 10
+        },
+        shadowRadius: 20,
+        shadowOpacity: 5.0,
+        elevation: 30
     },
 
     eventTitle: {
@@ -66,5 +65,11 @@ export default StyleSheet.create({
        fontFamily: 'sans-serif-thin',
        fontWeight: 'bold' 
     },
+
+    icon: {
+        position: 'absolute', 
+        right: '10%', 
+        top: '5%'
+    }
     
 });

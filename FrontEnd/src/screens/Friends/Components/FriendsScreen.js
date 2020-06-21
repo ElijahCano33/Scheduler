@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { View, Text, TextInput, Image, FlatList, ImageBackground} from 'react-native';
+import { View, Alert, Text, TextInput, Image, FlatList, ImageBackground} from 'react-native';
 import styles from '../Styles/FriendsScreenStyles.js';
 import FriendBox from './FriendBox.js';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from "axios";
 
@@ -17,10 +17,30 @@ export default class FriendsScreen extends Component{
             search: '',
             
         }
+
+        this.willFocusListener = this.props.navigation.addListener('willFocus', () => {
+            this.componentWillFocus();
+        });
+        this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
+            this.componentDidBlur();
+        });
     }
     
     componentDidMount(){
         this.fetchFriendsList();
+    }
+
+    componentWillFocus() {
+        this.fetchFriendsList();
+    }
+    
+    componentDidBlur() {
+        console.log("Screen No Longer In Focus!");
+    }
+
+    componentWillUnmount() {
+        this.didFocusListener.remove();
+        this.didBlurListener.remove();
     }
 
     fetchFriendsList(){
@@ -64,7 +84,7 @@ export default class FriendsScreen extends Component{
     renderNoFriends(){
         return(
             <View style={{flex: 1}}>
-                <FontAwesome5 name="sad-cry" color={'#2f4f4f'} size={200} style={styles.sadFaceIcon}/>
+                <AntDesign name="deleteusergroup" color={'#2d2d2d'} size={180} style={styles.noFriendsIcon}/>
                 <Text style={styles.noFriendsText}>No Friends At This Time!</Text>
             </View>
         );

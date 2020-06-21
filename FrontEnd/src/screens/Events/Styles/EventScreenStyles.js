@@ -7,9 +7,17 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
 
+    logo: {
+        height: 650,
+        width: 800,
+        bottom: '43%',
+        left: '-38%',
+        position: 'absolute'
+      },
+
     eventScreenHeaderText: {
         position: 'absolute',
-        top: '0%',
+        top: '10%',
         left: '15%',
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin',
@@ -24,8 +32,11 @@ export default StyleSheet.create({
     },
 
     flatList: {
-        justifyContent: 'center', 
-        alignItems: 'center'
+        position: 'absolute',
+        top: '17%',
+        height: '100%',
+        alignSelf: 'center',
+        flex: 1
     },
 
     noEventsView: {

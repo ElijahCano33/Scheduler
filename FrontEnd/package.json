@@ -31,6 +31,7 @@
     "react-navigation": "^4.0.0",
     "react-navigation-stack": "^2.0.4",
     "react-navigation-tabs": "^2.6.2",
+    "react-navigation-transitions": "^1.0.12",
     "toggle-switch-react-native": "^2.1.0"
   },
   "devDependencies": {
