@@ -265,8 +265,8 @@ class CalendarScreen extends Component{
         <StatusBar hidden/>
 
         <Image
-            style={styles.logo}
-            source={require('../../../../pics/scriptscheduler.png')}
+          style={styles.logo}
+          source={require('../../../../pics/scriptscheduler.png')}
         />
   
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

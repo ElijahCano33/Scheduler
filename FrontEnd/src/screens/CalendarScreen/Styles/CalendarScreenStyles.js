@@ -6,6 +6,7 @@ export default StyleSheet.create({
     alignItems: 'center', 
     flex: 1
   },
+  
   logo: {
     height: 650,
     width: 800,

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import { View, Text, FlatList} from 'react-native';
+import { View, Text, FlatList, Image, ImageBackground} from 'react-native';
 import styles from '../Styles/EventScreenStyles.js';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { fromLeft } from 'react-navigation-transitions';
+import CalendarScreen from '../../CalendarScreen/Components/CalendarScreen.js';
 import EventInfo from './EventInfo.js';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -54,23 +57,52 @@ export default class EventScreen extends Component{
 
     render(){
         return(
-            <View style={styles.container}>
+            <ImageBackground style={styles.container} source={require('../../../../pics/fade.jpg')}>
+                
+                <Image
+                    style={styles.logo}
+                    source={require('../../../../pics/scriptscheduler.png')}
+                />
+
                 <Text style={styles.eventScreenHeaderText}>Events For {this.state.selectedEventMonth}{' '}{this.state.selectedEventDay},{' '}{this.state.selectedEventYear}</Text>
-                <Feather name="x" color={'#FF1DCE'} size={30} style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}/>
+
+                <Feather name="x" color={'black'} size={30} style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}/>
+
                 {this.state.selectedEvents.length !== 0 ?  <View style={styles.flatList}> 
                     <FlatList
                         data={this.state.selectedEvents}
+                        //horizontal={true}
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (<EventInfo title={item.title} description={item.description} startTime={item.startTime} endTime={item.endTIme} endDate={item.endDate}/>)}
                     />
                 </View>
                 :
+
                 <View style={styles.noEventsView}>
                     <Text style={styles.noEventsText}>No Events For This Day!</Text>
                 </View>
 
                 }
-            </View>
+            </ImageBackground>
         );
     }
 }
+ 
+/*
+const appStack = createStackNavigator(
+  {
+    EventScreen: {
+      screen: EventScreen,
+    },
+    CalendarScreen: {
+      screen: CalendarScreen,
+    },
+  },
+  {
+    initialRouteName: 'EventScreen',
+    transitionConfig: () => fromLeft(3000),
+  },
+);
+
+export default createAppContainer(appStack);
+*/
