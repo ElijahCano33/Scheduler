@@ -10,7 +10,7 @@ export default StyleSheet.create({
     logo: {
         height: 650,
         width: 800,
-        top: -210,
+        top: -230,
         left: '-37%',
         position: 'absolute'
     },
@@ -20,35 +20,37 @@ export default StyleSheet.create({
         width: 368,
         paddingLeft: 38,
         borderRadius: 20,
-        backgroundColor: '#2d2d2d', //'#2f4f4f',
+        backgroundColor: '#2d2d2d',
         marginBottom: 20,
         fontSize: 16,
         fontFamily: 'sans-serif-thin',
-        top: '20%',
+        top: '15%',
         position: 'absolute',
         fontWeight: 'bold'
     },
 
     searchBarIcon: {
-        top: '20.85%', 
+        top: '15.8%', 
         left: '5.5%', 
         position: 'absolute'
     },
 
-    sadFaceIcon: {
-        top: '35%', 
-        left: '-4%', 
+    noFriendsIcon: {
+        top: '45%', 
+        left: '0%', 
         position: 'absolute'
     },
 
     noFriendsText: {
-        top: '68%', 
+        top: '70%',
+        left: '0%', 
         fontWeight: 'bold', 
+        fontFamily: 'sans-serif-thin',
         color: 'white'
     },
 
     friendsList: {
-        top: '28%', 
+        top: '22%', 
         marginBottom: 0, 
         bottom: 50, 
         width: '100%', 

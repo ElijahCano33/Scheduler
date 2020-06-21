@@ -5,7 +5,7 @@ const tabWidth = windowWidth / 4;
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: '#fbfbfb',
+        backgroundColor: '#2d2d2d',
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
@@ -29,6 +29,7 @@ export default StyleSheet.create({
         top: '8%',
         left: '20%',
         fontSize: 20,
+        color: 'white',
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin',
     },
@@ -37,6 +38,7 @@ export default StyleSheet.create({
         position: 'absolute',
         top: '65%',
         left: '20%',
+        color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin'
@@ -46,6 +48,7 @@ export default StyleSheet.create({
         position: 'absolute',
         top: '125%',
         left: '20%',
+        color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin'

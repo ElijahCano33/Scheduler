@@ -7,7 +7,7 @@ export default class UpcomingEventBox extends Component{
     render() {
         return (
             <View style={styles.container}>
-                <AntDesign name="pushpin" color={'#FF1DCE'} size={20} style={{position: 'absolute', right: '10%', top: '5%'}}/>
+                <AntDesign name="pushpin" color={'#FF1DCE'} size={20} style={styles.icon}/>
                 <Text style={styles.eventTitle}>{this.props.title}</Text>
                 <Text style={styles.eventDescription}>{this.props.description}</Text>
                 <Text style={styles.startDate}>Starts {this.props.startDay}{' '}at {this.props.startTime}</Text>

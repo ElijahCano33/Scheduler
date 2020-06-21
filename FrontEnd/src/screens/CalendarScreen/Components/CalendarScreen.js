@@ -344,15 +344,6 @@ class CalendarScreen extends Component{
           </Modal>
         </TouchableWithoutFeedback>  
 
-
-         {/*
-        <TouchableOpacity style={{position: 'absolute', top: '19.5%', left: '10%'}}>
-        <Image  
-            source={require('../../../../pics/leftArrow.png')}
-        />
-        </TouchableOpacity>
-         */}
-
         <View style={styles.calendarList}>
           <CalendarList
             theme={{
@@ -360,7 +351,7 @@ class CalendarScreen extends Component{
               textSectionTitleColor: 'black',
               selectedDayBackgroundColor: 'black',
               selectedDayTextColor: 'white',
-              todayTextColor: '#FF1DCE',
+              todayTextColor: 'white',
               dayTextColor: 'white',
               textDisabledColor: 'white',
               dotColor: 'red',
