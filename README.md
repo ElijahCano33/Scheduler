@@ -30,7 +30,7 @@ Clone the repo: https://github.com/ElijahCano33/Scheduler.git
 To check some of the current issues or upcoming features that we're working on, click on the "Projects" tab at the top of the web page and then select "App Assignments"
 
 ## Application Images:
-For the all the guests who like to get straight to business :sunglasses:
+For all the guests who like to get straight to business :sunglasses:
 ![Loading Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/loading.png)
 ![Login Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/Login.png)
 ![Register Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/Register.png)
