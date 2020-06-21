@@ -31,8 +31,8 @@ To check some of the current issues or upcoming features that we're working on, 
 
 ## Application Images:
 For the non tech savy viewers :sunglasses:
-![Loading Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/loading.png)
-![Login Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/Login.png)
-![Register Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/Register.png)
-![Calendar Screen](https://github.com/ElijahCano33/Scheduler/blob/elijah-moreStyleFixes/FrontEnd/pics/CalendarPic.png)
+![Loading Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/loading.png)
+![Login Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/Login.png)
+![Register Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/Register.png)
+![Calendar Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/CalendarPic.png)
 More On The Way Very Soon!
