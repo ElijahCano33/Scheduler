@@ -22,6 +22,7 @@ export default StyleSheet.create({
         height: 40,
         width: 368,
         paddingLeft: 38,
+        color: 'white',
         borderRadius: 20,
         backgroundColor: '#2d2d2d',
         marginBottom: 20,
@@ -59,5 +60,13 @@ export default StyleSheet.create({
         top: '50%', 
         left: '40%', 
         position: 'absolute'
-    }
+    },
+
+    flatList: {
+        position: 'absolute',
+        top: '26%',
+        //height: '100%',
+        alignSelf: 'center',
+        flex: 1
+    },
 });

@@ -20,6 +20,7 @@ export default StyleSheet.create({
         width: 368,
         paddingLeft: 38,
         borderRadius: 20,
+        color: 'white',
         backgroundColor: '#2d2d2d',
         marginBottom: 20,
         fontSize: 16,

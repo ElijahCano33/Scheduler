@@ -8,8 +8,8 @@ export default class EventInfo extends Component{
             <View style={styles.eventContainer}>
                 <Text style={styles.title}>{this.props.title}</Text>
                 <Text style={styles.description}>{this.props.description}</Text>
-                <Text style={styles.dates}>Starts At:{' '}{this.props.startTime}</Text>
-                <Text style={styles.dates}>Finishes On: {' '}{this.props.endDate}{' '}At{' '}{this.props.endTime}</Text>
+                <Text style={styles.dates}>Starts At:{' '}{this.props.startDate}</Text>
+                <Text style={styles.dates}>Finishes On: {' '}{this.props.endDate}</Text>
             </View>
             
         );
