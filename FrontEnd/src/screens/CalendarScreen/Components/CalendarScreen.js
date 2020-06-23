@@ -416,6 +416,18 @@ class CalendarScreen extends Component{
     }   
 }
 
+const FriendNavigator = createSwitchNavigator(
+  {
+      FriendsScreen: FriendsScreen,
+      CalendarScreen: CalendarScreen
+
+  }, 
+  {
+    initialRouteName: 'FriendsScreen',
+    headerMode: 'none',
+  }
+);
+
 const TabNavigator = createBottomTabNavigator(
   {
     Calendar: {
@@ -440,7 +452,7 @@ const TabNavigator = createBottomTabNavigator(
       }
     },
     Friends: {
-      screen: FriendsScreen,
+      screen: FriendNavigator,
       navigationOptions: {
         tabBarLabel:() => {return null},
         tabBarIcon: ({ tintColor }) => <FontAwesome5 name="user-friends" color={tintColor} size={25} style={styles.tabNavigatorIcon}/>

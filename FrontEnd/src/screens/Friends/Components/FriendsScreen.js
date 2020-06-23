@@ -3,7 +3,6 @@ import { View, Alert, Text, TextInput, Image, FlatList, ImageBackground} from 'r
 import styles from '../Styles/FriendsScreenStyles.js';
 import FriendBox from './FriendBox.js';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Foundation from 'react-native-vector-icons/Foundation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from "axios";
 
@@ -19,18 +18,21 @@ export default class FriendsScreen extends Component{
             
         }
 
+        /*
         this.willFocusListener = this.props.navigation.addListener('willFocus', () => {
             this.componentWillFocus();
         });
         this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
             this.componentDidBlur();
         });
+        */
     }
     
     componentDidMount(){
         this.fetchFriendsList();
     }
 
+    /*
     componentWillFocus() {
         this.fetchFriendsList();
     }
@@ -43,6 +45,7 @@ export default class FriendsScreen extends Component{
         this.didFocusListener.remove();
         this.didBlurListener.remove();
     }
+    */
 
     fetchFriendsList(){
         axios({
@@ -97,7 +100,7 @@ export default class FriendsScreen extends Component{
                 <FlatList
                     data={this.state.unfilteredFriends}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username}/>)}
+                    renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username} navigation={this.props.navigation}/>)}
                 />
             </View>
         )
@@ -109,7 +112,7 @@ export default class FriendsScreen extends Component{
                 <FlatList
                     data={this.state.filteredFriends}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username}/>)}
+                    renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username} navigation={this.props.navigation}/>)}
                 />
             </View>
         );
