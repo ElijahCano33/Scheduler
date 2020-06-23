@@ -14,14 +14,13 @@ export default StyleSheet.create({
         left: '-2.1%',
         borderRadius: 30,
         shadowColor: '#000000',
-    shadowOffset: {
-      width: 10,
-      height: 10
-    },
-    shadowRadius: 5,
-    shadowOpacity: 1.0,
-    elevation: 10
-  
+        shadowOffset: {
+        width: 10,
+        height: 10
+        },
+        shadowRadius: 5,
+        shadowOpacity: 1.0,
+        elevation: 10
     },
     
     name: {
@@ -60,5 +59,17 @@ export default StyleSheet.create({
         top: '-10%',
         left: '1%',
         position: 'absolute'
+    },
+
+    calendarIcon: {
+        position: 'absolute',
+        right: '17%',
+        top: '20%'
+    },
+
+    trashIcon: {
+        position: 'absolute',
+        right: '2%',
+        top: '27%'
     }
 });
