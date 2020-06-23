@@ -1,30 +1,20 @@
 import React, {Component} from 'react';
 import { Alert, StatusBar, TextInput, View, TouchableHighlight, TouchableWithoutFeedback, Keyboard, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
-import styles from '../Styles/CalendarScreenStyles.js';
-import {createSwitchNavigator, createAppContainer} from 'react-navigation';
-import {createBottomTabNavigator } from "react-navigation-tabs";
-import SearchScreen from '../../Search/Components/SearchScreen.js';
-import AddScreen from '../../Add/Components/AddScreen.js';
-import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
-import NotificationsScreen from '../../NotificationsScreen/Components/NotificationsScreen.js';
-import FriendsCalendarScreen from '../../FriendsCalendar/Components/FriendsCalendarScreen.js';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import styles from '../Styles/FriendsCalendarScreenStyles.js';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import TabBar from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
 import {CalendarList} from 'react-native-calendars';
 import axios from "axios";
 import ToggleSwitch from 'toggle-switch-react-native';
+import Feather from 'react-native-vector-icons/Feather';
 
-class CalendarScreen extends Component{
+export default class FriendsCalendarScreen extends Component{
   constructor(props) {
     super(props)
 
     this.state = {
         modalVisible: false,
-        userId: 0,
+        friendId: 0,
         friend: '',
         singleDayEvent: false,
         hideEvent: false,
@@ -40,27 +30,31 @@ class CalendarScreen extends Component{
     }
   }
 
-  fetchUserId(usrId, m, y){
+  fetchFriendId(friendId, m, y){
+    let friendEmail = this.props['navigation']['state']['params']['data'];
+    console.log("here's the friends email in func: " + friendEmail);
     axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/userId',
+      url: 'http://192.168.68.1:5000/api/friendId',
+      data: {friend: friendEmail}
     })
     .then((response) => {
-      this.setState({userId: response['data']['user_id']});
-      usrId = this.state.userId;
-      this.fetchMonthEvents(usrId, m, y);
-      this.fetchAnnualEvents(usrId, y);
+      this.setState({friendId: response['data']['friend_id']});
+      friendId = this.state.friendId;
+      console.log("this is the friend's id: " + friendId);
+      this.fetchMonthEvents(friendId, m, y);
+      this.fetchAnnualEvents(friendId, y);
     }, (error) => {
           
       console.log(error);
     });
   }
 
-  fetchMonthEvents(usrId, m, y){
+  fetchMonthEvents(friendId, m, y){
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: usrId, request_type: "month", month: m, year: y}
+      data: {user_id: friendId, request_type: "month", month: m, year: y}
     })
     .then((response) => {
       this.setState({currentMonthUserEvents: response['data']['events']});
@@ -70,11 +64,11 @@ class CalendarScreen extends Component{
     });
   }
 
-  fetchAnnualEvents(usrId, y){
+  fetchAnnualEvents(friendId, y){
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: usrId, request_type: "year", year: y}
+      data: {user_id: friendId, request_type: "year", year: y}
     })
     .then((response) => {
       this.setState({currentYearUserEvents: response['data']['events']});
@@ -85,12 +79,12 @@ class CalendarScreen extends Component{
   }
 
   componentDidMount(){
-    let userId = 0;
+    let friendId = 0;
     let today = new Date();
     let year = today.getFullYear().toString();
     let month = (today.getMonth()+1).toString();
     if (month < 10) month = "0" + month;
-    this.fetchUserId(userId, month, year);
+    this.fetchFriendId(friendId, month, year);
     
   }
 
@@ -269,6 +263,8 @@ class CalendarScreen extends Component{
           style={styles.logo}
           source={require('../../../../pics/scriptscheduler.png')}
         />
+
+<Feather name="x" color={'black'} size={30} style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}/>
   
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Modal
@@ -395,7 +391,7 @@ class CalendarScreen extends Component{
           ? 
 
           <View style={styles.upcomingEventsView}>
-            <Text style={styles.upcomingEventsText}>Upcoming Events</Text>
+            <Text style={styles.upcomingEventsText}>{this.props['navigation']['state']['params']['data']}'s Upcoming Events</Text>
 
             <View style={styles.upcomingEventsList}>
               <FlatList
@@ -416,65 +412,3 @@ class CalendarScreen extends Component{
       );
     }   
 }
-
-const FriendNavigator = createSwitchNavigator(
-  {
-      FriendsScreen: FriendsScreen,
-      FriendsCalendarScreen: FriendsCalendarScreen
-
-  }, 
-  {
-    initialRouteName: 'FriendsScreen',
-    headerMode: 'none',
-  }
-);
-
-const TabNavigator = createBottomTabNavigator(
-  {
-    Calendar: {
-      screen: CalendarScreen,
-      navigationOptions: {
-        tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <FontAwesome name="calendar" color={tintColor} size={25} style={styles.tabNavigatorIcon}/>
-      },
-    },
-    Search: {
-      screen: SearchScreen,
-      navigationOptions: {
-        tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <FontAwesome name="search" color={tintColor} size={25} style={styles.tabNavigatorIcon}/>
-      }
-    },
-    Add: {
-      screen: AddScreen,
-      navigationOptions: {
-        tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <MaterialIcons name="add" color={tintColor} size={35} style={styles.tabNavigatorIcon}/>
-      }
-    },
-    Friends: {
-      screen: FriendNavigator,
-      navigationOptions: {
-        tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <FontAwesome5 name="user-friends" color={tintColor} size={25} style={styles.tabNavigatorIcon}/>
-      }
-    },
-    Notifications: {
-      screen: NotificationsScreen,
-      navigationOptions: {
-        tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications" color={tintColor} size={35} style={styles.tabNavigatorIcon}/>
-      }
-    }
-  },
-  {
-    tabBarComponent: TabBar,
-    tabBarOptions: {
-      activeTintColor: '#4F4F4F', 
-      showIcon: true
-
-    }
-  },
-);
-
-export default createAppContainer(TabNavigator);
