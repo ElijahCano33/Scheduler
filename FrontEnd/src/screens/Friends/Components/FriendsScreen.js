@@ -26,12 +26,14 @@ export default class FriendsScreen extends Component{
             this.componentDidBlur();
         });
         */
+        
     }
     
     componentDidMount(){
         this.fetchFriendsList();
     }
 
+    
     /*
     componentWillFocus() {
         this.fetchFriendsList();
@@ -46,6 +48,7 @@ export default class FriendsScreen extends Component{
         this.didBlurListener.remove();
     }
     */
+    
 
     fetchFriendsList(){
         axios({

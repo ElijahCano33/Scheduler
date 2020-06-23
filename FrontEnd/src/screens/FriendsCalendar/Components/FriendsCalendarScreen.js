@@ -32,7 +32,7 @@ export default class FriendsCalendarScreen extends Component{
 
   fetchFriendId(friendId, m, y){
     let friendEmail = this.props['navigation']['state']['params']['data'];
-    console.log("here's the friends email in func: " + friendEmail);
+    
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/friendId',
@@ -41,7 +41,7 @@ export default class FriendsCalendarScreen extends Component{
     .then((response) => {
       this.setState({friendId: response['data']['friend_id']});
       friendId = this.state.friendId;
-      console.log("this is the friend's id: " + friendId);
+
       this.fetchMonthEvents(friendId, m, y);
       this.fetchAnnualEvents(friendId, y);
     }, (error) => {
@@ -264,7 +264,7 @@ export default class FriendsCalendarScreen extends Component{
           source={require('../../../../pics/scriptscheduler.png')}
         />
 
-<Feather name="x" color={'black'} size={30} style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}/>
+        <Feather name="x" color={'black'} size={30} style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}/>
   
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Modal
