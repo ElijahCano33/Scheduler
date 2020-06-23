@@ -3,6 +3,7 @@ import { View, Alert, Text, TextInput, Image, FlatList, ImageBackground} from 'r
 import styles from '../Styles/FriendsScreenStyles.js';
 import FriendBox from './FriendBox.js';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Foundation from 'react-native-vector-icons/Foundation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from "axios";
 
