@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Alert, StatusBar, TextInput, View, TouchableHighlight, TouchableWithoutFeedback, Keyboard, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CalendarScreenStyles.js';
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator } from "react-navigation-tabs";
 import SearchScreen from '../../Search/Components/SearchScreen.js';
 import AddScreen from '../../Add/Components/AddScreen.js';
@@ -417,7 +418,7 @@ class CalendarScreen extends Component{
     }   
 }
 
-const FriendNavigator = createSwitchNavigator(
+const FriendNavigator = createStackNavigator(
   {
       FriendsScreen: FriendsScreen,
       FriendsCalendarScreen: FriendsCalendarScreen

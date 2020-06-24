@@ -24,19 +24,13 @@ export default class FriendBox extends Component {
 
     createTwoButtonAlert = () => {
         
-    Alert.alert(
-      "Important Notice",
-      "Are you sure you want to remove " + this.props.firstName + " from being your friend?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => this.removeFriendConfirmation()}
-      ],
-      { cancelable: false }
-    );
+        Alert.alert("Important Notice","Are you sure you want to remove " + this.props.firstName + " from being your friend?",
+        [
+            {text: "Cancel",  onPress: () => console.log("Cancel Pressed"), style: "cancel"},
+            { text: "OK", onPress: () => this.removeFriendConfirmation()}
+        ],
+        { cancelable: false }
+        );  
     }
 
     removeFriendConfirmation(){
