@@ -19,25 +19,28 @@ import {CalendarList} from 'react-native-calendars';
 import axios from "axios";
 import ToggleSwitch from 'toggle-switch-react-native';
 
+
 class CalendarScreen extends Component{
+  mounted = false;
+  
   constructor(props) {
     super(props)
 
     this.state = {
-        modalVisible: false,
-        userId: 0,
-        friend: '',
-        singleDayEvent: false,
-        hideEvent: false,
-        eventStartDate: '',
-        eventEndDate: '',
-        eventDescription: '',
-        eventAlert: '',
-        currentYearUserEvents: [],
-        currentMonthUserEvents: [],
-        upcomingUserEvents: [], 
-        markedEvents: {},
-        tempAnnualEvents: []
+      modalVisible: false,
+      userId: 0,
+      friend: '',
+      singleDayEvent: false,
+      hideEvent: false,
+      eventStartDate: '',
+      eventEndDate: '',
+      eventDescription: '',
+      eventAlert: '',
+      currentYearUserEvents: [],
+      currentMonthUserEvents: [],
+      upcomingUserEvents: [], 
+      markedEvents: {},
+      tempAnnualEvents: []
     }
   }
 
@@ -86,6 +89,8 @@ class CalendarScreen extends Component{
   }
 
   componentDidMount(){
+    this.mounted = true;
+
     let userId = 0;
     let today = new Date();
     let year = today.getFullYear().toString();
@@ -93,6 +98,10 @@ class CalendarScreen extends Component{
     if (month < 10) month = "0" + month;
     this.fetchUserId(userId, month, year);
     
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   onToggle(event) {
@@ -415,7 +424,7 @@ class CalendarScreen extends Component{
         }             
       </ImageBackground>  
       );
-    }   
+    }
 }
 
 const FriendNavigator = createStackNavigator(
