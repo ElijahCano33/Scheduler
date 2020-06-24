@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import { View, Text, FlatList, Image, ImageBackground} from 'react-native';
+import { View, Text, FlatList, Image, ImageBackground, TouchableOpacity} from 'react-native';
 import styles from '../Styles/EventScreenStyles.js';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { fromLeft } from 'react-navigation-transitions';
-import CalendarScreen from '../../CalendarScreen/Components/CalendarScreen.js';
 import EventInfo from './EventInfo.js';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -66,7 +63,9 @@ export default class EventScreen extends Component{
 
                 <Text style={styles.eventScreenHeaderText}>Events For {this.state.selectedEventMonth}{' '}{this.state.selectedEventDay},{' '}{this.state.selectedEventYear}</Text>
 
-                <Feather name="x" color={'black'} size={30} style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}/>
+                <TouchableOpacity style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}>
+                <Feather name="x" color={'black'} size={30}/>
+                </TouchableOpacity>
 
                 {this.state.selectedEvents.length !== 0 ?  <View style={styles.flatList}> 
                     <FlatList
