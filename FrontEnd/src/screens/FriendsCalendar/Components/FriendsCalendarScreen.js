@@ -31,7 +31,7 @@ export default class FriendsCalendarScreen extends Component{
   }
 
   fetchFriendId(friendId, m, y){
-    let friendEmail = this.props['navigation']['state']['params']['data'];
+    let friendEmail = this.props['navigation']['state']['params']['email'];
     
     axios({
       method: 'post',
@@ -116,12 +116,12 @@ export default class FriendsCalendarScreen extends Component{
       } 
     }
 
-    for(var i =0; i < repeatingDays.length; i++){
+    for(var i = 0; i < repeatingDays.length; i++){
       delete events[repeatingDays[i]];
     }
 
     for(var day in sameDayEvents){
-      for(var i =0; i < sameDayEvents[day].length; i++){
+      for(var i = 0; i < sameDayEvents[day].length; i++){
         i === 0 ? events[day] = sameDayEvents[day][0] : events[day]['dots'].push(sameDayEvents[day][i]['dots'][0]);
       }
     }
@@ -254,17 +254,17 @@ export default class FriendsCalendarScreen extends Component{
   }
 
   render() {
+    
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
 
         <StatusBar hidden/>
 
-        <Image
-          style={styles.logo}
-          source={require('../../../../pics/scriptscheduler.png')}
-        />
+        <Image style={styles.logo} source={require('../../../../pics/scriptscheduler.png')}/>
 
-        <Feather name="x" color={'black'} size={30} style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}/>
+        <TouchableOpacity style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}>
+          <Feather name="x" color={'black'} size={30}/>
+        </TouchableOpacity>
   
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Modal
@@ -391,7 +391,7 @@ export default class FriendsCalendarScreen extends Component{
           ? 
 
           <View style={styles.upcomingEventsView}>
-            <Text style={styles.upcomingEventsText}>{this.props['navigation']['state']['params']['data']}'s Upcoming Events</Text>
+            <Text style={styles.upcomingEventsText}>{this.props['navigation']['state']['params']['firstName']}'s Upcoming Events</Text>
 
             <View style={styles.upcomingEventsList}>
               <FlatList
@@ -405,7 +405,7 @@ export default class FriendsCalendarScreen extends Component{
 
           : 
 
-          <Text style={styles.noUpcomingEventsText}>No Upcoming Events</Text>
+          <Text style={styles.noUpcomingEventsText}>{this.props['navigation']['state']['params']['firstName']} Has No Upcoming Events</Text>
 
         }             
       </ImageBackground>  

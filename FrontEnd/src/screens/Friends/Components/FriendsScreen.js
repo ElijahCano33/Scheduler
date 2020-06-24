@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Alert, Text, TextInput, Image, FlatList, ImageBackground} from 'react-native';
+import { View, Text, TextInput, Image, FlatList, ImageBackground} from 'react-native';
 import styles from '../Styles/FriendsScreenStyles.js';
 import FriendBox from './FriendBox.js';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -18,14 +18,13 @@ export default class FriendsScreen extends Component{
             
         }
 
-        /*
         this.willFocusListener = this.props.navigation.addListener('willFocus', () => {
             this.componentWillFocus();
         });
         this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
             this.componentDidBlur();
         });
-        */
+        
         
     }
     
@@ -34,7 +33,6 @@ export default class FriendsScreen extends Component{
     }
 
     
-    /*
     componentWillFocus() {
         this.fetchFriendsList();
     }
@@ -47,7 +45,7 @@ export default class FriendsScreen extends Component{
         this.didFocusListener.remove();
         this.didBlurListener.remove();
     }
-    */
+    
     
 
     fetchFriendsList(){
