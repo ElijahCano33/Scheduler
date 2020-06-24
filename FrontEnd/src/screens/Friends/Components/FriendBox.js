@@ -22,12 +22,22 @@ export default class FriendBox extends Component {
         this.props.navigation.navigate('FriendsCalendarScreen', {data: this.props.email});
     }
 
-    createTwoButtonAlert = () => {
+    confirmFriendRemovalAlertBox = () => {
         
         Alert.alert("Important Notice","Are you sure you want to remove " + this.props.firstName + " from being your friend?",
         [
             {text: "Cancel",  onPress: () => console.log("Cancel Pressed"), style: "cancel"},
             { text: "OK", onPress: () => this.removeFriendConfirmation()}
+        ],
+        { cancelable: false }
+        );  
+    }
+
+    confirmViewFriendsCalendarAlertBox = () => {
+        Alert.alert("Important Notice","Are you sure you want to view " + this.props.firstName + "'s calendar and events?",
+        [
+            {text: "Cancel",  onPress: () => console.log("Cancel Pressed"), style: "cancel"},
+            { text: "OK", onPress: () => this.navigateToFriendsCalendar()}
         ],
         { cancelable: false }
         );  
@@ -99,11 +109,11 @@ export default class FriendBox extends Component {
                 <Text style={styles.username}>{this.props.userName}</Text>
                 <Image source={require('../../../../pics/image-0.png')} style={styles.image}/>
 
-                <TouchableOpacity onPress={this.navigateToFriendsCalendar.bind(this)} style={styles.calendarIcon}>
+                <TouchableOpacity onPress={this.confirmViewFriendsCalendarAlertBox} style={styles.calendarIcon}>
                     <Foundation name="calendar" color={'#FF1DCE'} size={50}/>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.trashIcon} onPress={this.createTwoButtonAlert}>
+                <TouchableOpacity style={styles.trashIcon} onPress={this.confirmFriendRemovalAlertBox}>
                     <Entypo name="trash" color={'#FF1DCE'} size={45}/>
                 </TouchableOpacity>
 

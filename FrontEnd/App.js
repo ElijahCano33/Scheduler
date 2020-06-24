@@ -1,5 +1,6 @@
 import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import { fromLeft } from 'react-navigation-transitions';
 import LoadingScreen from './src/screens/LoadingScreen/Components/LoadingScreen.js';
 import LoginScreen from './src/screens/LoginScreen/Components/LoginScreen.js';
 import SignUpScreen from './src/screens/SignUpScreen/Components/SignUpScreen.js';
@@ -15,6 +16,7 @@ const CalendarNavigator = createStackNavigator(
   {
     initialRouteName: 'CalendarScreen',
     headerMode: 'none',
+    //transitionConfig: () => fromLeft(),
   }
 );
 

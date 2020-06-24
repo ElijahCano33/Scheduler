@@ -259,12 +259,11 @@ export default class FriendsCalendarScreen extends Component{
 
         <StatusBar hidden/>
 
-        <Image
-          style={styles.logo}
-          source={require('../../../../pics/scriptscheduler.png')}
-        />
+        <Image style={styles.logo} source={require('../../../../pics/scriptscheduler.png')}/>
 
-        <Feather name="x" color={'black'} size={30} style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}/>
+        <TouchableOpacity style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}>
+          <Feather name="x" color={'black'} size={30}/>
+        </TouchableOpacity>
   
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Modal
