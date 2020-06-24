@@ -103,7 +103,8 @@ export default class FriendsScreen extends Component{
                 <FlatList
                     data={this.state.unfilteredFriends}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username} navigation={this.props.navigation}/>)}
+                    renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username} navigation={this.props.navigation} onRef={ref => (this.parentReference = ref)}
+                    parentReference = {this.fetchFriendsList.bind(this)}/>)}
                 />
             </View>
         )
@@ -115,7 +116,8 @@ export default class FriendsScreen extends Component{
                 <FlatList
                     data={this.state.filteredFriends}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username} navigation={this.props.navigation}/>)}
+                    renderItem={({ item }) => (<FriendBox firstName={item.first} lastName={item.last} email={item.email} userName={item.username} navigation={this.props.navigation} onRef={ref => (this.parentReference = ref)}
+                    parentReference = {this.fetchFriendsList.bind(this)}/>)}
                 />
             </View>
         );
