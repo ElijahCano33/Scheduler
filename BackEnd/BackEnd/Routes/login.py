@@ -41,7 +41,7 @@ def login():
                 email = data['email'].lower()
 
                 if len(email) == 0:
-                    error = "Email Needs A Value!"
+                    error = "Please Type In An Email!"
                     response["error"] = error
                     raise Exception(response)
 
@@ -52,7 +52,7 @@ def login():
 
                 password = data['password']
                 if(len(password) == 0):
-                    error = "Password Needs A Value!"
+                    error = "Please Type In A Password!"
                     response["error"] = error
                     raise Exception(response)
 
