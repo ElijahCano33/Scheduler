@@ -70,8 +70,20 @@ def encrypt_password(password_unencrypted, salt_string):
     return encrypted_password
 
 def checkValidityOfData(requestData, typeOfData):
-    if requestData == "":
-        error = typeOfData + " needs a value!"
+    if requestData == "" and typeOfData == "first_name":
+        error = "Please Type In A First Name!"
+        return error
+    elif requestData == "" and typeOfData == "last_name":
+        error = "Please Type In A Last Name!"
+        return error
+    elif requestData == "" and typeOfData == "email":
+        error = "Please Type In An Email!"
+        return error
+    elif requestData == "" and typeOfData == "user_name":
+        error = "Please Type In A Username!"
+        return error
+    elif requestData == "" and typeOfData == "password":
+        error = "Please Type In A Password!"
         return error
     else:
         return None

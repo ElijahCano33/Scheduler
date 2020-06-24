@@ -16,7 +16,7 @@ def readFriendId():
             if current_user.is_authenticated():
 
                 data = request.get_json()
-                friend = data['friend']  
+                friend = data['friend']
                 cursor.execute(f"""SELECT user_id FROM Scheduler.users WHERE email='{friend}' OR username='{friend}'""")
                 result = cursor.fetchone()[0]
                 response['friend_id'] = result
