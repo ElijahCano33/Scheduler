@@ -19,7 +19,7 @@ export default class FriendBox extends Component {
     }
 
     navigateToFriendsCalendar(){
-        this.props.navigation.navigate('FriendsCalendarScreen', {data: this.props.email});
+        this.props.navigation.navigate('FriendsCalendarScreen', {email: this.props.email, firstName: this.props.firstName});
     }
 
     confirmFriendRemovalAlertBox = () => {
