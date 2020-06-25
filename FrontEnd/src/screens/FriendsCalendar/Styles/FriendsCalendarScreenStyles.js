@@ -252,7 +252,7 @@ export default StyleSheet.create({
 
   noUpcomingEventsText: {
     top: '75%',
-    left: '23.5%',
+    textAlign: 'center',
     fontSize: 22,
     color: 'white',
     position: 'absolute',
