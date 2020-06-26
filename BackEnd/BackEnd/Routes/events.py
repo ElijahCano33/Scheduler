@@ -22,6 +22,7 @@ def createEvent():
             startTime = data["starting_time"] 
             endTime = data["ending_time"]
             userID = data["user_id"]
+            hiddenEvent = data["hidden_event"]
 
             if not userID or not startDate:
                 error = "Can't create event because of missing essential parameters"
@@ -29,8 +30,8 @@ def createEvent():
                 raise Exception(response)
 
 
-            mySql_insert_query = """INSERT INTO `Scheduler`.`events` (`user_id`, `title`, `location`, `description`, `startDate`, `endDate`, `startTime`, `endTIme`)  VALUES (%s, %s, %s, %s, %s, %s, %s, %s) """
-            recordTuple = (userID, eventTitle, location, description, startDate, endDate, startTime, endTime)
+            mySql_insert_query = """INSERT INTO `Scheduler`.`events` (`user_id`, `title`, `location`, `description`, `startDate`, `endDate`, `startTime`, `endTIme`,`hiddenEvent`)  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) """
+            recordTuple = (userID, eventTitle, location, description, startDate, endDate, startTime, endTime, hiddenEvent)
             cursor.execute(mySql_insert_query, recordTuple)
             database.commit()
 
@@ -57,10 +58,12 @@ def GetEvent():
         if database:
             cursor = database.cursor()
             response = dict()
+            friends = []
             data = request.get_json()
 
             userID = data["user_id"]
             requestType = data["request_type"]
+            fetchFriendEvents = data["fetch_friend_events"]
             
 
             if requestType == "month":
@@ -74,16 +77,49 @@ def GetEvent():
                 response['error'] = error
                 raise Exception(response)
 
-            if requestType == "month":
-                mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and month(startDate)= %s and year(startDate)= %s  """
-                recordTuple = (userID, month, year)
-                cursor.execute(mySql_insert_query, recordTuple)
-            elif requestType == "year":
-                mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and year(startDate)= %s  """
-                recordTuple = (userID, year)
-                cursor.execute(mySql_insert_query, recordTuple)
+            if fetchFriendEvents == True:
+                cursor.execute(f"SELECT user_one_id FROM Scheduler.friendship WHERE user_two_id = '{userID}' AND relationship='mutual-friends'")
+                firstFriendsResult = cursor.fetchall()
+
+                friendIds = [tup[0] for tup in firstFriendsResult]
+                
+                for ids in friendIds:
+                    friends.insert(0, ids) 
+                
+                cursor.execute(f"SELECT user_two_id FROM Scheduler.friendship WHERE user_one_id = '{userID}' AND relationship='mutual-friends'")
+                secondFriendsResult = cursor.fetchall()
+
+                friendIds = [tup[0] for tup in secondFriendsResult]
+
+                for ids in friendIds:
+                    friends.insert(0, ids)
+
+                if len(friends) == 0:
+                    error = "No Current Friends!"
+                    response['error'] = error
+                    raise Exception(response)
+
+                if requestType == "month":
+                    for i in range(len(friends)):
+                        cursor.execute(f"""SELECT ID, user_id, title, location, description, startDate, endDate, startTime, endTIme FROM Scheduler.events WHERE (user_id='{userID}' OR (user_id='{friends[i]}' AND hiddenEvent='{0}')) AND month(startDate)='{month}' AND year(startDate)='{year}'""")
+                elif requestType == "year":
+                     for i in range(len(friends)):
+                        cursor.execute(f"""SELECT ID, user_id, title, location, description, startDate, endDate, startTime, endTIme FROM Scheduler.events WHERE (user_id='{userID}' OR (user_id='{friends[i]}' AND hiddenEvent='{0}')) AND year(startDate)='{year}'""")
+
+                eventList = cursor.fetchall()
             
-            eventList = cursor.fetchall()
+            else:
+
+                if requestType == "month":
+                    mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and month(startDate)= %s and year(startDate)= %s  """
+                    recordTuple = (userID, month, year)
+                    cursor.execute(mySql_insert_query, recordTuple)
+                elif requestType == "year":
+                    mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and year(startDate)= %s  """
+                    recordTuple = (userID, year)
+                    cursor.execute(mySql_insert_query, recordTuple)
+                
+                eventList = cursor.fetchall()
 
             cursor.execute("SELECT GROUP_CONCAT(column_name ORDER BY ordinal_position) FROM information_schema.columns WHERE table_schema = DATABASE() and table_name = 'events'")
             columnLabels = list(cursor.fetchone())[0].split(',')
