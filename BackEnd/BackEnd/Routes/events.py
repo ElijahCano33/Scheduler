@@ -22,6 +22,7 @@ def createEvent():
             startTime = data["starting_time"] 
             endTime = data["ending_time"]
             userID = data["user_id"]
+            hiddenEvent = data["hidden_event"]
 
             if not userID or not startDate:
                 error = "Can't create event because of missing essential parameters"
@@ -29,8 +30,8 @@ def createEvent():
                 raise Exception(response)
 
 
-            mySql_insert_query = """INSERT INTO `Scheduler`.`events` (`user_id`, `title`, `location`, `description`, `startDate`, `endDate`, `startTime`, `endTIme`)  VALUES (%s, %s, %s, %s, %s, %s, %s, %s) """
-            recordTuple = (userID, eventTitle, location, description, startDate, endDate, startTime, endTime)
+            mySql_insert_query = """INSERT INTO `Scheduler`.`events` (`user_id`, `title`, `location`, `description`, `startDate`, `endDate`, `startTime`, `endTIme`,`hiddenEvent`)  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) """
+            recordTuple = (userID, eventTitle, location, description, startDate, endDate, startTime, endTime, hiddenEvent)
             cursor.execute(mySql_insert_query, recordTuple)
             database.commit()
 
