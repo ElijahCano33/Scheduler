@@ -3,7 +3,6 @@ import { TextInput, View, Text, Image, FlatList, ImageBackground} from 'react-na
 import styles from '../Styles/SearchScreenStyles.js';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import EventInfo from './EventInfo.js';
-import Loader from './Loader.js';
 import axios from "axios";
 
 
@@ -16,7 +15,6 @@ export default class SearchScreen extends Component{
             unfilteredEvents: [],
             filteredEvents: [],
             userId: 0,
-            mounted: true
         };
 
     }  
@@ -53,7 +51,6 @@ export default class SearchScreen extends Component{
         })
         .then((response) => {
           this.setState({unfilteredEvents: response['data']['events']});
-          this.setState({mounted: false})
         },(error) => {
           console.log(error);
         });
@@ -103,9 +100,7 @@ export default class SearchScreen extends Component{
 
                 <FontAwesome name="search" color={'white'} size={25} style={styles.searchIcon} />
 
-                {this.state.mounted ? <Loader style={{position: 'absolute', top: '48%', alignSelf: 'center', width: '40%', height: '18%', backgroundColor: '#2d2d2d', borderRadius: 20}}/> :
-
-                this.state.filteredEvents.length === 0 ?
+                {this.state.filteredEvents.length === 0 ?
 
                     <View style={styles.noSearchResultsView}>
                         <FontAwesome name="search" color={'#2d2d2d'} size={200} style={styles.noSearchResultsIcon} />
@@ -117,8 +112,7 @@ export default class SearchScreen extends Component{
                     <View style={styles.flatList}> 
                     <FlatList
                         data={this.state.filteredEvents}
-                        keyExtractor={item => item.id}
-                        key={(item) => item.id}
+                        keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) => (<EventInfo title={item.title} description={item.description} startTime={item.startDate} endDate={item.endDate}/>)}
                     />
                 </View>
