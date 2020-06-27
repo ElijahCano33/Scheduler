@@ -11,7 +11,7 @@ export default StyleSheet.create({
     loadingText: {
         position: 'absolute',
         top: '5%',
-        left: '20%',
+        alignSelf: 'center',
         fontSize: 15,
         fontWeight: 'bold',
         color: 'white',

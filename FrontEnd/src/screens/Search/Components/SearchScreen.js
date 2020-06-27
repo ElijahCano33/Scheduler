@@ -53,7 +53,7 @@ export default class SearchScreen extends Component{
         })
         .then((response) => {
           this.setState({unfilteredEvents: response['data']['events']});
-          //this.setState({mounted: false})
+          this.setState({mounted: false})
         },(error) => {
           console.log(error);
         });
@@ -92,9 +92,7 @@ export default class SearchScreen extends Component{
                 <Image
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
-                />
-
-                {this.state.mounted ? <Loader style={{position: 'absolute', top: '40%', alignSelf: 'center', width: '50%', height: '20%', backgroundColor: '#2d2d2d', borderRadius: 20}}/> : null }
+                /> 
 
                 <TextInput
                     placeholder="Search for personal or friend events"
@@ -105,7 +103,9 @@ export default class SearchScreen extends Component{
 
                 <FontAwesome name="search" color={'white'} size={25} style={styles.searchIcon} />
 
-                {this.state.filteredEvents.length === 0 ?
+                {this.state.mounted ? <Loader style={{position: 'absolute', top: '48%', alignSelf: 'center', width: '40%', height: '18%', backgroundColor: '#2d2d2d', borderRadius: 20}}/> :
+
+                this.state.filteredEvents.length === 0 ?
 
                     <View style={styles.noSearchResultsView}>
                         <FontAwesome name="search" color={'#2d2d2d'} size={200} style={styles.noSearchResultsIcon} />
