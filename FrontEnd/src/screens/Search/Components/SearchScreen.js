@@ -3,19 +3,8 @@ import { TextInput, View, Text, Image, FlatList, ImageBackground} from 'react-na
 import styles from '../Styles/SearchScreenStyles.js';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import EventInfo from './EventInfo.js';
-
-const EVENTS = [
-    {'id': 0, "title": "Birthday1", "description": "Eli's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 1, "title": "Birthday2", "description": "Troys's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 2, "title": "Birthday3", "description": "John's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 3, "title": "Birthday4", "description": "Ben's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 4, "title": "Birthday5", "description": "Jerry's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 5, "title": "Birthday6", "description": "Lopez's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 6, "title": "Birthday7", "description": "Coco's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 7, "title": "Birthday8", "description": "Bozo's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 8, "title": "Birthday9", "description": "Mozo's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-    {'id': 9, "title": "Birthday10", "description": "Perry's Birthday Party!", "startDate": "2020-06-12 06:00:00", "endDate": "2020-06-12 07:00:00"},
-]
+import Loader from './Loader.js';
+import axios from "axios";
 
 
 export default class SearchScreen extends Component{
@@ -24,23 +13,58 @@ export default class SearchScreen extends Component{
         
         this.state = {
             search: '',
-            unfilteredData: [],
-            filteredData: []
+            unfilteredEvents: [],
+            filteredEvents: [],
+            userId: 0,
+            mounted: true
         };
 
     }  
 
     componentDidMount(){
-        this.setState({unfilteredData: EVENTS});
+        let userId = 0;
+        let today = new Date();
+        let year = today.getFullYear().toString();
+        let month = (today.getMonth()+1).toString();
+        if (month < 10) month = "0" + month;
+        this.fetchUserId(userId, month, year);
     }
 
+    fetchUserId(usrId, m, y){
+        axios({
+          method: 'post',
+          url: 'http://192.168.68.1:5000/api/userId',
+        })
+        .then((response) => {
+          this.setState({userId: response['data']['user_id']});
+          usrId = this.state.userId;
+          this.fetchAnnualEventsOfUserAndFriends(usrId, y);
+        }, (error) => {
+              
+          console.log(error);
+        });
+    }
+
+    fetchAnnualEventsOfUserAndFriends(usrId, y){
+        axios({
+          method: 'post',
+          url: 'http://192.168.68.1:5000/api/event/read',
+          data: {user_id: usrId, request_type: "year", year: y, fetch_friend_events: true}
+        })
+        .then((response) => {
+          this.setState({unfilteredEvents: response['data']['events']});
+          this.setState({mounted: false})
+        },(error) => {
+          console.log(error);
+        });
+    }
     
     searchEvents = (search) => {
         let unfiltered = [];
         let filtered = [];
 
         if(search !== ''){
-            unfiltered = this.state.unfilteredData;
+            unfiltered = this.state.unfilteredEvents;
             filtered = unfiltered.filter(function(item){
                 let input = search;
                 
@@ -58,7 +82,7 @@ export default class SearchScreen extends Component{
                 }       
             })
         }
-        this.setState({filteredData: filtered})
+        this.setState({filteredEvents: filtered})
     }
     
     render() {
@@ -68,7 +92,8 @@ export default class SearchScreen extends Component{
                 <Image
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
-                />
+                /> 
+
                 <TextInput
                     placeholder="Search for personal or friend events"
                     placeholderTextColor='#FFFFFF'
@@ -78,7 +103,9 @@ export default class SearchScreen extends Component{
 
                 <FontAwesome name="search" color={'white'} size={25} style={styles.searchIcon} />
 
-                {this.state.filteredData.length === 0 ?
+                {this.state.mounted ? <Loader style={{position: 'absolute', top: '48%', alignSelf: 'center', width: '40%', height: '18%', backgroundColor: '#2d2d2d', borderRadius: 20}}/> :
+
+                this.state.filteredEvents.length === 0 ?
 
                     <View style={styles.noSearchResultsView}>
                         <FontAwesome name="search" color={'#2d2d2d'} size={200} style={styles.noSearchResultsIcon} />
@@ -89,8 +116,9 @@ export default class SearchScreen extends Component{
 
                     <View style={styles.flatList}> 
                     <FlatList
-                        data={this.state.filteredData}
+                        data={this.state.filteredEvents}
                         keyExtractor={item => item.id}
+                        key={(item) => item.id}
                         renderItem={({ item }) => (<EventInfo title={item.title} description={item.description} startTime={item.startDate} endDate={item.endDate}/>)}
                     />
                 </View>
