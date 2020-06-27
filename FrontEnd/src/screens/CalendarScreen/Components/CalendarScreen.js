@@ -64,7 +64,7 @@ class CalendarScreen extends Component{
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: usrId, request_type: "month", month: m, year: y}
+      data: {user_id: usrId, request_type: "month", month: m, year: y, fetch_friend_events: false}
     })
     .then((response) => {
       this.setState({currentMonthUserEvents: response['data']['events']});
@@ -78,7 +78,7 @@ class CalendarScreen extends Component{
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: usrId, request_type: "year", year: y}
+      data: {user_id: usrId, request_type: "year", year: y, fetch_friend_events: false}
     })
     .then((response) => {
       this.setState({currentYearUserEvents: response['data']['events']});
@@ -202,6 +202,7 @@ class CalendarScreen extends Component{
     let today = new Date();
     let year = today.getFullYear().toString();
     let month = (today.getMonth()+1).toString();
+    let hiddenEvent = this.state.hideEvent;
 
     if (month < 10) month = "0" + month;
 
@@ -216,7 +217,8 @@ class CalendarScreen extends Component{
         starting_date: startDate,
         ending_day: endDate,
         starting_time: startTime,
-        ending_time: endTime
+        ending_time: endTime,
+        hidden_event: hiddenEvent
       }
     })
     .then((response) => {
