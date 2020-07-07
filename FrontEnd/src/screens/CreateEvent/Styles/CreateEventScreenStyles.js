@@ -21,7 +21,7 @@ export default StyleSheet.create({
     left: '1%'
   },
 
-  createeventScreenHeaderText: {
+  createEventScreenHeaderText: {
     position: 'absolute',
     top: '10%',
     alignSelf: 'center',
@@ -51,34 +51,21 @@ export default StyleSheet.create({
     position: 'absolute'
   },
 
-
-  startDateInput: {
-    height: 40,
-    width: 250,
-    backgroundColor: 'white',
-    paddingLeft: 0,
-    fontSize: 14,
-    marginBottom: 20,
-    top: '70%',
+  selectDayInstructionsText: {
     position: 'absolute',
-    borderRadius: 2,
-    borderColor: 'grey',
-    borderBottomWidth: 0.3,
-    
+    top: '33%',
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif-thin',
+    color: 'white',
+    fontSize: 25
   },
-  endDateInput: {
-    height: 40,
-    width: 250,
-    backgroundColor: 'white',
-    paddingLeft: 0,
-    fontSize: 14,
-    marginBottom: 20,
-    top: '90%',
-    position: 'absolute',
-    borderRadius: 2,
-    borderColor: 'grey',
-    borderBottomWidth: 0.3,
-    
+
+  calendarList: {
+    height: '40%', 
+    position: 'absolute', 
+    top: '110%', 
+    left: '0%'
   },
 
   singleDayEventButton: {
@@ -93,15 +80,5 @@ export default StyleSheet.create({
     left: '68%'
   },
 
-  createEventsText: {
-    color: '#0099FF',
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    top: '8%',
-    left: '5%',
-    alignSelf: 'center',
-    fontWeight: "bold",
-    fontSize: 18
-},
 
 });

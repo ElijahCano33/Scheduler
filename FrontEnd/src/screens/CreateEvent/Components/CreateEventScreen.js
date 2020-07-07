@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { Alert, StatusBar, TextInput, View, TouchableHighlight, TouchableWithoutFeedback, Keyboard, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CreateEventScreenStyles.js';
 import Feather from 'react-native-vector-icons/Feather';
-
+import {CalendarList} from 'react-native-calendars';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 export default class CreateEventScreen extends Component{
     render(){
@@ -15,7 +16,7 @@ export default class CreateEventScreen extends Component{
                     <Feather name="x" color={'black'} size={30}/>
                 </TouchableOpacity>
 
-                <Text style={styles.createeventScreenHeaderText}>Create A New Event</Text>
+                <Text style={styles.createEventScreenHeaderText}>Create A New Event</Text>
 
                 <TextInput
                     placeholder="Event Title: "
@@ -32,6 +33,45 @@ export default class CreateEventScreen extends Component{
                   style={styles.eventDescriptionInput}
                   onChangeText={(eventDescription) => this.setState({eventDescription})}
                 />
+
+                <Text style={styles.selectDayInstructionsText}>Select A Day For The Event</Text>
+
+                <View styles={styles.calendarList}>
+                    <CalendarList
+                        theme={{
+                            calendarBackground: 'transparent',
+                            textSectionTitleColor: 'white',
+                            selectedDayBackgroundColor: 'white',
+                            selectedDayTextColor: 'white',
+                            todayTextColor: 'white',
+                            dayTextColor: 'white',
+                            textDisabledColor: 'white',
+                            dotColor: 'red',
+                            selectedDotColor: 'orange',
+                            arrowColor: 'black',
+                            monthTextColor: 'white',
+                            indicatorColor: 'blue',
+                            textDayFontFamily: 'sans-serif-thin',
+                            textMonthFontFamily: 'sans-serif-thin',
+                            textDayHeaderFontFamily: 'sans-serif-thin',
+                            textDayFontWeight: 'bold',
+                            textMonthFontWeight: 'bold',
+                            textDayHeaderFontWeight: 'bold',
+                            textDayFontSize: 5,
+                            textMonthFontSize: 5,
+                            textDayHeaderFontSize: 5,
+                            textMonthFontWeight: 'bold',
+                            textDayFontWeight: 'bold', 
+                        }}
+                        pastScrollRange={5}
+                        futureScrollRange={5}
+                        scrollEnabled={false}
+                        hideArrows={true}
+                        horizontal={true}
+                        onDayPress={(day) => console.log(day)}
+                        />
+
+                </View>
 
                 {/*
                 <View style={styles.singleDayEventButton}>
@@ -58,44 +98,7 @@ export default class CreateEventScreen extends Component{
                   />
                 </View>
 
-                <View styles={styles.calendarListModal}>
-                <CalendarList
-                  theme={{
-                    calendarBackground: 'black',
-                    textSectionTitleColor: 'white',
-                    selectedDayBackgroundColor: 'white',
-                    selectedDayTextColor: 'white',
-                    todayTextColor: 'white',
-                    dayTextColor: 'white',
-                    textDisabledColor: 'white',
-                    dotColor: 'red',
-                    selectedDotColor: 'orange',
-                    arrowColor: 'black',
-                    monthTextColor: 'white',
-                    indicatorColor: 'blue',
-                    textDayFontFamily: 'sans-serif-thin',
-                    textMonthFontFamily: 'sans-serif-thin',
-                    textDayHeaderFontFamily: 'sans-serif-thin',
-                    textDayFontWeight: 'bold',
-                    textMonthFontWeight: 'bold',
-                    textDayHeaderFontWeight: 'bold',
-                    textDayFontSize: 5,
-                    textMonthFontSize: 5,
-                    textDayHeaderFontSize: 5,
-                    textMonthFontWeight: 'bold',
-                    textDayFontWeight: 'bold', 
-                  }}
-                  pastScrollRange={5}
-                  futureScrollRange={5}
-                  scrollEnabled={false}
-                  hideArrows={true}
-                  horizontal={true}
-                  onDayPress={(day) => console.log(day)}
-                  pagingEnabled={true}
-                  calendarWidth={10}
-                  calendarHeight={5}/>
-
-                </View>
+                
             </View>*/}
             </ImageBackground>
         )

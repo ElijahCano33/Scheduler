@@ -17,7 +17,6 @@ import TabBar from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
 import {CalendarList} from 'react-native-calendars';
 import axios from "axios";
-import ToggleSwitch from 'toggle-switch-react-native';
 
 
 class CalendarScreen extends Component{
