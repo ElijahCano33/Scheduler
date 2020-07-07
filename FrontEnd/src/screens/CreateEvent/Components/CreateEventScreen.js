@@ -34,9 +34,7 @@ export default class CreateEventScreen extends Component{
                   onChangeText={(eventDescription) => this.setState({eventDescription})}
                 />
 
-                <Text style={styles.selectDayInstructionsText}>Select A Day For The Event</Text>
-
-                <View styles={styles.calendarList}>
+                <View style={styles.calendarList}>
                     <CalendarList
                         theme={{
                             calendarBackground: 'transparent',
@@ -57,17 +55,19 @@ export default class CreateEventScreen extends Component{
                             textDayFontWeight: 'bold',
                             textMonthFontWeight: 'bold',
                             textDayHeaderFontWeight: 'bold',
-                            textDayFontSize: 5,
-                            textMonthFontSize: 5,
-                            textDayHeaderFontSize: 5,
+                            textDayFontSize: 15,
+                            textMonthFontSize: 15,
+                            textDayHeaderFontSize: 15,
                             textMonthFontWeight: 'bold',
                             textDayFontWeight: 'bold', 
                         }}
                         pastScrollRange={5}
                         futureScrollRange={5}
-                        scrollEnabled={false}
-                        hideArrows={true}
+                        scrollEnabled={true}
+                        hideArrows={false}
                         horizontal={true}
+                        calendarWidth={380}
+                        calendarHeight={355}
                         onDayPress={(day) => console.log(day)}
                         />
 
