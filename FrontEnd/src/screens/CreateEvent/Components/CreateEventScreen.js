@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Alert, StatusBar, TextInput, View, TouchableHighlight, TouchableWithoutFeedback, Keyboard, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CreateEventScreenStyles.js';
 import Feather from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {CalendarList} from 'react-native-calendars';
 import ToggleSwitch from 'toggle-switch-react-native';
 
@@ -70,8 +71,9 @@ export default class CreateEventScreen extends Component{
                         calendarHeight={355}
                         onDayPress={(day) => console.log(day)}
                         />
-
                 </View>
+
+                <Entypo  style={styles.downArrowIcon} name="arrow-bold-down" color={'black'} size={30}/>
 
                 {/*
                 <View style={styles.singleDayEventButton}>

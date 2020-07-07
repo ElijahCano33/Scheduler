@@ -62,9 +62,9 @@ export default StyleSheet.create({
   },
 
   calendarList: {
-    height: '200%', 
+    height: '100%', 
     position: 'absolute', 
-    top: '43%', 
+    top: '42%', 
     left: '1%'
   },
 
@@ -79,6 +79,12 @@ export default StyleSheet.create({
     top: '105%', 
     left: '68%'
   },
+
+  downArrowIcon: {
+    position: 'absolute',
+    bottom: '1.5%',
+    alignSelf: 'center'
+  }
 
 
 });
