@@ -61,7 +61,7 @@ export default class EventScreen extends Component{
                 <Text style={styles.eventScreenHeaderText}>Events For {this.state.selectedEventMonth}{' '}{this.state.selectedEventDay},{' '}{this.state.selectedEventYear}</Text>
 
                 <TouchableOpacity style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}>
-                <Feather name="x" color={'black'} size={30}/>
+                    <Feather name="x" color={'black'} size={30}/>
                 </TouchableOpacity>
 
                 {this.state.selectedEvents.length !== 0 ?  <View style={styles.flatList}> 

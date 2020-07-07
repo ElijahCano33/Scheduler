@@ -6,11 +6,14 @@ import LoginScreen from './src/screens/LoginScreen/Components/LoginScreen.js';
 import SignUpScreen from './src/screens/SignUpScreen/Components/SignUpScreen.js';
 import CalendarScreen from './src/screens/CalendarScreen/Components/CalendarScreen.js';
 import EventScreen from './src/screens/Events/Components/EventScreen.js';
+import CreateEventScreen from './src/screens/CreateEvent/Components/CreateEventScreen.js';
  
 const CalendarNavigator = createStackNavigator(
   {
       CalendarScreen: CalendarScreen,
-      EventScreen: EventScreen
+      CreateEventScreen: CreateEventScreen,
+      EventScreen: EventScreen,
+
 
   }, 
   {
