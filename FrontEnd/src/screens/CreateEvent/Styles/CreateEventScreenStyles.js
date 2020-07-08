@@ -37,7 +37,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingLeft: 10,
     marginBottom: 20,
-    top: '16.5%',
+    top: '18%',
     position: 'absolute'
   },
 
@@ -47,13 +47,37 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingLeft: 10,
     marginBottom: 20,
-    top: '25%',
+    top: '28%',
     position: 'absolute'
   },
 
-  selectDayInstructionsText: {
+  selectDayView: {
     position: 'absolute',
-    top: '45%',
+    top: '55%',
+    alignSelf: 'center'
+  },
+
+  selectDayText: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif-thin',
+    color: 'white',
+    fontSize: 25
+  },
+
+  noCalendarView: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    flex: 1
+  },
+
+  selectTimeView: {
+    position: 'absolute',
+    top: '70%',
+    alignSelf: 'center'
+  },
+
+  selectTimeText: {
     alignSelf: 'center',
     fontWeight: 'bold',
     fontFamily: 'sans-serif-thin',
@@ -64,7 +88,7 @@ export default StyleSheet.create({
   calendarList: {
     height: '100%', 
     position: 'absolute', 
-    top: '42%', 
+    top: '45%', 
     left: '0%'
   },
 

@@ -15,8 +15,16 @@ export default class CreateEventScreen extends Component{
     this.state = {
       isBlinking: true,
       singleDayEvent: false,
-      hideEvent: false
+      hideEvent: false,
+      eventTitle: '',
+      eventDescription: '',
+      selectDayTextPressed: false
     }
+  }
+
+  handleSelectedDay(day){
+    console.log(this.state.selectDayTextPressed);
+    this.setState({selectDayTextPressed: false});
   }
 
   render(){
@@ -32,10 +40,10 @@ export default class CreateEventScreen extends Component{
           <Text style={styles.createEventScreenHeaderText}>Create A New Event</Text>
 
           <TextInput
-              placeholder="Event Title: "
-              placeholderTextColor='grey'
-              style={styles.eventTitleInput}
-              onChangeText={(eventTitle) => this.setState({eventTitle})}
+            placeholder="Event Title: "
+            placeholderTextColor='grey'
+            style={styles.eventTitleInput}
+            onChangeText={(eventTitle) => this.setState({eventTitle})}
           />
 
           <TextInput
@@ -47,47 +55,62 @@ export default class CreateEventScreen extends Component{
             onChangeText={(eventDescription) => this.setState({eventDescription})}
           />
 
-          <View style={styles.calendarList}>
-            <CalendarList
-              theme={{
-                  calendarBackground: 'transparent',
-                  textSectionTitleColor: 'white',
-                  selectedDayBackgroundColor: 'white',
-                  selectedDayTextColor: 'white',
-                  todayTextColor: 'white',
-                  dayTextColor: 'white',
-                  textDisabledColor: 'white',
-                  dotColor: 'red',
-                  selectedDotColor: 'orange',
-                  arrowColor: 'black',
-                  monthTextColor: 'white',
-                  indicatorColor: 'blue',
-                  textDayFontFamily: 'sans-serif-thin',
-                  textMonthFontFamily: 'sans-serif-thin',
-                  textDayHeaderFontFamily: 'sans-serif-thin',
-                  textDayFontWeight: 'bold',
-                  textMonthFontWeight: 'bold',
-                  textDayHeaderFontWeight: 'bold',
-                  textDayFontSize: 15,
-                  textMonthFontSize: 15,
-                  textDayHeaderFontSize: 15,
-                  textMonthFontWeight: 'bold',
-                  textDayFontWeight: 'bold', 
-              }}
-              pastScrollRange={5}
-              futureScrollRange={5}
-              scrollEnabled={true}
-              hideArrows={false}
-              horizontal={true}
-              calendarWidth={380}
-              calendarHeight={355}
-              onDayPress={(day) => console.log(day)}
-            />
-          </View>
+          {this.state.selectDayTextPressed ? 
+            <View style={styles.calendarList}>
+              <CalendarList
+                theme={{
+                    calendarBackground: 'transparent',
+                    textSectionTitleColor: 'white',
+                    selectedDayBackgroundColor: 'white',
+                    selectedDayTextColor: 'white',
+                    todayTextColor: 'white',
+                    dayTextColor: 'white',
+                    textDisabledColor: 'white',
+                    dotColor: 'red',
+                    selectedDotColor: 'orange',
+                    arrowColor: 'black',
+                    monthTextColor: 'white',
+                    indicatorColor: 'blue',
+                    textDayFontFamily: 'sans-serif-thin',
+                    textMonthFontFamily: 'sans-serif-thin',
+                    textDayHeaderFontFamily: 'sans-serif-thin',
+                    textDayFontWeight: 'bold',
+                    textMonthFontWeight: 'bold',
+                    textDayHeaderFontWeight: 'bold',
+                    textDayFontSize: 15,
+                    textMonthFontSize: 15,
+                    textDayHeaderFontSize: 15,
+                    textMonthFontWeight: 'bold',
+                    textDayFontWeight: 'bold', 
+                }}
+                pastScrollRange={5}
+                futureScrollRange={5}
+                scrollEnabled={true}
+                onDayPress={(day) => this.handleSelectedDay(day)}
+                hideArrows={false}
+                horizontal={true}
+                calendarWidth={380}
+                calendarHeight={355}
+                onDayPress={(day) => console.log(day)}
+              />
 
-          <TouchableOpacity style={styles.downArrowIcon} onPress={() => this._panel.show()}>
+            </View>
+            : 
+            <View style={styles.noCalendarView}>
+              <TouchableOpacity style={styles.selectDayView} onPress={() => {this.setState({selectDayTextPressed: !this.state.selectDayTextPressed})}}>
+                <Text style={styles.selectDayText}>Select A Day</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.selectTimeView} onPress={() => this._panel.show()}>
+                <Text style={styles.selectTimeText}>Select A Time</Text>
+              </TouchableOpacity>
+            </View>
+          }
+
+          {/*<TouchableOpacity style={styles.downArrowIcon} onPress={() => this._panel.show()}>
             <Entypo name="arrow-bold-down" color={'black'} size={30}/>
           </TouchableOpacity>
+            */}
 
           <SlidingUpPanel ref={c => this._panel = c} friction={0.50}>
 

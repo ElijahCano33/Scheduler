@@ -55,7 +55,15 @@ export default StyleSheet.create({
     textAlign: 'left',
     left: '18%', 
     top: '54.5%',
-    position: 'absolute'
+    position: 'absolute',
+    shadowColor: 'white',
+    shadowOffset: {
+        width: 10,
+        height: 10
+    },
+    shadowRadius: 20,
+    shadowOpacity: 5.0,
+    elevation: 30
   },
 
   signUpButton: {
@@ -66,7 +74,15 @@ export default StyleSheet.create({
     textAlign: 'left',
     top: '54.5%',
     left: '52%', 
-    position: 'absolute'
+    position: 'absolute',
+    shadowColor: 'white',
+    shadowOffset: {
+        width: 10,
+        height: 10
+    },
+    shadowRadius: 20,
+    shadowOpacity: 5.0,
+    elevation: 30
   },
   
   buttonText: {
