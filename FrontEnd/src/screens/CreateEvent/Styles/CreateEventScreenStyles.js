@@ -65,7 +65,7 @@ export default StyleSheet.create({
     height: '100%', 
     position: 'absolute', 
     top: '42%', 
-    left: '1%'
+    left: '0%'
   },
 
   singleDayEventButton: {
@@ -82,8 +82,9 @@ export default StyleSheet.create({
 
   downArrowIcon: {
     position: 'absolute',
-    bottom: '1.5%',
-    alignSelf: 'center'
+    width: '100%',
+    bottom: '0%',
+    alignItems: 'center'
   }
 
 
