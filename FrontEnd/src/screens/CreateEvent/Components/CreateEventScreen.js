@@ -14,7 +14,8 @@ export default class CreateEventScreen extends Component{
 
     this.state = {
       isBlinking: true,
-      singleDayEvent: false
+      singleDayEvent: false,
+      hideEvent: false
     }
   }
 
@@ -89,6 +90,7 @@ export default class CreateEventScreen extends Component{
           </TouchableOpacity>
 
           <SlidingUpPanel ref={c => this._panel = c} friction={0.50}>
+
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
               <ToggleSwitch
                 isOn={this.state.singleDayEvent}
@@ -99,31 +101,24 @@ export default class CreateEventScreen extends Component{
                 size="small"
                 onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
               />
+
+              <ToggleSwitch
+                isOn={this.state.hideEvent}
+                onColor="green"
+                offColor="grey"
+                label="Hide Event"
+                labelStyle={{ color: "white", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 15 }}
+                size="small"
+                onToggle={hideEvent => {this.setState({ hideEvent }); this.onToggle(hideEvent);}}
+              />
+
               <TouchableOpacity style={styles.createEventButton} onPress={() => this._panel.hide()} >
                 <Text style={styles.createEventButtonText}>Create Event</Text>
               </TouchableOpacity>
             </ImageBackground>
+
           </SlidingUpPanel>
 
-              {/*
-              <View style={styles.singleDayEventButton}>
-                
-              </View>
-
-              <View style={styles.hideEventButton}>
-                <ToggleSwitch
-                  isOn={this.state.hideEvent}
-                  onColor="green"
-                  offColor="grey"
-                  label="Hide Event"
-                  labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
-                  size="small"
-                  onToggle={hideEvent => {this.setState({ hideEvent }); this.onToggle(hideEvent);}}
-                />
-              </View>
-
-              
-          </View>*/}
           </ImageBackground>
       )
   }

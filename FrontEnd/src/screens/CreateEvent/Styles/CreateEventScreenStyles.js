@@ -105,7 +105,9 @@ export default StyleSheet.create({
   },
 
   createEventButtonText: {
-    textAlign: 'center',
+    position:'absolute',
+    top: '12%',
+    alignSelf: 'center',
     color: 'white',
     fontWeight: 'bold',
     fontFamily: 'sans-serif-thin',
