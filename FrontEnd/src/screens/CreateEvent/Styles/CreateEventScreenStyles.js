@@ -53,7 +53,7 @@ export default StyleSheet.create({
 
   selectDayView: {
     position: 'absolute',
-    top: '55%',
+    top: '48%',
     alignSelf: 'center'
   },
 
@@ -73,7 +73,7 @@ export default StyleSheet.create({
 
   selectTimeView: {
     position: 'absolute',
-    top: '70%',
+    top: '56%',
     alignSelf: 'center'
   },
 
@@ -94,14 +94,14 @@ export default StyleSheet.create({
 
   singleDayEventButton: {
     position: 'absolute', 
-    top: '105%', 
-    left: '15%'
+    top: '65%', 
+    alignSelf: 'center'
   },
 
   hideEventButton: {
     position: 'absolute', 
-    top: '105%', 
-    left: '68%'
+    top: '75%', 
+    alignSelf: 'center'
   },
 
   downArrowIcon: {
@@ -113,7 +113,7 @@ export default StyleSheet.create({
 
   createEventButton: {
     position: 'absolute',
-    bottom: '10%',
+    bottom: '5%',
     backgroundColor: '#2d2d2d',
     borderRadius: 20,
     width: '50%',

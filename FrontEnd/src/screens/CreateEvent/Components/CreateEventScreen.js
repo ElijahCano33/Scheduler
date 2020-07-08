@@ -4,7 +4,6 @@ import styles from '../Styles/CreateEventScreenStyles.js';
 import Feather from 'react-native-vector-icons/Feather';
 import {CalendarList} from 'react-native-calendars';
 import ToggleSwitch from 'toggle-switch-react-native';
-import SlidingUpPanel from 'rn-sliding-up-panel';
 
 export default class CreateEventScreen extends Component{
   constructor(props){
@@ -25,7 +24,9 @@ export default class CreateEventScreen extends Component{
     }
   }
 
-
+  onToggle(event) {
+    console.log("Changed to " + event);
+  }
 
   toggleSelectedDayText = () => {
     if (this.state.selectDayTextPressed){
@@ -141,42 +142,43 @@ export default class CreateEventScreen extends Component{
                 {this.state.selectedDay === '' ? <Text style={styles.selectDayText}>Select A Day</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedMonth}{' '}{this.state.selectedDay},{' '}{this.state.selectedYear}</Text>}
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.selectTimeView} onPress={() => this._panel.show()}>
+              <TouchableOpacity style={styles.selectTimeView}>
                 <Text style={styles.selectTimeText}>Select A Time</Text>
               </TouchableOpacity>
-            </View>
-          }
 
-          <SlidingUpPanel ref={c => this._panel = c} friction={0.50}>
+              <View style={styles.singleDayEventButton}>
 
-            <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
-              <ToggleSwitch
-                isOn={this.state.singleDayEvent}
-                onColor="green"
-                offColor="grey"
-                label="Single Day Event"
-                labelStyle={{ color: "white", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 15 }}
-                size="small"
-                onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
-              />
+                <ToggleSwitch
+                  isOn={this.state.singleDayEvent}
+                  onColor="green"
+                  offColor="grey"
+                  label="Single Day Event"
+                  labelStyle={{ color: "white", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 25 }}
+                  size="medium"
+                  onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
+                />
+
+              </View>
+
+              <View style={styles.hideEventButton}>
 
               <ToggleSwitch
                 isOn={this.state.hideEvent}
                 onColor="green"
                 offColor="grey"
                 label="Hide Event"
-                labelStyle={{ color: "white", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 15 }}
-                size="small"
+                labelStyle={{ color: "white", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 25 }}
+                size="medium"
                 onToggle={hideEvent => {this.setState({ hideEvent }); this.onToggle(hideEvent);}}
               />
 
-              <TouchableOpacity style={styles.createEventButton} onPress={() => this._panel.hide()} >
+              </View>
+
+              <TouchableOpacity style={styles.createEventButton} >
                 <Text style={styles.createEventButtonText}>Create Event</Text>
               </TouchableOpacity>
-            </ImageBackground>
-
-          </SlidingUpPanel>
-
+            </View>
+          }
           </ImageBackground>
       )
   }
