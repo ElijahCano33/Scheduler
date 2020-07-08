@@ -128,6 +128,24 @@ export default StyleSheet.create({
     elevation: 30
   },
 
+  selectTimeButton: {
+    position: 'absolute',
+    top: '30%',
+    alignSelf: 'center',
+    backgroundColor: '#2d2d2d',
+    borderRadius: 20,
+    width: '50%',
+    height: '5%',
+    shadowColor: 'white',
+    shadowOffset: {
+        width: 10,
+        height: 10
+    },
+    shadowRadius: 20,
+    shadowOpacity: 5.0,
+    elevation: 30
+  },
+
   createEventButtonText: {
     position:'absolute',
     top: '12%',
@@ -135,7 +153,6 @@ export default StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontFamily: 'sans-serif-thin',
-
   },
 
   timePickerWheel: {
@@ -154,6 +171,15 @@ export default StyleSheet.create({
     color: 'white',
     bottom: '107%',
     alignSelf: 'center'
-  }
+  },
+
+  selectTimeButtonText: {
+    position:'absolute',
+    top: '12%',
+    alignSelf: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif-thin',
+  },
 
 });
