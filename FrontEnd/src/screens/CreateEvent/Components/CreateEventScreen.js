@@ -13,7 +13,8 @@ export default class CreateEventScreen extends Component{
     super(props);
 
     this.state = {
-      isBlinking: true
+      isBlinking: true,
+      singleDayEvent: false
     }
   }
 
@@ -87,24 +88,26 @@ export default class CreateEventScreen extends Component{
             <Entypo name="arrow-bold-down" color={'black'} size={30}/>
           </TouchableOpacity>
 
-          <SlidingUpPanel ref={c => this._panel = c} friction={0.001}>
+          <SlidingUpPanel ref={c => this._panel = c} friction={0.50}>
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
-              <Text>Here is the content inside panel</Text>
-              <Button title='Hide' onPress={() => this._panel.hide()} />
+              <ToggleSwitch
+                isOn={this.state.singleDayEvent}
+                onColor="green"
+                offColor="grey"
+                label="Single Day Event"
+                labelStyle={{ color: "white", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 15 }}
+                size="small"
+                onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
+              />
+              <TouchableOpacity style={styles.createEventButton} onPress={() => this._panel.hide()} >
+                <Text style={styles.createEventButtonText}>Create Event</Text>
+              </TouchableOpacity>
             </ImageBackground>
           </SlidingUpPanel>
 
               {/*
               <View style={styles.singleDayEventButton}>
-                <ToggleSwitch
-                  isOn={this.state.singleDayEvent}
-                  onColor="green"
-                  offColor="grey"
-                  label="Single Day Event"
-                  labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
-                  size="small"
-                  onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
-                />
+                
               </View>
 
               <View style={styles.hideEventButton}>

@@ -85,6 +85,31 @@ export default StyleSheet.create({
     width: '100%',
     bottom: '0%',
     alignItems: 'center'
+  },
+
+  createEventButton: {
+    position: 'absolute',
+    bottom: '10%',
+    backgroundColor: '#2d2d2d',
+    borderRadius: 20,
+    width: '50%',
+    height: '5%',
+    shadowColor: 'white',
+    shadowOffset: {
+        width: 10,
+        height: 10
+    },
+    shadowRadius: 20,
+    shadowOpacity: 5.0,
+    elevation: 30
+  },
+
+  createEventButtonText: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif-thin',
+
   }
 
 
