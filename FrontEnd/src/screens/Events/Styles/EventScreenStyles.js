@@ -13,7 +13,7 @@ export default StyleSheet.create({
         bottom: '43%',
         left: '-38%',
         position: 'absolute'
-      },
+    },
 
     eventScreenHeaderText: {
         position: 'absolute',

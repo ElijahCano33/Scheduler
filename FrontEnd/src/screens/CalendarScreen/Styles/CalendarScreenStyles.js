@@ -28,6 +28,7 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontFamily: 'sans-serif-thin'
   },
+  
   container: {
     width: 395,
     height: 110,
@@ -45,65 +46,10 @@ export default StyleSheet.create({
     position: 'absolute',
   },
 
-  createEventsText: {
-      color: '#0099FF',
-      justifyContent: 'center', 
-      alignItems: 'center', 
-      top: '8%',
-      left: '5%',
-      alignSelf: 'center',
-      fontWeight: "bold",
-      fontSize: 18
-  },
-
   textStyle: {
       color: "white",
       fontWeight: "bold",
       textAlign: "center"
-  },
-
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    marginTop: 0
-    },
-  modalView: {
-    margin: 20,
-    width: '78%',
-    top: '19%',
-    height: '40%',
-    backgroundColor: "white",
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    position: 'absolute'
-  },
-
-  openButton: {
-    backgroundColor: "#F194FF",
-    top: '119%',
-    left: '58%',
-    width: '72%',
-    height: '20%',
-    position: 'absolute'
-  },
-
-  closeButton: {
-    backgroundColor: "#F194FF",
-    top: '119%',
-    left: '0%',
-    height: '20%',
-    width: '70%',
-    position: 'absolute'
   },
 
   textStyle1: {
@@ -149,63 +95,6 @@ export default StyleSheet.create({
     elevation: 1,
   },
 
-  eventTitleInput: {
-    height: 40,
-    width: 250,
-    backgroundColor: 'white',
-    paddingLeft: 0,
-    fontSize: 14,
-    marginBottom: 20,
-    top: '16%',
-    position: 'absolute',
-    borderRadius: 2,
-    borderColor: 'grey',
-    borderBottomWidth: 0.3,
-  },
-
-  startDateInput: {
-    height: 40,
-    width: 250,
-    backgroundColor: 'white',
-    paddingLeft: 0,
-    fontSize: 14,
-    marginBottom: 20,
-    top: '70%',
-    position: 'absolute',
-    borderRadius: 2,
-    borderColor: 'grey',
-    borderBottomWidth: 0.3,
-    
-  },
-  endDateInput: {
-    height: 40,
-    width: 250,
-    backgroundColor: 'white',
-    paddingLeft: 0,
-    fontSize: 14,
-    marginBottom: 20,
-    top: '90%',
-    position: 'absolute',
-    borderRadius: 2,
-    borderColor: 'grey',
-    borderBottomWidth: 0.3,
-    
-  },
-
-  eventDescriptionInput: {
-    height: 40,
-    width: 250,
-    backgroundColor: 'white',
-    paddingLeft: 0,
-    fontSize: 14,
-    marginBottom: 20,
-    top: '36%',
-    position: 'absolute',
-    borderRadius: 2,
-    borderColor: 'grey',
-    borderBottomWidth: 0.3,
-  },
-
   additionIcon: {
     top: '5%', 
     left: '7%', 
@@ -227,27 +116,6 @@ export default StyleSheet.create({
     position: 'absolute', 
     top: '6%', 
     left: '0%'
-  },
-
-  creatEventText: {
-    fontWeight: 'bold', 
-    fontSize: 20, 
-    color: 'black', 
-    top: '3%', 
-    position: 'absolute', 
-    fontFamily: 'sans-serif-thin'
-  },
-
-  singleDayEventButton: {
-    position: 'absolute', 
-    top: '60%', 
-    left: '8%'
-  },
-
-  hideEventButton: {
-    position: 'absolute', 
-    top: '60%', 
-    left: '68%'
   },
 
   noUpcomingEventsText: {

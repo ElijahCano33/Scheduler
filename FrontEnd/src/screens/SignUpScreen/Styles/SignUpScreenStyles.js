@@ -78,7 +78,15 @@ export default StyleSheet.create({
     textAlign: 'left',
     left: '18%',
     top: '60%',
-    position: 'absolute'
+    position: 'absolute',
+    shadowColor: 'white',
+    shadowOffset: {
+        width: 10,
+        height: 10
+    },
+    shadowRadius: 20,
+    shadowOpacity: 5.0,
+    elevation: 30
   },
 
   registerButton: {
@@ -89,7 +97,15 @@ export default StyleSheet.create({
     textAlign: 'left',
     top: '60%',
     left: '52%',
-    position: 'absolute'
+    position: 'absolute',
+    shadowColor: 'white',
+    shadowOffset: {
+        width: 10,
+        height: 10
+    },
+    shadowRadius: 20,
+    shadowOpacity: 5.0,
+    elevation: 30
   },
 
   buttonText: {
