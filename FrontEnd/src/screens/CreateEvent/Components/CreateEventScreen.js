@@ -4,6 +4,23 @@ import styles from '../Styles/CreateEventScreenStyles.js';
 import Feather from 'react-native-vector-icons/Feather';
 import {CalendarList} from 'react-native-calendars';
 import ToggleSwitch from 'toggle-switch-react-native';
+import {TimePicker} from "react-native-wheel-picker-android";
+
+const HOURS = [
+  "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+  "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
+  "22", "23"
+];
+
+const MINUTES = [
+  "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+  "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
+  "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32",
+  "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43",
+  "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54",
+  "55", "56", "57", "58", "59"
+];
+
 
 export default class CreateEventScreen extends Component{
   constructor(props){
@@ -16,17 +33,21 @@ export default class CreateEventScreen extends Component{
       eventTitle: '',
       eventDescription: '',
       selectDayTextPressed: false,
+      selectTimeTextPressed: false,
       markedDate: {},
       selectedDate: '',
       selectedYear: '',
       selectedMonth: '',
-      selectedDay: ''
+      selectedDay: '',
+      selectedTime: ''
     }
   }
 
   onToggle(event) {
     console.log("Changed to " + event);
   }
+
+  //onTimeSelected = date => {}
 
   toggleSelectedDayText = () => {
     if (this.state.selectDayTextPressed){
@@ -35,7 +56,14 @@ export default class CreateEventScreen extends Component{
       this.setState({selectDayTextPressed: true});
       this.setMarkedDate();
     }
+  }
 
+  toggleSelectedTimeText = () => {
+    if (this.state.selectTimeTextPressed){
+      this.setState({selectTimeTextPressed: false}) 
+    }else{
+      this.setState({selectTimeTextPressed: true});
+    }
   }
 
   handleSelectedDay(day){
@@ -136,13 +164,18 @@ export default class CreateEventScreen extends Component{
               />
 
             </View>
-            : 
+            : this.state.selectTimeTextPressed ?
+            <View style={styles.timePickerWheel}>
+              <Text style={styles.setTimeText}>Set Time </Text>
+              <TimePicker hours={HOURS} minutes={MINUTES} onTimeSelected={this.onTimeSelected}/>
+            </View>
+            :
             <View style={styles.noCalendarView}>
               <TouchableOpacity style={styles.selectDayView} onPress={() => this.toggleSelectedDayText()}>
                 {this.state.selectedDay === '' ? <Text style={styles.selectDayText}>Select A Day</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedMonth}{' '}{this.state.selectedDay},{' '}{this.state.selectedYear}</Text>}
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.selectTimeView}>
+              <TouchableOpacity style={styles.selectTimeView} onPress={() => this.toggleSelectedTimeText()}>
                 <Text style={styles.selectTimeText}>Select A Time</Text>
               </TouchableOpacity>
 
@@ -166,7 +199,7 @@ export default class CreateEventScreen extends Component{
                 isOn={this.state.hideEvent}
                 onColor="green"
                 offColor="grey"
-                label="Hide Event"
+                label="Hide Event From Friends"
                 labelStyle={{ color: "white", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 25 }}
                 size="medium"
                 onToggle={hideEvent => {this.setState({ hideEvent }); this.onToggle(hideEvent);}}
@@ -182,7 +215,4 @@ export default class CreateEventScreen extends Component{
           </ImageBackground>
       )
   }
-
-
 }
-

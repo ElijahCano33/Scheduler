@@ -136,7 +136,24 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'sans-serif-thin',
 
-  }
+  },
 
+  timePickerWheel: {
+    position: 'absolute', 
+    top: '60%', 
+    alignSelf: 'center', 
+    height: '100%', 
+    width: '100%'
+  },
+
+  setTimeText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif-thin',
+    position: 'absolute',
+    color: 'white',
+    bottom: '107%',
+    alignSelf: 'center'
+  }
 
 });
