@@ -2,10 +2,8 @@ import React, {Component} from 'react';
 import { Alert, Button, TextInput, View, TouchableHighlight, TouchableWithoutFeedback, Keyboard, FlatList, Text, Image, Modal, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CreateEventScreenStyles.js';
 import Feather from 'react-native-vector-icons/Feather';
-import Entypo from 'react-native-vector-icons/Entypo';
 import {CalendarList} from 'react-native-calendars';
 import ToggleSwitch from 'toggle-switch-react-native';
-import BlinkView from 'react-native-blink-view';
 import SlidingUpPanel from 'rn-sliding-up-panel';
 
 export default class CreateEventScreen extends Component{
@@ -18,13 +16,61 @@ export default class CreateEventScreen extends Component{
       hideEvent: false,
       eventTitle: '',
       eventDescription: '',
-      selectDayTextPressed: false
+      selectDayTextPressed: false,
+      markedDate: {},
+      selectedDate: '',
+      selectedYear: '',
+      selectedMonth: '',
+      selectedDay: ''
     }
   }
 
+
+
+  toggleSelectedDayText = () => {
+    if (this.state.selectDayTextPressed){
+      this.setState({selectDayTextPressed: false}) 
+    }else{
+      this.setState({selectDayTextPressed: true});
+      this.setMarkedDate();
+    }
+
+  }
+
   handleSelectedDay(day){
-    console.log(this.state.selectDayTextPressed);
-    this.setState({selectDayTextPressed: false});
+    console.log(day);
+    let month = day['month'];
+    let monthDay = day['day'];
+    let monthNumberOfSelectedDay = 0;
+    if (month < 10) month = "0" + month;
+    if (monthDay < 10) monthDay = "0" + monthDay;
+
+    let monthNames = ["January", "February", "March", "April", "May","June",
+                        "July", "August", "September", "October", "November","December"];
+    
+    month[0] === '0' ? monthNumberOfSelectedDay = parseInt(month[1]) : monthNumberOfSelectedDay = parseInt(month);
+    let monthOfSelectedDay = monthNames[monthNumberOfSelectedDay];
+
+    this.setState({selectedDate: day['dateString']});
+    this.setState({selectedYear: day['year']});
+    this.setState({selectedDay: monthDay});
+    this.setState({selectedMonth: monthOfSelectedDay});
+    this.toggleSelectedDayText();
+  }
+
+  setMarkedDate(){
+    let date = new Date();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let year = date.getFullYear();
+
+    if (month < 10) month = '0' + month;
+    if (day < 10) day = '0' + day;
+
+    let formattedCurrentDate = year + "-" + month + "-" + day;
+    let markedDate = {};
+    markedDate[formattedCurrentDate] = {selected: true, selectedColor: 'pink'};
+    this.setState({markedDate: markedDate});
   }
 
   render(){
@@ -55,22 +101,18 @@ export default class CreateEventScreen extends Component{
             onChangeText={(eventDescription) => this.setState({eventDescription})}
           />
 
+          {console.log(this.state.selectedDay)}
+
           {this.state.selectDayTextPressed ? 
             <View style={styles.calendarList}>
               <CalendarList
                 theme={{
                     calendarBackground: 'transparent',
                     textSectionTitleColor: 'white',
-                    selectedDayBackgroundColor: 'white',
-                    selectedDayTextColor: 'white',
                     todayTextColor: 'white',
                     dayTextColor: 'white',
-                    textDisabledColor: 'white',
-                    dotColor: 'red',
-                    selectedDotColor: 'orange',
                     arrowColor: 'black',
                     monthTextColor: 'white',
-                    indicatorColor: 'blue',
                     textDayFontFamily: 'sans-serif-thin',
                     textMonthFontFamily: 'sans-serif-thin',
                     textDayHeaderFontFamily: 'sans-serif-thin',
@@ -80,25 +122,23 @@ export default class CreateEventScreen extends Component{
                     textDayFontSize: 15,
                     textMonthFontSize: 15,
                     textDayHeaderFontSize: 15,
-                    textMonthFontWeight: 'bold',
-                    textDayFontWeight: 'bold', 
                 }}
                 pastScrollRange={5}
                 futureScrollRange={5}
                 scrollEnabled={true}
                 onDayPress={(day) => this.handleSelectedDay(day)}
+                markedDates={this.state.markedDate}
                 hideArrows={false}
                 horizontal={true}
                 calendarWidth={380}
                 calendarHeight={355}
-                onDayPress={(day) => console.log(day)}
               />
 
             </View>
             : 
             <View style={styles.noCalendarView}>
-              <TouchableOpacity style={styles.selectDayView} onPress={() => {this.setState({selectDayTextPressed: !this.state.selectDayTextPressed})}}>
-                <Text style={styles.selectDayText}>Select A Day</Text>
+              <TouchableOpacity style={styles.selectDayView} onPress={() => this.toggleSelectedDayText()}>
+                {this.state.selectedDay === '' ? <Text style={styles.selectDayText}>Select A Day</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedMonth}{' '}{this.state.selectedDay},{' '}{this.state.selectedYear}</Text>}
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.selectTimeView} onPress={() => this._panel.show()}>
@@ -106,11 +146,6 @@ export default class CreateEventScreen extends Component{
               </TouchableOpacity>
             </View>
           }
-
-          {/*<TouchableOpacity style={styles.downArrowIcon} onPress={() => this._panel.show()}>
-            <Entypo name="arrow-bold-down" color={'black'} size={30}/>
-          </TouchableOpacity>
-            */}
 
           <SlidingUpPanel ref={c => this._panel = c} friction={0.50}>
 
