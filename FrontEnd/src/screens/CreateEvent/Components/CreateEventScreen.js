@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import { TextInput, View, Text, Image, TouchableOpacity, ImageBackground} from 'react-native';
+import { Alert, TextInput, View, Text, Image, TouchableOpacity, ImageBackground} from 'react-native';
 import styles from '../Styles/CreateEventScreenStyles.js';
 import Feather from 'react-native-vector-icons/Feather';
 import {CalendarList} from 'react-native-calendars';
 import ToggleSwitch from 'toggle-switch-react-native';
 import {TimePicker} from "react-native-wheel-picker-android";
+import axios from "axios";
 
 const HOURS = [
   "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
@@ -45,7 +46,8 @@ export default class CreateEventScreen extends Component{
       selectedEndingMonth: '',
       selectedEndingDay: '',
       selectedStartingTime: '',
-      selectedEndingTime: ''
+      selectedEndingTime: '',
+      eventAlert: ''
     }
   }
 
@@ -90,7 +92,6 @@ export default class CreateEventScreen extends Component{
   }
 
   handleSelectedDay(day){
-    console.log(day);
     let month = day['month'];
     let monthDay = day['day'];
     let monthNumberOfSelectedDay = 0;
@@ -115,8 +116,6 @@ export default class CreateEventScreen extends Component{
       this.setState({selectedEndingMonth: monthOfSelectedDay});
       this.toggleSelectedEndingDayText();
     }
-    
-  
   }
 
   setMarkedDate(){
@@ -135,19 +134,18 @@ export default class CreateEventScreen extends Component{
   }
 
   createEvent() {
-    let userId = this.state.userId;
+    let userId = this.props.navigation.state.params.data;
     let eventTitle = this.state.eventTitle;
     let description = this.state.eventDescription;
     let location = '';
-    let startDate = this.state.selectedDate;
-    //let endDate = this.state.eventEndDate.toString().substring(0, 10);
-    let startTime = this.state.eventStartDate.toString().substring(11, 19);
-    //let endTime = this.state.eventEndDate.toString().substring(11, 19);
-    //let singleDayEvent = this.state.singleDayEvent;
+    let startDate = this.state.selectedStartingDate;
+    let endDate = this.state.selectedEndingDate;
+    let startTime = this.state.selectedStartingTime;
+    let endTime = this.state.selectedEndingTime;
+    let singleDayEvent = this.state.singleDayEvent;
     let hiddenEvent = this.state.hideEvent;
 
-    if (month < 10) month = "0" + month;
-
+    
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event',
@@ -164,12 +162,14 @@ export default class CreateEventScreen extends Component{
       }
     })
     .then((response) => {
-      //this.setState({eventAlert: response['data']['status_info']});
+      this.setState({eventAlert: response['data']['status_info']});
       console.log(response);
-      //Alert.alert(this.state.eventAlert);
+      Alert.alert(this.state.eventAlert);
+      this.props.navigation.navigate('CalendarScreen');
     }, (error) => {
         console.log(error);
     });
+    
   }
 
   render(){
@@ -288,7 +288,7 @@ export default class CreateEventScreen extends Component{
 
             </View>
 
-            <TouchableOpacity style={styles.createEventButton} >
+            <TouchableOpacity style={styles.createEventButton} onPress={() => this.createEvent()}>
               <Text style={styles.createEventButtonText}>Create Event</Text>
             </TouchableOpacity>
           </View>

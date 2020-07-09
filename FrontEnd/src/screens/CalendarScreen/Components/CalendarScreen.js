@@ -18,7 +18,6 @@ import UpcomingEventBox from './UpcomingEventBox.js';
 import {CalendarList} from 'react-native-calendars';
 import axios from "axios";
 
-
 class CalendarScreen extends Component{
   mounted = false;
   
