@@ -10,11 +10,9 @@ import CreateEventScreen from './src/screens/CreateEvent/Components/CreateEventS
  
 const CalendarNavigator = createStackNavigator(
   {
-      CalendarScreen: CalendarScreen,
-      CreateEventScreen: CreateEventScreen,
-      EventScreen: EventScreen,
-
-
+    CalendarScreen: CalendarScreen,
+    CreateEventScreen: CreateEventScreen,
+    EventScreen: EventScreen,
   }, 
   {
     initialRouteName: 'CalendarScreen',
