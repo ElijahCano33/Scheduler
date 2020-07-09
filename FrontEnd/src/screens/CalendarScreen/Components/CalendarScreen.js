@@ -40,6 +40,36 @@ class CalendarScreen extends Component{
       markedEvents: {},
       tempAnnualEvents: []
     }
+
+    this.willFocusListener = this.props.navigation.addListener('willFocus', () => {
+      this.componentWillFocus();
+    });
+    this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
+      this.componentDidBlur();
+    });
+
+  }
+
+  componentWillFocus() {
+    console.log(this.props);
+    if(this.props.navigation.state.params !== undefined){
+      let userId = this.state.userId;
+      let today = new Date();
+      let year = today.getFullYear().toString();
+      let month = (today.getMonth()+1).toString();
+
+      if (month < 10) month = "0" + month;
+      
+      this.fetchMonthEvents(userId, month, year);
+      this.fetchAnnualEvents(userId, year);
+    }else{
+      console.log("Did not come from the create event screen and create event!")
+    }
+    
+  }
+
+  componentDidBlur() {
+    console.log("Screen No Longer In Focus!");
   }
 
   fetchUserId(usrId, m, y){
@@ -317,9 +347,8 @@ class CalendarScreen extends Component{
 
 const FriendNavigator = createStackNavigator(
   {
-      FriendsScreen: FriendsScreen,
-      FriendsCalendarScreen: FriendsCalendarScreen
-
+    FriendsScreen: FriendsScreen,
+    FriendsCalendarScreen: FriendsCalendarScreen
   }, 
   {
     initialRouteName: 'FriendsScreen',

@@ -27,7 +27,7 @@ export default class CreateEventScreen extends Component{
     super(props);
 
     this.state = {
-      isBlinking: true,
+      eventCreated: false,
       singleDayEvent: false,
       hideEvent: false,
       eventTitle: '',
@@ -163,9 +163,8 @@ export default class CreateEventScreen extends Component{
     })
     .then((response) => {
       this.setState({eventAlert: response['data']['status_info']});
-      console.log(response);
       Alert.alert(this.state.eventAlert);
-      this.props.navigation.navigate('CalendarScreen');
+      this.props.navigation.navigate('CalendarScreen', {data: true});
     }, (error) => {
         console.log(error);
     });
@@ -178,7 +177,7 @@ export default class CreateEventScreen extends Component{
 
         <Image style={styles.logo} source={require('../../../../pics/scriptscheduler.png')}/>
 
-        <TouchableOpacity style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}>
+        <TouchableOpacity style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen', {data: true})}}>
             <Feather name="x" color={'black'} size={30}/>
         </TouchableOpacity>
 
