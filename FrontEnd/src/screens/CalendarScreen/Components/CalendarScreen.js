@@ -189,46 +189,6 @@ class CalendarScreen extends Component{
     return color;
   }
 
-  createEvent() {
-    let userId = this.state.userId;
-    let eventTitle = this.state.eventTitle;
-    let description = this.state.eventDescription;
-    let location = '';
-    let startDate = this.state.eventStartDate.toString().substring(0, 10);
-    let endDate = this.state.eventEndDate.toString().substring(0, 10);
-    let startTime = this.state.eventStartDate.toString().substring(11, 19);
-    let endTime = this.state.eventEndDate.toString().substring(11, 19);
-    let today = new Date();
-    let year = today.getFullYear().toString();
-    let month = (today.getMonth()+1).toString();
-    let hiddenEvent = this.state.hideEvent;
-
-    if (month < 10) month = "0" + month;
-
-    axios({
-      method: 'post',
-      url: 'http://192.168.68.1:5000/api/event',
-      data: {
-        user_id: userId,
-        event_title: eventTitle,
-        description: description,
-        location: location,
-        starting_date: startDate,
-        ending_day: endDate,
-        starting_time: startTime,
-        ending_time: endTime,
-        hidden_event: hiddenEvent
-      }
-    })
-    .then((response) => {
-      this.setState({eventAlert: response['data']['status_info']});
-      this.fetchMonthEvents(userId, month, year);
-      this.fetchAnnualEvents(userId, year);
-      Alert.alert(this.state.eventAlert);
-    }, (error) => {
-        console.log(error);
-    });
-  }
 
   filterMonthEvents(){
     let today = new Date();

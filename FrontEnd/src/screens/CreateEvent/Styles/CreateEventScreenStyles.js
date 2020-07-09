@@ -51,7 +51,7 @@ export default StyleSheet.create({
     position: 'absolute'
   },
 
-  selectDayView: {
+  selectStartingDayView: {
     position: 'absolute',
     top: '48%',
     alignSelf: 'center'
@@ -65,15 +65,27 @@ export default StyleSheet.create({
     fontSize: 25
   },
 
+  selectEndingDayView: {
+    position: 'absolute',
+    top: '55%',
+    alignSelf: 'center'
+  },
+
   noCalendarView: {
     justifyContent: 'center', 
     alignItems: 'center', 
     flex: 1
   },
 
-  selectTimeView: {
+  selectStartingTimeView: {
     position: 'absolute',
-    top: '56%',
+    top: '62%',
+    alignSelf: 'center'
+  },
+
+  selectEndingTimeView: {
+    position: 'absolute',
+    top: '69%',
     alignSelf: 'center'
   },
 
@@ -94,13 +106,13 @@ export default StyleSheet.create({
 
   singleDayEventButton: {
     position: 'absolute', 
-    top: '65%', 
+    top: '77%', 
     alignSelf: 'center'
   },
 
   hideEventButton: {
     position: 'absolute', 
-    top: '75%', 
+    top: '84%', 
     alignSelf: 'center'
   },
 
@@ -113,7 +125,7 @@ export default StyleSheet.create({
 
   createEventButton: {
     position: 'absolute',
-    bottom: '5%',
+    bottom: '3%',
     backgroundColor: '#2d2d2d',
     borderRadius: 20,
     width: '50%',

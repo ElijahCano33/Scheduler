@@ -103,6 +103,44 @@ export default class CreateEventScreen extends Component{
     this.setState({markedDate: markedDate});
   }
 
+  createEvent() {
+    let userId = this.state.userId;
+    let eventTitle = this.state.eventTitle;
+    let description = this.state.eventDescription;
+    let location = '';
+    let startDate = this.state.selectedDate;
+    //let endDate = this.state.eventEndDate.toString().substring(0, 10);
+    let startTime = this.state.eventStartDate.toString().substring(11, 19);
+    //let endTime = this.state.eventEndDate.toString().substring(11, 19);
+    //let singleDayEvent = this.state.singleDayEvent;
+    let hiddenEvent = this.state.hideEvent;
+
+    if (month < 10) month = "0" + month;
+
+    axios({
+      method: 'post',
+      url: 'http://192.168.68.1:5000/api/event',
+      data: {
+        user_id: userId,
+        event_title: eventTitle,
+        description: description,
+        location: location,
+        starting_date: startDate,
+        ending_day: endDate,
+        starting_time: startTime,
+        ending_time: endTime,
+        hidden_event: hiddenEvent
+      }
+    })
+    .then((response) => {
+      //this.setState({eventAlert: response['data']['status_info']});
+      console.log(response);
+      //Alert.alert(this.state.eventAlert);
+    }, (error) => {
+        console.log(error);
+    });
+  }
+
   render(){
       return(
         <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
@@ -176,12 +214,20 @@ export default class CreateEventScreen extends Component{
             </View>
             :
             <View style={styles.noCalendarView}>
-              <TouchableOpacity style={styles.selectDayView} onPress={() => this.toggleSelectedDayText()}>
-                {this.state.selectedDay === '' ? <Text style={styles.selectDayText}>Select A Day</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedMonth}{' '}{this.state.selectedDay},{' '}{this.state.selectedYear}</Text>}
+              <TouchableOpacity style={styles.selectStartingDayView} onPress={() => this.toggleSelectedDayText()}>
+                {this.state.selectedDay === '' ? <Text style={styles.selectDayText}>Select A Starting Day</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedMonth}{' '}{this.state.selectedDay},{' '}{this.state.selectedYear}</Text>}
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.selectTimeView} onPress={() => this.toggleSelectedTimeText()}>
-              {this.state.selectedTime === '' ? <Text style={styles.selectTimeText}>Select A Time</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedTime}</Text>}
+              <TouchableOpacity style={styles.selectEndingDayView} onPress={() => this.toggleSelectedDayText()}>
+                {this.state.selectedDay === '' ? <Text style={styles.selectDayText}>Select An Ending Day</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedMonth}{' '}{this.state.selectedDay},{' '}{this.state.selectedYear}</Text>}
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.selectStartingTimeView} onPress={() => this.toggleSelectedTimeText()}>
+              {this.state.selectedTime === '' ? <Text style={styles.selectTimeText}>Select A Starting Time</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedTime}</Text>}
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.selectEndingTimeView} onPress={() => this.toggleSelectedTimeText()}>
+              {this.state.selectedTime === '' ? <Text style={styles.selectTimeText}>Select An Ending Time</Text> : <Text style={styles.selectDayText}>Selected {this.state.selectedTime}</Text>}
               </TouchableOpacity>
 
               <View style={styles.singleDayEventButton}>
