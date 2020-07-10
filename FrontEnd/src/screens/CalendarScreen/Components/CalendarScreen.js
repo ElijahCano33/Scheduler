@@ -7,7 +7,7 @@ import {createBottomTabNavigator } from "react-navigation-tabs";
 import SearchScreen from '../../Search/Components/SearchScreen.js';
 import AddScreen from '../../Add/Components/AddScreen.js';
 import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
-import NotificationsScreen from '../../NotificationsScreen/Components/NotificationsScreen.js';
+import NotificationsScreen from '../../Notifications/Components/NotificationsScreen.js';
 import FriendsCalendarScreen from '../../FriendsCalendar/Components/FriendsCalendarScreen.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
