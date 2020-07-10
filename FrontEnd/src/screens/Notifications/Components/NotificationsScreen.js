@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Image, ImageBackground, Text, FlatList} from 'react-native';
+import { ScrollView, View, Image, Dimensions, ImageBackground, Text, FlatList} from 'react-native';
 import styles from '../Styles/NotificationsScreenStyles.js';
 import NotifcationBox from './NotificationBox.js';
 
@@ -18,11 +18,20 @@ const OLDER = [
     {'description': 'Eli Menedez sent you a friend request!', 'time': '23d', 'type': 'calendar_viewing'}
 ];
 
+let width = Dimensions.get('window').width
+let height = Dimensions.get("window").height
+
 export default class NotificationsScreen extends Component{
     
     render() {
         return (
-            <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
+
+            <ScrollView contentContainerStyle={styles.container}>
+
+                <Image
+                    source={require('../../../../pics/fade.jpg')}
+                    style={{width: width, height: height, right: 0, left: 0, position: 'absolute', top:0, left:0 }}
+                />
 
                 <Image
                     style={styles.logo}
@@ -33,7 +42,7 @@ export default class NotificationsScreen extends Component{
 
                 <Text style={styles.latestText}>Latest</Text>
 
-                <View style={styles.latestNotificationsList}>
+                <View style={styles.notificationsList}>
                     <FlatList
                         data={LATEST}
                         keyExtractor={item => item.id}
@@ -48,9 +57,8 @@ export default class NotificationsScreen extends Component{
                         renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time}/>)}
                     />
                 </View>
-
-                
-            </ImageBackground>
+ 
+            </ScrollView>
             
         );
     }

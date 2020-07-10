@@ -1,10 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-    fadeBackground: {
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        flex: 1
+    container: {
+        flex: 1,
+        backgroundColor: 'transparent'
     },
     
     logo: {
@@ -35,16 +34,16 @@ export default StyleSheet.create({
         fontSize: 23
     },
 
-    latestNotificationsList: {
+    notificationsList: {
+        flex: 1,
         top: '21%', 
         width: '100%', 
-        height: '80%', 
+        height: '120%', 
         backgroundColor: 'transparent', 
         position: 'absolute'
     },
 
     olderText: {
-        
         left: '5%',
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin',
