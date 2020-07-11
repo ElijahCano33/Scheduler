@@ -43,7 +43,7 @@ export default class NotificationsScreen extends Component{
                    <FlatList
                     data={NOTIFICATIONS}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time}/>)}
+                    renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time} type={item.type}/>)}
                     ListHeaderComponent={this.renderListHeader}
                     //contenContainerStyle={{height: '200%', backgroundColor: 'red'}}
                 />

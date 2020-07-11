@@ -44,6 +44,24 @@ export default StyleSheet.create({
         position: 'absolute',
         bottom: '10%',
         left: '3%'
+    },
+
+    acceptFriendRequestButton: {
+        position: 'absolute',
+        width: '20%',
+        height: '100%',
+        backgroundColor: 'red',
+        bottom: '13%',
+        right: '7%',
+        borderRadius: 3
+    },
+
+    acceptText: {
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif-thin',
+        color: 'white',
     }
+
     
 });
