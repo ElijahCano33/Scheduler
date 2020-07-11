@@ -101,7 +101,9 @@ export default class CreateEventScreen extends Component{
     let monthNames = ["January", "February", "March", "April", "May","June", "July", "August", "September", "October", "November","December"];
     
     month[0] === '0' ? monthNumberOfSelectedDay = parseInt(month[1]) : monthNumberOfSelectedDay = parseInt(month);
-    let monthOfSelectedDay = monthNames[monthNumberOfSelectedDay];
+    let monthOfSelectedDay = "";
+
+    monthNumberOfSelectedDay === 0 ? monthOfSelectedDay = monthNames[0] : monthOfSelectedDay = monthNames[monthNumberOfSelectedDay-1];
 
     if (this.state.selectStartingDayTextPressed){
       this.setState({selectedStartingDate: day['dateString']});
@@ -134,7 +136,16 @@ export default class CreateEventScreen extends Component{
   }
 
   createEvent() {
-    let userId = this.props.navigation.state.params.data;
+    let userId = 0;
+    //if coming from normal calendar screen then we will create an event for our calendar 
+    if (Object.keys(this.props.navigation.state.params).length <= 1){
+      userId = this.props.navigation.state.params.data;
+    //else if coming from friend's calendar we will mask our friend's id as our screen just to create the event!!
+    }else{
+      userId = this.props.navigation.state.params.friendId; 
+      console.log("this is the userId created: " + userId);
+    }
+
     let eventTitle = this.state.eventTitle;
     let description = this.state.eventDescription;
     let location = '';
@@ -164,11 +175,21 @@ export default class CreateEventScreen extends Component{
     .then((response) => {
       this.setState({eventAlert: response['data']['status_info']});
       Alert.alert(this.state.eventAlert);
-      this.props.navigation.navigate({ routeName: 'Calendar', key: 'Calendar', params: this.props.navigation.state.params.data });
+      
+
+      if (Object.keys(this.props.navigation.state.params).length <= 1){
+        this.props.navigation.navigate({ routeName: 'Calendar', key: 'Calendar', params: this.props.navigation.state.params.data});
+      }else{
+        this.props.navigation.navigate('FriendsCalendarScreen');
+      }
     }, (error) => {
         console.log(error);
     });
     
+  }
+
+  goBack(){
+    Object.keys(this.props.navigation.state.params).length <= 1 ? this.props.navigation.navigate('CalendarScreen') : this.props.navigation.navigate('FriendsCalendarScreen');
   }
 
   render(){
@@ -177,11 +198,12 @@ export default class CreateEventScreen extends Component{
 
         <Image style={styles.logo} source={require('../../../../pics/scriptscheduler.png')}/>
 
-        <TouchableOpacity style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}>
+        <TouchableOpacity style={styles.icon} onPress={() => {this.goBack()}}>
             <Feather name="x" color={'black'} size={30}/>
         </TouchableOpacity>
 
-        <Text style={styles.createEventScreenHeaderText}>Create A New Event</Text>
+        {Object.keys(this.props.navigation.state.params).length <= 1 ? 
+          <Text style={styles.createEventScreenHeaderText}>Create A New Event</Text> : <Text style={styles.friendCreateEventScreenHeaderText}>Mark An Event On {this.props.navigation.state.params.friendName}'s Calendar</Text>}
 
         <TextInput
           placeholder="Event Title: "

@@ -13,21 +13,50 @@ export default class FriendsCalendarScreen extends Component{
     super(props)
 
     this.state = {
-        modalVisible: false,
-        friendId: 0,
-        friend: '',
-        singleDayEvent: false,
-        hideEvent: false,
-        eventStartDate: '',
-        eventEndDate: '',
-        eventDescription: '',
-        eventAlert: '',
-        currentYearUserEvents: [],
-        currentMonthUserEvents: [],
-        upcomingUserEvents: [], 
-        markedEvents: {},
-        tempAnnualEvents: []
+      modalVisible: false,
+      friendId: 0,
+      friend: '',
+      singleDayEvent: false,
+      hideEvent: false,
+      eventStartDate: '',
+      eventEndDate: '',
+      eventDescription: '',
+      eventAlert: '',
+      currentYearUserEvents: [],
+      currentMonthUserEvents: [],
+      upcomingUserEvents: [], 
+      markedEvents: {},
+      tempAnnualEvents: []
     }
+
+    this.willFocusListener = this.props.navigation.addListener('willFocus', () => {
+      this.componentWillFocus();
+    });
+    this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
+      this.componentDidBlur();
+    });
+  }
+
+  componentWillFocus() {
+    console.log(this.props);
+    if(this.props.navigation.state.params !== undefined && this.state.friendId !== undefined){
+      let friendId = this.state.friendId;
+      let today = new Date();
+      let year = today.getFullYear().toString();
+      let month = (today.getMonth()+1).toString();
+
+      if (month < 10) month = "0" + month;
+      
+      this.fetchMonthEvents(friendId, month, year);
+      this.fetchAnnualEvents(friendId, year);
+    }else{
+      console.log("Did not come from the create event screen and create event!")
+    }
+    
+  }
+
+  componentDidBlur() {
+    console.log("Screen No Longer In Focus!");
   }
 
   fetchFriendId(friendId, m, y){
@@ -41,7 +70,6 @@ export default class FriendsCalendarScreen extends Component{
     .then((response) => {
       this.setState({friendId: response['data']['friend_id']});
       friendId = this.state.friendId;
-
       this.fetchMonthEvents(friendId, m, y);
       this.fetchAnnualEvents(friendId, y);
     }, (error) => {
@@ -54,7 +82,7 @@ export default class FriendsCalendarScreen extends Component{
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: friendId, request_type: "month", month: m, year: y}
+      data: {user_id: friendId, request_type: "month", month: m, year: y, fetch_friend_events: false}
     })
     .then((response) => {
       this.setState({currentMonthUserEvents: response['data']['events']});
@@ -68,7 +96,7 @@ export default class FriendsCalendarScreen extends Component{
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: friendId, request_type: "year", year: y}
+      data: {user_id: friendId, request_type: "year", year: y, fetch_friend_events: false}
     })
     .then((response) => {
       this.setState({currentYearUserEvents: response['data']['events']});
@@ -174,45 +202,6 @@ export default class FriendsCalendarScreen extends Component{
     return color;
   }
 
-  createEvent() {
-    let userId = this.state.userId;
-    let eventTitle = this.state.eventTitle;
-    let description = this.state.eventDescription;
-    let location = '';
-    let startDate = this.state.eventStartDate.toString().substring(0, 10);
-    let endDate = this.state.eventEndDate.toString().substring(0, 10);
-    let startTime = this.state.eventStartDate.toString().substring(11, 19);
-    let endTime = this.state.eventEndDate.toString().substring(11, 19);
-    let today = new Date();
-    let year = today.getFullYear().toString();
-    let month = (today.getMonth()+1).toString();
-
-    if (month < 10) month = "0" + month;
-
-    axios({
-      method: 'post',
-      url: 'http://192.168.68.1:5000/api/event',
-      data: {
-        user_id: userId,
-        event_title: eventTitle,
-        description: description,
-        location: location,
-        starting_date: startDate,
-        ending_day: endDate,
-        starting_time: startTime,
-        ending_time: endTime
-      }
-    })
-    .then((response) => {
-      this.setState({eventAlert: response['data']['status_info']});
-      this.fetchMonthEvents(userId, month, year);
-      this.fetchAnnualEvents(userId, year);
-      Alert.alert(this.state.eventAlert);
-    }, (error) => {
-        console.log(error);
-    });
-  }
-
   filterMonthEvents(){
     let today = new Date();
     let year = today.getFullYear().toString();
@@ -253,6 +242,10 @@ export default class FriendsCalendarScreen extends Component{
     });
   }
 
+  navigateToCreateEventsScreen(){
+    this.props.navigation.navigate('CreateEventScreen', {data: this.state.userId, friendId: this.state.friendId, friendName: this.props['navigation']['state']['params']['firstName']});
+  }
+
   render() {
     
     return (
@@ -265,81 +258,6 @@ export default class FriendsCalendarScreen extends Component{
         <TouchableOpacity style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}>
           <Feather name="x" color={'black'} size={30}/>
         </TouchableOpacity>
-  
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {Alert.alert("Modal has been closed.")}}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.creatEventText}>Create A New Event</Text>
-
-                <TextInput
-                    placeholder="Event Title: "
-                    placeholderTextColor='grey'
-                    style={styles.eventTitleInput}
-                    onChangeText={(eventTitle) => this.setState({eventTitle})}
-                />
-
-                <TextInput
-                  placeholder="Event Description: "
-                  placeholderTextColor='grey'
-                  style={styles.eventDescriptionInput}
-                  onChangeText={(eventDescription) => this.setState({eventDescription})}
-                />
-
-                <View style={styles.singleDayEventButton}>
-                  <ToggleSwitch
-                    isOn={this.state.singleDayEvent}
-                    onColor="green"
-                    offColor="grey"
-                    label="Single Day Event"
-                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
-                    size="small"
-                    onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
-                  />
-                </View>
-
-                <View style={styles.hideEventButton}>
-                  <ToggleSwitch
-                    isOn={this.state.hideEvent}
-                    onColor="green"
-                    offColor="grey"
-                    label="Hide Event"
-                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
-                    size="small"
-                    onToggle={hideEvent => {this.setState({ hideEvent }); this.onToggle(hideEvent);}}
-                  />
-                </View>
-
-                <TextInput
-                  placeholder="Start Date: 'YYYY-MM-DD HH:MM:SS' "
-                  placeholderTextColor='grey'
-                  style={styles.startDateInput}
-                  onChangeText={(eventStartDate) => this.setState({eventStartDate})}
-                />
-
-                <TextInput
-                  placeholder="End Date: 'YYYY-MM-DD HH:MM:SS' "
-                  placeholderTextColor='grey'
-                  style={styles.endDateInput}
-                  onChangeText={(eventEndDate) => this.setState({eventEndDate})}
-                />
-
-                <TouchableHighlight style={{ ...styles.openButton, backgroundColor: "red" }} onPress={() => {this.setState({modalVisible: false}, this.createEvent())}}>
-                  <Text style={styles.textStyle2}>Submit</Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight style={{ ...styles.closeButton, backgroundColor: "grey" }} onPress={() => {this.setState({modalVisible: false})}}>
-                  <Text style={styles.textStyle1}>Cancel</Text>
-                </TouchableHighlight>
-                </View>
-            </View>
-          </Modal>
-        </TouchableWithoutFeedback>  
 
         <View style={styles.calendarList}>
           <CalendarList
@@ -383,7 +301,7 @@ export default class FriendsCalendarScreen extends Component{
         </View>
         
 
-        <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
+        <TouchableOpacity style={styles.createEventsButton} onPress={() => this.navigateToCreateEventsScreen()}>
           <MaterialIcons name="add" color='#FF1DCE' size={50} style={styles.additionIcon} />
         </TouchableOpacity>
       
