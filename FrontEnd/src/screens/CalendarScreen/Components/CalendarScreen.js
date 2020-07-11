@@ -7,7 +7,7 @@ import {createBottomTabNavigator } from "react-navigation-tabs";
 import SearchScreen from '../../Search/Components/SearchScreen.js';
 import AddScreen from '../../Add/Components/AddScreen.js';
 import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
-import NotificationsScreen from '../../NotificationsScreen/Components/NotificationsScreen.js';
+import NotificationsScreen from '../../Notifications/Components/NotificationsScreen.js';
 import FriendsCalendarScreen from '../../FriendsCalendar/Components/FriendsCalendarScreen.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -17,6 +17,7 @@ import TabBar from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
 import {CalendarList} from 'react-native-calendars';
 import axios from "axios";
+import { withBadge } from 'react-native-elements' 
 
 class CalendarScreen extends Component{
   mounted = false;
@@ -356,6 +357,8 @@ const FriendNavigator = createStackNavigator(
   }
 );
 
+const NotificationsIconBadge = withBadge(5)(Ionicons);
+
 const TabNavigator = createBottomTabNavigator(
   {
     Calendar: {
@@ -390,7 +393,7 @@ const TabNavigator = createBottomTabNavigator(
       screen: NotificationsScreen,
       navigationOptions: {
         tabBarLabel:() => {return null},
-        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-notifications" color={tintColor} size={35} style={styles.tabNavigatorIcon}/>
+        tabBarIcon: ({ tintColor }) => <NotificationsIconBadge type="Ionicons" name="ios-notifications" color={tintColor} size={35} style={styles.tabNavigatorIcon}/>
       }
     }
   },
