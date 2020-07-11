@@ -20,7 +20,8 @@ export default StyleSheet.create({
         borderLeftWidth: 5,
         borderLeftColor: '#FF1DCE',
         borderRightColor: '#FF1DCE',
-        borderRightWidth: 5
+        borderRightWidth: 5,
+        flex: 1
         
     },
 

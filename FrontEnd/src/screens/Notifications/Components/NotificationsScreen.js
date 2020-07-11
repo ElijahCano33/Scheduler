@@ -38,13 +38,14 @@ export default class NotificationsScreen extends Component{
 
         return (
             
-            <ImageBackground source={require('../../../../pics/fade.jpg')} style={{flex: 1}}>
+            <ImageBackground source={require('../../../../pics/fade.jpg')}  style={{flex: 1, backgroundColor: 'transparent'}}>
 
                    <FlatList
                     data={NOTIFICATIONS}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time}/>)}
                     ListHeaderComponent={this.renderListHeader}
+                    //contenContainerStyle={{height: '200%', backgroundColor: 'red'}}
                 />
 
             </ImageBackground>
