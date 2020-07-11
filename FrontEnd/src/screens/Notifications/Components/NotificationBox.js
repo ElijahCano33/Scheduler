@@ -43,7 +43,7 @@ export default class NotificationBox extends Component{
     async friendServicesRequest(){
         let currentUserId = this.state.userId;
         console.log("this is the current user id: " + currentUserId);
-        let friend = this.state.friend;
+        let friend = this.props.email;
         let requestType = "accept";
         let friendId;
 
