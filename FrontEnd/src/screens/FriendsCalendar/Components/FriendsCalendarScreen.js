@@ -70,7 +70,6 @@ export default class FriendsCalendarScreen extends Component{
     .then((response) => {
       this.setState({friendId: response['data']['friend_id']});
       friendId = this.state.friendId;
-      console.log("this is friend id: " + friendId);
       this.fetchMonthEvents(friendId, m, y);
       this.fetchAnnualEvents(friendId, y);
     }, (error) => {

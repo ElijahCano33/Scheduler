@@ -101,7 +101,9 @@ export default class CreateEventScreen extends Component{
     let monthNames = ["January", "February", "March", "April", "May","June", "July", "August", "September", "October", "November","December"];
     
     month[0] === '0' ? monthNumberOfSelectedDay = parseInt(month[1]) : monthNumberOfSelectedDay = parseInt(month);
-    let monthOfSelectedDay = monthNames[monthNumberOfSelectedDay];
+    let monthOfSelectedDay = "";
+
+    monthNumberOfSelectedDay === 0 ? monthOfSelectedDay = monthNames[0] : monthOfSelectedDay = monthNames[monthNumberOfSelectedDay-1];
 
     if (this.state.selectStartingDayTextPressed){
       this.setState({selectedStartingDate: day['dateString']});
