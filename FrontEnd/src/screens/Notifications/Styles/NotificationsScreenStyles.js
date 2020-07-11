@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'transparent'
+    fadeBackground: {
+        justifyContent: 'center', 
+        //alignItems: 'center', 
+        flex: 1
     },
     
     logo: {
@@ -38,7 +39,7 @@ export default StyleSheet.create({
         flex: 1,
         top: '21%', 
         width: '100%', 
-        height: '120%', 
+        height: '79%',
         backgroundColor: 'transparent', 
         position: 'absolute'
     },
