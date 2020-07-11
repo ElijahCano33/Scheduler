@@ -16,7 +16,7 @@ export default StyleSheet.create({
 
     notificationsText: {
         position: 'absolute',
-        top: '200%',
+        top: '225%',
         alignSelf: 'center',
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin',
@@ -26,7 +26,7 @@ export default StyleSheet.create({
 
     earlierText: {
         position: 'absolute',
-        top: '370%',
+        top: '400%',
         left: '5%',
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin',
