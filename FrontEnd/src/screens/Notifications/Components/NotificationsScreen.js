@@ -20,6 +20,7 @@ export default class NotificationsScreen extends Component{
     renderListHeader(){
         return(
             <View style={{height: '20%', backgroundColor: 'transparent'}}>
+
                 <Image
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
@@ -27,7 +28,8 @@ export default class NotificationsScreen extends Component{
 
                 <Text style={styles.notificationsText}>Notifications</Text>
 
-                <Text style={styles.latestText}>Earlier</Text>
+                <Text style={styles.earlierText}>Earlier</Text>
+
             </View>
         )
     }
@@ -35,15 +37,18 @@ export default class NotificationsScreen extends Component{
     render() {
         return (
             
-            <ImageBackground source={require('../../../../pics/fade.jpg')} style={{height: '100%', flex: 1}}>
+            <ImageBackground source={require('../../../../pics/fade.jpg')} style={{flex: 1}}>
                    
-                <FlatList
+                <View style={{flex: 1}}>
+                   <FlatList
                     data={NOTIFICATIONS}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time}/>)}
                     ListHeaderComponent={this.renderListHeader()}
-                    contentContainerStyle={{ flexGrow: 1 }}
+                    style={{height: '100%'}}
                 />
+
+                </View>
             </ImageBackground>
         );
     }

@@ -24,7 +24,7 @@ export default StyleSheet.create({
         fontSize: 29
     },
 
-    latestText: {
+    earlierText: {
         position: 'absolute',
         top: '400%',
         left: '5%',
@@ -33,21 +33,5 @@ export default StyleSheet.create({
         color: 'white',
         fontSize: 23
     },
-
-    notificationsList: {
-        top: '0%', 
-        width: '100%', 
-        height: '100%',
-        backgroundColor: 'transparent', 
-        position: 'absolute'
-    },
-
-    olderText: {
-        left: '5%',
-        fontWeight: 'bold',
-        fontFamily: 'sans-serif-thin',
-        color: 'white',
-        fontSize: 23
-    }
     
 });
