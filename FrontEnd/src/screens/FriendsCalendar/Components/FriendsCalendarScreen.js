@@ -253,6 +253,10 @@ export default class FriendsCalendarScreen extends Component{
     });
   }
 
+  navigateToCreateEventsScreen(){
+    this.props.navigation.navigate('CreateEventScreen', {data: this.state.userId, friendId: this.state.friendId, friendName: this.props['navigation']['state']['params']['firstName']});
+  }
+
   render() {
     
     return (
@@ -265,81 +269,6 @@ export default class FriendsCalendarScreen extends Component{
         <TouchableOpacity style={styles.xIcon} onPress={()=> {this.props.navigation.navigate('FriendsScreen')}}>
           <Feather name="x" color={'black'} size={30}/>
         </TouchableOpacity>
-  
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {Alert.alert("Modal has been closed.")}}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.creatEventText}>Create A New Event</Text>
-
-                <TextInput
-                    placeholder="Event Title: "
-                    placeholderTextColor='grey'
-                    style={styles.eventTitleInput}
-                    onChangeText={(eventTitle) => this.setState({eventTitle})}
-                />
-
-                <TextInput
-                  placeholder="Event Description: "
-                  placeholderTextColor='grey'
-                  style={styles.eventDescriptionInput}
-                  onChangeText={(eventDescription) => this.setState({eventDescription})}
-                />
-
-                <View style={styles.singleDayEventButton}>
-                  <ToggleSwitch
-                    isOn={this.state.singleDayEvent}
-                    onColor="green"
-                    offColor="grey"
-                    label="Single Day Event"
-                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
-                    size="small"
-                    onToggle={singleDayEvent => {this.setState({ singleDayEvent }); this.onToggle(singleDayEvent);}}
-                  />
-                </View>
-
-                <View style={styles.hideEventButton}>
-                  <ToggleSwitch
-                    isOn={this.state.hideEvent}
-                    onColor="green"
-                    offColor="grey"
-                    label="Hide Event"
-                    labelStyle={{ color: "grey", fontWeight: "bold", fontFamily: 'sans-serif-thin', fontSize: 12 }}
-                    size="small"
-                    onToggle={hideEvent => {this.setState({ hideEvent }); this.onToggle(hideEvent);}}
-                  />
-                </View>
-
-                <TextInput
-                  placeholder="Start Date: 'YYYY-MM-DD HH:MM:SS' "
-                  placeholderTextColor='grey'
-                  style={styles.startDateInput}
-                  onChangeText={(eventStartDate) => this.setState({eventStartDate})}
-                />
-
-                <TextInput
-                  placeholder="End Date: 'YYYY-MM-DD HH:MM:SS' "
-                  placeholderTextColor='grey'
-                  style={styles.endDateInput}
-                  onChangeText={(eventEndDate) => this.setState({eventEndDate})}
-                />
-
-                <TouchableHighlight style={{ ...styles.openButton, backgroundColor: "red" }} onPress={() => {this.setState({modalVisible: false}, this.createEvent())}}>
-                  <Text style={styles.textStyle2}>Submit</Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight style={{ ...styles.closeButton, backgroundColor: "grey" }} onPress={() => {this.setState({modalVisible: false})}}>
-                  <Text style={styles.textStyle1}>Cancel</Text>
-                </TouchableHighlight>
-                </View>
-            </View>
-          </Modal>
-        </TouchableWithoutFeedback>  
 
         <View style={styles.calendarList}>
           <CalendarList
@@ -383,7 +312,7 @@ export default class FriendsCalendarScreen extends Component{
         </View>
         
 
-        <TouchableOpacity style={styles.createEventsButton} onPress={() => { this.setState({modalVisible: true})}}>
+        <TouchableOpacity style={styles.createEventsButton} onPress={() => this.navigateToCreateEventsScreen()}>
           <MaterialIcons name="add" color='#FF1DCE' size={50} style={styles.additionIcon} />
         </TouchableOpacity>
       

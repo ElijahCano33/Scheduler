@@ -31,6 +31,16 @@ export default StyleSheet.create({
     fontSize: 25
   },
 
+  friendCreateEventScreenHeaderText: {
+    position: 'absolute',
+    top: '10%',
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif-thin',
+    color: 'white',
+    fontSize: 21
+  },
+
   eventTitleInput: {
     height: 40,
     width: 250,

@@ -164,24 +164,37 @@ export default class CreateEventScreen extends Component{
     .then((response) => {
       this.setState({eventAlert: response['data']['status_info']});
       Alert.alert(this.state.eventAlert);
-      this.props.navigation.navigate({ routeName: 'Calendar', key: 'Calendar', params: this.props.navigation.state.params.data });
+      
+
+      if (Object.keys(this.props.navigation.state.params).length <= 1){
+        this.props.navigation.navigate({ routeName: 'Calendar', key: 'Calendar', params: this.props.navigation.state.params.data });
+      }else{
+        console.log("marking event for friend!!!!");
+        this.props.navigation.navigate('FriendsCalendarScreen');
+      }
     }, (error) => {
         console.log(error);
     });
     
   }
 
+  goBack(){
+    Object.keys(this.props.navigation.state.params).length <= 1 ? this.props.navigation.navigate('CalendarScreen') : this.props.navigation.navigate('FriendsCalendarScreen');
+  }
+
   render(){
+    console.log(this.props);
     return(
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
 
         <Image style={styles.logo} source={require('../../../../pics/scriptscheduler.png')}/>
 
-        <TouchableOpacity style={styles.icon} onPress={()=> {this.props.navigation.navigate('CalendarScreen')}}>
+        <TouchableOpacity style={styles.icon} onPress={() => {this.goBack()}}>
             <Feather name="x" color={'black'} size={30}/>
         </TouchableOpacity>
 
-        <Text style={styles.createEventScreenHeaderText}>Create A New Event</Text>
+        {Object.keys(this.props.navigation.state.params).length <= 1 ? 
+          <Text style={styles.createEventScreenHeaderText}>Create A New Event</Text> : <Text style={styles.friendCreateEventScreenHeaderText}>Mark An Event On {this.props.navigation.state.params.friendName}'s Calendar</Text>}
 
         <TextInput
           placeholder="Event Title: "

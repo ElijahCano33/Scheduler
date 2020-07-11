@@ -9,6 +9,7 @@ import AddScreen from '../../Add/Components/AddScreen.js';
 import FriendsScreen from '../../Friends/Components/FriendsScreen.js';
 import NotificationsScreen from '../../Notifications/Components/NotificationsScreen.js';
 import FriendsCalendarScreen from '../../FriendsCalendar/Components/FriendsCalendarScreen.js';
+import CreateEventScreen from '../../CreateEvent/Components/CreateEventScreen.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -349,7 +350,8 @@ class CalendarScreen extends Component{
 const FriendNavigator = createStackNavigator(
   {
     FriendsScreen: FriendsScreen,
-    FriendsCalendarScreen: FriendsCalendarScreen
+    FriendsCalendarScreen: FriendsCalendarScreen,
+    CreateEventScreen: CreateEventScreen,
   }, 
   {
     initialRouteName: 'FriendsScreen',
