@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { ScrollView, View, Image, Dimensions, ImageBackground, Text, FlatList} from 'react-native';
+import { View, Image, ImageBackground, Text, FlatList} from 'react-native';
 import styles from '../Styles/NotificationsScreenStyles.js';
 import NotifcationBox from './NotificationBox.js';
 
@@ -16,11 +16,10 @@ const NOTIFICATIONS = [
 ];
 
 export default class NotificationsScreen extends Component{
-    
-    render() {
-        return (
-            <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
-                
+
+    renderListHeader(){
+        return(
+            <View style={{height: '20%', backgroundColor: 'transparent'}}>
                 <Image
                     style={styles.logo}
                     source={require('../../../../pics/scriptscheduler.png')}
@@ -29,20 +28,23 @@ export default class NotificationsScreen extends Component{
                 <Text style={styles.notificationsText}>Notifications</Text>
 
                 <Text style={styles.latestText}>Earlier</Text>
-
-                <View style={styles.notificationsList}>
-                    <FlatList
-                        data={NOTIFICATIONS}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time}/>)}
-                    />
-  
-                </View>
+            </View>
+        )
+    }
+    
+    render() {
+        return (
             
+            <ImageBackground source={require('../../../../pics/fade.jpg')} style={{height: '100%', flex: 1}}>
+                   
+                <FlatList
+                    data={NOTIFICATIONS}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time}/>)}
+                    ListHeaderComponent={this.renderListHeader()}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                />
             </ImageBackground>
- 
-           
-            
         );
     }
 }

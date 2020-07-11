@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     fadeBackground: {
         justifyContent: 'center', 
-        //alignItems: 'center', 
         flex: 1
     },
     
@@ -17,7 +16,7 @@ export default StyleSheet.create({
 
     notificationsText: {
         position: 'absolute',
-        top: '11%',
+        top: '220%',
         alignSelf: 'center',
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin',
@@ -27,7 +26,7 @@ export default StyleSheet.create({
 
     latestText: {
         position: 'absolute',
-        top: '17%',
+        top: '400%',
         left: '5%',
         fontWeight: 'bold',
         fontFamily: 'sans-serif-thin',
@@ -36,10 +35,9 @@ export default StyleSheet.create({
     },
 
     notificationsList: {
-        flex: 1,
-        top: '21%', 
+        top: '0%', 
         width: '100%', 
-        height: '79%',
+        height: '100%',
         backgroundColor: 'transparent', 
         position: 'absolute'
     },
