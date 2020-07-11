@@ -179,11 +179,11 @@ export default class CreateEventScreen extends Component{
   }
 
   goBack(){
+    console.log("inside go back: " + Object.keys(this.props.navigation.state.params).length);
     Object.keys(this.props.navigation.state.params).length <= 1 ? this.props.navigation.navigate('CalendarScreen') : this.props.navigation.navigate('FriendsCalendarScreen');
   }
 
   render(){
-    console.log(this.props);
     return(
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
 
