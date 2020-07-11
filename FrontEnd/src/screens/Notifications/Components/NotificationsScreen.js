@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Image, ImageBackground, Text, FlatList, Animated} from 'react-native';
+import { View, Image, ImageBackground, Text, FlatList} from 'react-native';
 import styles from '../Styles/NotificationsScreenStyles.js';
 import NotifcationBox from './NotificationBox.js';
 
@@ -19,7 +19,7 @@ export default class NotificationsScreen extends Component{
 
     renderListHeader(){
         return(
-            <View style={{height: '20%', backgroundColor: 'transparent'}}>
+            <View style={styles.notificationsListHeader}>
 
                 <Image
                     style={styles.logo}
@@ -38,7 +38,7 @@ export default class NotificationsScreen extends Component{
 
         return (
             
-            <ImageBackground source={require('../../../../pics/fade.jpg')}  style={{flex: 1, backgroundColor: 'transparent'}}>
+            <ImageBackground source={require('../../../../pics/fade.jpg')}  style={styles.fadeBackground}>
 
                    <FlatList
                     data={NOTIFICATIONS}

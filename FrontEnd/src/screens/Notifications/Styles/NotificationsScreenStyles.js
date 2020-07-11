@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     fadeBackground: {
-        justifyContent: 'center', 
-        flex: 1
+        flex: 1, 
+        backgroundColor: 'transparent'
     },
     
     logo: {
@@ -33,5 +33,10 @@ export default StyleSheet.create({
         color: 'white',
         fontSize: 23
     },
+
+    notificationsListHeader: {
+        height: '20%', 
+        backgroundColor: 'transparent'
+    }
     
 });
