@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Image, ImageBackground, Text, FlatList} from 'react-native';
+import { View, Image, ImageBackground, Text, FlatList, Animated} from 'react-native';
 import styles from '../Styles/NotificationsScreenStyles.js';
 import NotifcationBox from './NotificationBox.js';
 
@@ -35,20 +35,36 @@ export default class NotificationsScreen extends Component{
     }
     
     render() {
+        const scrollY = new Animated.Value(0);
+        const translateY = scrollY.interpolate({
+            inputRange:[0, 30],
+            outputRange:[0, -30]
+        })
         return (
             
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={{flex: 1}}>
+
+                <Animated.View style={{transform:[{translateY}]}}>
+                    <Image
+                        style={styles.logo}
+                        source={require('../../../../pics/scriptscheduler.png')}
+                    />
+
+                    <Text style={styles.notificationsText}>Notifications</Text>
+
+                    <Text style={styles.earlierText}>Earlier</Text>
+                </Animated.View>
                    
-                <View style={{flex: 1}}>
                    <FlatList
                     data={NOTIFICATIONS}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time}/>)}
-                    ListHeaderComponent={this.renderListHeader()}
-                    style={{height: '100%'}}
+                    onScroll={(e)=> {
+                        scrollY.setValue(e.nativeEvent.contentOffset.y)
+                    }}
+                    style={{position: 'absolute', top: '21%'}}
                 />
 
-                </View>
             </ImageBackground>
         );
     }
