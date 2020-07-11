@@ -36,33 +36,33 @@ export default class NotificationsScreen extends Component{
     
     render() {
         const scrollY = new Animated.Value(0);
-        const translateY = scrollY.interpolate({
-            inputRange:[0, 30],
-            outputRange:[0, -30]
-        })
+        const translateY = scrollY.interpolate({inputRange:[0, 30], outputRange:[0, -30]});
+
         return (
             
             <ImageBackground source={require('../../../../pics/fade.jpg')} style={{flex: 1}}>
 
-                <Animated.View style={{transform:[{translateY}]}}>
-                    <Image
-                        style={styles.logo}
-                        source={require('../../../../pics/scriptscheduler.png')}
-                    />
+                <Animated.View style={{transform:[{translateY: translateY}], zIndex: 0}}>
+                    
+                    <View style={{height: '22%'}}>
+                        <Image
+                            style={styles.logo}
+                            source={require('../../../../pics/scriptscheduler.png')}
+                        />
 
-                    <Text style={styles.notificationsText}>Notifications</Text>
+                        <Text style={styles.notificationsText}>Notifications</Text>
 
-                    <Text style={styles.earlierText}>Earlier</Text>
+                        <Text style={styles.earlierText}>Earlier</Text>
+                    </View>
+                    
                 </Animated.View>
                    
                    <FlatList
                     data={NOTIFICATIONS}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time}/>)}
-                    onScroll={(e)=> {
-                        scrollY.setValue(e.nativeEvent.contentOffset.y)
-                    }}
-                    style={{position: 'absolute', top: '21%'}}
+                    onScroll={(e)=> {scrollY.setValue(e.nativeEvent.contentOffset.y)}}
+                    style={{zIndex: 2}}
                 />
 
             </ImageBackground>
