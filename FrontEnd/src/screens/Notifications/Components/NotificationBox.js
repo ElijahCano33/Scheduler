@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Image, ImageBackground, Text, FlatList, TouchableOpacity, RecyclerViewBackedScrollView} from 'react-native';
+import { View, Alert,  Text, TouchableOpacity} from 'react-native';
 import styles from '../Styles/NotificationBoxStyles.js';
 import axios from "axios";
 
@@ -18,18 +18,16 @@ export default class NotificationBox extends Component{
       }
 
     async acceptFriendRequest(){
-        let uId = 0;
-    
-        if(this.state.userId === 0) uId = await this.getUserId();
+        if(this.state.userId === 0) await this.getUserId();
 
-        this.friendServicesRequest();
+        await this.friendServicesRequest();
         
         return true;
 
     }
 
-    getUserId(){
-        axios({
+    async getUserId(){
+        await axios({
             method: 'post',
             url: 'http://192.168.68.1:5000/api/userId',
         })
@@ -42,14 +40,14 @@ export default class NotificationBox extends Component{
         });
     }
     
-    friendServicesRequest(){
+    async friendServicesRequest(){
         let currentUserId = this.state.userId;
         console.log("this is the current user id: " + currentUserId);
         let friend = this.state.friend;
         let requestType = "accept";
         let friendId;
 
-        axios({
+        await axios({
             method: 'post',
             url: 'http://192.168.68.1:5000/api/friendId',
             data: {friend: friend}
