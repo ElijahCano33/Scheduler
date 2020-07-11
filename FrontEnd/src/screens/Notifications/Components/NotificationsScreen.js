@@ -45,7 +45,6 @@ export default class NotificationsScreen extends Component{
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => (<NotifcationBox description={item.description} time={item.time} type={item.type}/>)}
                     ListHeaderComponent={this.renderListHeader}
-                    //contenContainerStyle={{height: '200%', backgroundColor: 'red'}}
                 />
 
             </ImageBackground>

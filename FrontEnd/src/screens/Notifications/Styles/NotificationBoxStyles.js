@@ -51,8 +51,8 @@ export default StyleSheet.create({
         width: '20%',
         height: '100%',
         backgroundColor: 'red',
-        bottom: '13%',
-        right: '7%',
+        bottom: '18%',
+        right: '2%',
         borderRadius: 3
     },
 
