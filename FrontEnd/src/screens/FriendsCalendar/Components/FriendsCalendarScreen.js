@@ -13,21 +13,50 @@ export default class FriendsCalendarScreen extends Component{
     super(props)
 
     this.state = {
-        modalVisible: false,
-        friendId: 0,
-        friend: '',
-        singleDayEvent: false,
-        hideEvent: false,
-        eventStartDate: '',
-        eventEndDate: '',
-        eventDescription: '',
-        eventAlert: '',
-        currentYearUserEvents: [],
-        currentMonthUserEvents: [],
-        upcomingUserEvents: [], 
-        markedEvents: {},
-        tempAnnualEvents: []
+      modalVisible: false,
+      friendId: 0,
+      friend: '',
+      singleDayEvent: false,
+      hideEvent: false,
+      eventStartDate: '',
+      eventEndDate: '',
+      eventDescription: '',
+      eventAlert: '',
+      currentYearUserEvents: [],
+      currentMonthUserEvents: [],
+      upcomingUserEvents: [], 
+      markedEvents: {},
+      tempAnnualEvents: []
     }
+
+    this.willFocusListener = this.props.navigation.addListener('willFocus', () => {
+      this.componentWillFocus();
+    });
+    this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
+      this.componentDidBlur();
+    });
+  }
+
+  componentWillFocus() {
+    console.log(this.props);
+    if(this.props.navigation.state.params !== undefined && this.state.friendId !== undefined){
+      let friendId = this.state.friendId;
+      let today = new Date();
+      let year = today.getFullYear().toString();
+      let month = (today.getMonth()+1).toString();
+
+      if (month < 10) month = "0" + month;
+      
+      this.fetchMonthEvents(friendId, month, year);
+      this.fetchAnnualEvents(friendId, year);
+    }else{
+      console.log("Did not come from the create event screen and create event!")
+    }
+    
+  }
+
+  componentDidBlur() {
+    console.log("Screen No Longer In Focus!");
   }
 
   fetchFriendId(friendId, m, y){
@@ -41,7 +70,7 @@ export default class FriendsCalendarScreen extends Component{
     .then((response) => {
       this.setState({friendId: response['data']['friend_id']});
       friendId = this.state.friendId;
-
+      console.log("this is friend id: " + friendId);
       this.fetchMonthEvents(friendId, m, y);
       this.fetchAnnualEvents(friendId, y);
     }, (error) => {
@@ -54,7 +83,7 @@ export default class FriendsCalendarScreen extends Component{
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: friendId, request_type: "month", month: m, year: y}
+      data: {user_id: friendId, request_type: "month", month: m, year: y, fetch_friend_events: false}
     })
     .then((response) => {
       this.setState({currentMonthUserEvents: response['data']['events']});
@@ -68,7 +97,7 @@ export default class FriendsCalendarScreen extends Component{
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: friendId, request_type: "year", year: y}
+      data: {user_id: friendId, request_type: "year", year: y, fetch_friend_events: false}
     })
     .then((response) => {
       this.setState({currentYearUserEvents: response['data']['events']});
@@ -172,45 +201,6 @@ export default class FriendsCalendarScreen extends Component{
   generateRandomColor(){
     color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
     return color;
-  }
-
-  createEvent() {
-    let userId = this.state.userId;
-    let eventTitle = this.state.eventTitle;
-    let description = this.state.eventDescription;
-    let location = '';
-    let startDate = this.state.eventStartDate.toString().substring(0, 10);
-    let endDate = this.state.eventEndDate.toString().substring(0, 10);
-    let startTime = this.state.eventStartDate.toString().substring(11, 19);
-    let endTime = this.state.eventEndDate.toString().substring(11, 19);
-    let today = new Date();
-    let year = today.getFullYear().toString();
-    let month = (today.getMonth()+1).toString();
-
-    if (month < 10) month = "0" + month;
-
-    axios({
-      method: 'post',
-      url: 'http://192.168.68.1:5000/api/event',
-      data: {
-        user_id: userId,
-        event_title: eventTitle,
-        description: description,
-        location: location,
-        starting_date: startDate,
-        ending_day: endDate,
-        starting_time: startTime,
-        ending_time: endTime
-      }
-    })
-    .then((response) => {
-      this.setState({eventAlert: response['data']['status_info']});
-      this.fetchMonthEvents(userId, month, year);
-      this.fetchAnnualEvents(userId, year);
-      Alert.alert(this.state.eventAlert);
-    }, (error) => {
-        console.log(error);
-    });
   }
 
   filterMonthEvents(){

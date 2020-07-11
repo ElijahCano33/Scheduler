@@ -134,7 +134,16 @@ export default class CreateEventScreen extends Component{
   }
 
   createEvent() {
-    let userId = this.props.navigation.state.params.data;
+    let userId = 0;
+    //if coming from normal calendar screen then we will create an event for our calendar 
+    if (Object.keys(this.props.navigation.state.params).length <= 1){
+      userId = this.props.navigation.state.params.data;
+    //else if coming from friend's calendar we will mask our friend's id as our screen just to create the event!!
+    }else{
+      userId = this.props.navigation.state.params.friendId; 
+      console.log("this is the userId created: " + userId);
+    }
+
     let eventTitle = this.state.eventTitle;
     let description = this.state.eventDescription;
     let location = '';
@@ -167,9 +176,8 @@ export default class CreateEventScreen extends Component{
       
 
       if (Object.keys(this.props.navigation.state.params).length <= 1){
-        this.props.navigation.navigate({ routeName: 'Calendar', key: 'Calendar', params: this.props.navigation.state.params.data });
+        this.props.navigation.navigate({ routeName: 'Calendar', key: 'Calendar', params: this.props.navigation.state.params.data});
       }else{
-        console.log("marking event for friend!!!!");
         this.props.navigation.navigate('FriendsCalendarScreen');
       }
     }, (error) => {
@@ -179,7 +187,6 @@ export default class CreateEventScreen extends Component{
   }
 
   goBack(){
-    console.log("inside go back: " + Object.keys(this.props.navigation.state.params).length);
     Object.keys(this.props.navigation.state.params).length <= 1 ? this.props.navigation.navigate('CalendarScreen') : this.props.navigation.navigate('FriendsCalendarScreen');
   }
 

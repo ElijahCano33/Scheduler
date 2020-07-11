@@ -351,7 +351,6 @@ const FriendNavigator = createStackNavigator(
   {
     FriendsScreen: FriendsScreen,
     FriendsCalendarScreen: FriendsCalendarScreen,
-    //CreateEventScreen: CreateEventScreen,
   }, 
   {
     initialRouteName: 'FriendsScreen',
