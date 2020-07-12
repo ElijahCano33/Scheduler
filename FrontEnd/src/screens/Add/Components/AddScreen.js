@@ -101,24 +101,23 @@ export default class AddScreen extends Component{
                                 <Text style={styles.friendServicesModalText}>Friend Services</Text>
                             
                                 <TextInput
-                                    placeholder="Type Friend's Email Or Username: "
-                                    placeholderTextColor='white'
+                                    placeholder="Enter Friend's Email Or Username: "
+                                    placeholderTextColor='black'
                                     style={styles.friendEmailUsernameInput}
                                     onChangeText={(friend) => this.setState({friend})}
                                 />
 
                                 <Dropdown
                                     placeholder="Friend Request Type"
-                                    placeholderTextColor="white"
+                                    placeholderTextColor="black"
                                     data={dropDownData}
                                     renderLeftAccessory
-                                    baseColor="white"
+                                    baseColor="black"
                                     lineWidth={0}
                                     fontSize={14}
-                                    containerStyle={{backgroundColor: '#2d2d2d', width: 250, top: '65%', height: 50, position: 'absolute', padding: 0}}
+                                    containerStyle={{backgroundColor: 'white', width: 250, top: '65%', height: 51, position: 'absolute', padding: 0}}
                                     textColor={'black'}
-                                    //style={{position: 'absolute', top: '-85%', left: '4%', color: 'white',}}
-                                    style={{position: 'relative', top: '-7%', left: '45%', color: 'white',}}
+                                    style={{position: 'relative', top: '-7%', left: '45%', color: 'black'}}
                                     onChangeText={(requestType) => this.setState({requestType})}
                                 />
 
