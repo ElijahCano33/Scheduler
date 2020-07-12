@@ -102,16 +102,20 @@ export default class AddScreen extends Component{
                             
                                 <TextInput
                                     placeholder="Type Friend's Email Or Username: "
-                                    placeholderTextColor='grey'
+                                    placeholderTextColor='white'
                                     style={styles.friendEmailUsernameInput}
                                     onChangeText={(friend) => this.setState({friend})}
                                 />
 
                                 <Dropdown
                                     label='Friend Request Type'
+                                    placeholderTextColor="white"
                                     data={dropDownData}
-                                    containerStyle={{backgroundColor: 'white', width: 250, top: '55%', height: 60, position: 'absolute'}}
+                                    baseColor="red"
+                                    lineWidth={0}
+                                    containerStyle={{backgroundColor: 'black', width: 250, top: '65%', height: 40, position: 'absolute', padding: 0}}
                                     textColor={'black'}
+                                    //style={{position: 'absolute', top: '0%', left: '100%'}}
                                     onChangeText={(requestType) => this.setState({requestType})}
                                 />
 

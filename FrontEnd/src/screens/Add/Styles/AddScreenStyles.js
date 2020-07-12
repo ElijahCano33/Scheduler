@@ -87,15 +87,13 @@ export default StyleSheet.create({
   friendEmailUsernameInput: {
     height: 40,
     width: 250,
-    backgroundColor: 'white',
-    paddingLeft: 0,
-    fontSize: 15,
+    backgroundColor: '#2d2d2d',
+    color: 'white',
+    paddingLeft: 10,
     marginBottom: 20,
-    top: '30%',
-    position: 'absolute',
-    borderRadius: 2,
-    borderColor: 'grey',
-    borderBottomWidth: 0.3,
+    top: '35%',
+    position: 'absolute'
+    
   },
 
   friendServicesText: {
