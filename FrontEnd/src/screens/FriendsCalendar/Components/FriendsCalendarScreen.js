@@ -49,7 +49,7 @@ export default class FriendsCalendarScreen extends Component{
       this.fetchMonthEvents(friendId, month, year);
       this.fetchAnnualEvents(friendId, year);
     }else{
-      console.log("Did not come from the create event screen and create event!")
+      console.log("Did not come from the create event screen!")
     }
     
   }
@@ -81,7 +81,7 @@ export default class FriendsCalendarScreen extends Component{
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: friendId, request_type: "month", month: m, year: y, fetch_friend_events: false}
+      data: {user_id: friendId, request_type: "month", month: m, year: y}
     })
     .then((response) => {
       this.setState({currentMonthUserEvents: response['data']['events']});
@@ -95,7 +95,7 @@ export default class FriendsCalendarScreen extends Component{
     axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: friendId, request_type: "year", year: y, fetch_friend_events: false}
+      data: {user_id: friendId, request_type: "year", year: y}
     })
     .then((response) => {
       this.setState({currentYearUserEvents: response['data']['events']});

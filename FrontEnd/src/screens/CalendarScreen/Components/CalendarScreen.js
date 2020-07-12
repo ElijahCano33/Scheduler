@@ -68,7 +68,7 @@ class CalendarScreen extends Component{
         await this.fetchAnnualEvents(year);
       }
     }else{
-      console.log("Did not come from the create event screen and create event!")
+      console.log("Did not come from the create event screen!")
     }
     
   }
@@ -96,7 +96,7 @@ class CalendarScreen extends Component{
     await axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: this.state.userId, request_type: "month", month: m, year: y, fetch_friend_events: false}
+      data: {user_id: this.state.userId, request_type: "month", month: m, year: y}
     })
     .then((response) => {
       this.setState({currentMonthUserEvents: response['data']['events']}, function() {
@@ -112,7 +112,7 @@ class CalendarScreen extends Component{
     await axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: this.state.userId, request_type: "year", year: y, fetch_friend_events: false}
+      data: {user_id: this.state.userId, request_type: "year", year: y}
     })
     .then((response) => {
       this.setState({currentYearUserEvents: response['data']['events']}, function(){
