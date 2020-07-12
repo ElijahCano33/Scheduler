@@ -45,6 +45,8 @@ export default class EventScreen extends Component{
         monthNumberOfSelectedDay[0] === '0' ? monthNumberOfSelectedDay = parseInt(monthNumberOfSelectedDay[1]) : monthNumberOfSelectedDay = parseInt(monthNumberOfSelectedDay);
         let monthOfSelectedDay = monthNames[monthNumberOfSelectedDay];
 
+        monthNumberOfSelectedDay === 0 ? monthOfSelectedDay = monthNames[0] : monthOfSelectedDay = monthNames[monthNumberOfSelectedDay-1];
+
         this.setState({selectedEventYear: year});
         this.setState({selectedEventMonth: monthOfSelectedDay});
         this.setState({selectedEventDay: dayOfMonth});

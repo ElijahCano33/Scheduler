@@ -43,36 +43,42 @@ class CalendarScreen extends Component{
       tempAnnualEvents: []
     }
 
+    
     this.willFocusListener = this.props.navigation.addListener('willFocus', () => {
       this.componentWillFocus();
     });
     this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
       this.componentDidBlur();
     });
+    
 
   }
 
+  
   async componentWillFocus() {
     console.log(this.props);
     if(this.props.navigation.state.params !== undefined){
-      let userId = this.state.userId;
       let today = new Date();
       let year = today.getFullYear().toString();
       let month = (today.getMonth()+1).toString();
 
       if (month < 10) month = "0" + month;
       
-      await this.fetchMonthEvents(userId, month, year);
-      await this.fetchAnnualEvents(userId, year);
+      if (this.state.currentYearUserEvents !== undefined || this.state.currentMonthUserEvents !== undefined){
+        console.log("right in here!!!!!");
+        await this.fetchMonthEvents(month, year);
+        await this.fetchAnnualEvents(year);
+      }
     }else{
       console.log("Did not come from the create event screen and create event!")
     }
     
   }
+  
 
   componentDidBlur() {
     console.log("Screen No Longer In Focus!");
-  }
+ }
 
   async fetchUserId(){
     await axios({
@@ -81,7 +87,6 @@ class CalendarScreen extends Component{
     })
     .then((response) => {
       this.setState({userId: response['data']['user_id']});
-      //usrId = this.state.userId;
       return;
     }, (error) => {
           
@@ -96,9 +101,10 @@ class CalendarScreen extends Component{
       data: {user_id: this.state.userId, request_type: "month", month: m, year: y, fetch_friend_events: false}
     })
     .then((response) => {
-      this.setState({currentMonthUserEvents: response['data']['events']});
-      this.filterMonthEvents();
-      return;
+      this.setState({currentMonthUserEvents: response['data']['events']}, function() {
+        this.filterMonthEvents();
+        return;
+      });
     }, (error) => {
         console.log(error);
     });
@@ -111,9 +117,10 @@ class CalendarScreen extends Component{
       data: {user_id: this.state.userId, request_type: "year", year: y, fetch_friend_events: false}
     })
     .then((response) => {
-      this.setState({currentYearUserEvents: response['data']['events']});
-      this.markCalendarWithSingleEvents();
-      return;
+      this.setState({currentYearUserEvents: response['data']['events']}, function(){
+        this.markCalendarWithSingleEvents();
+        return;
+      });
     },(error) => {
       console.log(error);
     });

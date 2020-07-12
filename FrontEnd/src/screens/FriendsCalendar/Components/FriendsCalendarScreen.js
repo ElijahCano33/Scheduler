@@ -149,11 +149,12 @@ export default class FriendsCalendarScreen extends Component{
     }
 
     for(var day in sameDayEvents){
-      for(var i = 0; i < sameDayEvents[day].length; i++){
+      for(var i =0; i < sameDayEvents[day].length; i++){
         i === 0 ? events[day] = sameDayEvents[day][0] : events[day]['dots'].push(sameDayEvents[day][i]['dots'][0]);
       }
     }
     this.setState({markedEvents: events});
+    
   }
 
   markCalendarWithSingleEvents(){
@@ -171,7 +172,6 @@ export default class FriendsCalendarScreen extends Component{
     if (month < 10) month = '0' + month.toString();
     if (day < 10) day = '0' + day.toString();
 
-
     today = today.getFullYear().toString() + "-" + month + "-" + day;
 
     for(var i = 0; i < events.length; i++){
@@ -183,23 +183,27 @@ export default class FriendsCalendarScreen extends Component{
 
       eventDay in daysCounter ? daysCounter[eventDay] += 1 : daysCounter[eventDay] = 1;
       markedDay = {key: eventTitle, color: randomColor};
-
+      
       if (eventDay in markedEvents){
         let repeatingNumber = '_' + daysCounter[eventDay].toString(); 
         eventDay += repeatingNumber;
-        markedEvents[eventDay] = {dots: [markedDay], selected: true, marked: true, selectedColor: 'black'};
+        eventDay.substring(0, 10) === today ? markedEvents[eventDay] = { dots: [markedDay], selected: true, color: 'black', marked: true} : markedEvents[eventDay] = {dots: [markedDay], marked: true};
       }else{
-        markedEvents[eventDay] = {dots: [markedDay], selected: true, marked: true, selectedColor: 'black'};
+        eventDay === today ? markedEvents[today] = { dots: [markedDay], selected: true, color: 'black', marked: true} : markedEvents[eventDay] = {dots: [markedDay], marked: true};
       }
       
     }
+    
+    if (markedEvents[today] === undefined) markedEvents[today] = {selected: true, color: 'black', marked: true};
 
     this.markCalendarWithMultiEvents(markedEvents);
+    
   }
 
   generateRandomColor(){
-    color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
-    return color;
+    //color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+    //return color;
+    return 'hsla(' + Math.floor(Math.random()*360) + ', 100%, 70%, 1)';
   }
 
   filterMonthEvents(){
@@ -247,6 +251,16 @@ export default class FriendsCalendarScreen extends Component{
   }
 
   render() {
+    let today = new Date();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+    let noMarkedEvents = {};
+
+    if (month < 10) month = '0' + month.toString();
+    if (day < 10) day = '0' + day.toString();
+    
+    today = today.getFullYear().toString() + "-" + month + "-" + day;
+    noMarkedEvents[today] = {selected: true, marked: true, color: 'black'};
     
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
@@ -295,7 +309,7 @@ export default class FriendsCalendarScreen extends Component{
             pagingEnabled={true}
             calendarWidth={395}
             calendarHeight={380}
-            markedDates={this.state.markedEvents}
+            markedDates={Object.keys(this.state.markedEvents).length === 0 ? noMarkedEvents : this.state.markedEvents}
             markingType={'multi-dot'}
           />
         </View>
