@@ -101,17 +101,23 @@ export default class AddScreen extends Component{
                                 <Text style={styles.friendServicesModalText}>Friend Services</Text>
                             
                                 <TextInput
-                                    placeholder="Type Friend's Email Or Username: "
-                                    placeholderTextColor='grey'
+                                    placeholder="Enter Friend's Email Or Username: "
+                                    placeholderTextColor='black'
                                     style={styles.friendEmailUsernameInput}
                                     onChangeText={(friend) => this.setState({friend})}
                                 />
 
                                 <Dropdown
-                                    label='Friend Request Type'
+                                    placeholder="Friend Request Type"
+                                    placeholderTextColor="black"
                                     data={dropDownData}
-                                    containerStyle={{backgroundColor: 'white', width: 250, top: '55%', height: 60, position: 'absolute'}}
+                                    renderLeftAccessory
+                                    baseColor="black"
+                                    lineWidth={0}
+                                    fontSize={14}
+                                    containerStyle={{backgroundColor: 'white', width: 250, top: '65%', height: 51, position: 'absolute', padding: 0}}
                                     textColor={'black'}
+                                    style={{position: 'relative', top: '-7%', left: '45%', color: 'black'}}
                                     onChangeText={(requestType) => this.setState({requestType})}
                                 />
 

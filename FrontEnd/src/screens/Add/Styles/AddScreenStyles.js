@@ -27,7 +27,7 @@ export default StyleSheet.create({
     width: '70%',
     top: '25%',
     height: '35%',
-    backgroundColor: "white",
+    backgroundColor: "#e5e5e5",
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
@@ -88,14 +88,12 @@ export default StyleSheet.create({
     height: 40,
     width: 250,
     backgroundColor: 'white',
-    paddingLeft: 0,
-    fontSize: 15,
+    color: 'black',
+    paddingLeft: 10,
     marginBottom: 20,
-    top: '30%',
-    position: 'absolute',
-    borderRadius: 2,
-    borderColor: 'grey',
-    borderBottomWidth: 0.3,
+    top: '35%',
+    position: 'absolute'
+    
   },
 
   friendServicesText: {
