@@ -56,7 +56,6 @@ class CalendarScreen extends Component{
 
   
   async componentWillFocus() {
-    console.log(this.props);
     if(this.props.navigation.state.params !== undefined){
       let today = new Date();
       let year = today.getFullYear().toString();
@@ -65,7 +64,6 @@ class CalendarScreen extends Component{
       if (month < 10) month = "0" + month;
       
       if (this.state.currentYearUserEvents !== undefined || this.state.currentMonthUserEvents !== undefined){
-        console.log("right in here!!!!!");
         await this.fetchMonthEvents(month, year);
         await this.fetchAnnualEvents(year);
       }

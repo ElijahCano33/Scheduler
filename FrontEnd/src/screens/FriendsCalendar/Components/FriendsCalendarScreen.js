@@ -38,7 +38,6 @@ export default class FriendsCalendarScreen extends Component{
   }
 
   componentWillFocus() {
-    console.log(this.props);
     if(this.props.navigation.state.params !== undefined && this.state.friendId !== undefined){
       let friendId = this.state.friendId;
       let today = new Date();
