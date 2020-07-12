@@ -111,11 +111,14 @@ export default class AddScreen extends Component{
                                     placeholder="Friend Request Type"
                                     placeholderTextColor="white"
                                     data={dropDownData}
-                                    baseColor="black"
+                                    renderLeftAccessory
+                                    baseColor="white"
                                     lineWidth={0}
-                                    containerStyle={{backgroundColor: '#2d2d2d', width: 250, top: '65%', height: 40, position: 'absolute', padding: 0}}
+                                    fontSize={14}
+                                    containerStyle={{backgroundColor: '#2d2d2d', width: 250, top: '65%', height: 50, position: 'absolute', padding: 0}}
                                     textColor={'black'}
-                                    style={{position: 'absolute', top: '-85%', left: '3%', color: 'white'}}
+                                    //style={{position: 'absolute', top: '-85%', left: '4%', color: 'white',}}
+                                    style={{position: 'relative', top: '-7%', left: '45%', color: 'white',}}
                                     onChangeText={(requestType) => this.setState({requestType})}
                                 />
 
