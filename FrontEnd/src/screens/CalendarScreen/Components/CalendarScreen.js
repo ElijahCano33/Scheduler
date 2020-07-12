@@ -52,7 +52,7 @@ class CalendarScreen extends Component{
 
   }
 
-  componentWillFocus() {
+  async componentWillFocus() {
     console.log(this.props);
     if(this.props.navigation.state.params !== undefined){
       let userId = this.state.userId;
@@ -62,8 +62,8 @@ class CalendarScreen extends Component{
 
       if (month < 10) month = "0" + month;
       
-      this.fetchMonthEvents(userId, month, year);
-      this.fetchAnnualEvents(userId, year);
+      await this.fetchMonthEvents(userId, month, year);
+      await this.fetchAnnualEvents(userId, year);
     }else{
       console.log("Did not come from the create event screen and create event!")
     }
@@ -74,59 +74,62 @@ class CalendarScreen extends Component{
     console.log("Screen No Longer In Focus!");
   }
 
-  fetchUserId(usrId, m, y){
-    axios({
+  async fetchUserId(){
+    await axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/userId',
     })
     .then((response) => {
       this.setState({userId: response['data']['user_id']});
-      usrId = this.state.userId;
-      this.fetchMonthEvents(usrId, m, y);
-      this.fetchAnnualEvents(usrId, y);
+      //usrId = this.state.userId;
+      return;
     }, (error) => {
           
       console.log(error);
     });
   }
 
-  fetchMonthEvents(usrId, m, y){
-    axios({
+  async fetchMonthEvents(m, y){
+    await axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: usrId, request_type: "month", month: m, year: y, fetch_friend_events: false}
+      data: {user_id: this.state.userId, request_type: "month", month: m, year: y, fetch_friend_events: false}
     })
     .then((response) => {
       this.setState({currentMonthUserEvents: response['data']['events']});
       this.filterMonthEvents();
+      return;
     }, (error) => {
         console.log(error);
     });
   }
 
-  fetchAnnualEvents(usrId, y){
-    axios({
+  async fetchAnnualEvents(y){
+    await axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: usrId, request_type: "year", year: y, fetch_friend_events: false}
+      data: {user_id: this.state.userId, request_type: "year", year: y, fetch_friend_events: false}
     })
     .then((response) => {
       this.setState({currentYearUserEvents: response['data']['events']});
       this.markCalendarWithSingleEvents();
+      return;
     },(error) => {
       console.log(error);
     });
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     this.mounted = true;
 
-    let userId = 0;
     let today = new Date();
     let year = today.getFullYear().toString();
     let month = (today.getMonth()+1).toString();
     if (month < 10) month = "0" + month;
-    this.fetchUserId(userId, month, year);
+
+    await this.fetchUserId();
+    await this.fetchMonthEvents(month, year);
+    await this.fetchAnnualEvents(year);
     
   }
 
