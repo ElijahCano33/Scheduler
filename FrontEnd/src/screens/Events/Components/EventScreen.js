@@ -48,8 +48,6 @@ export default class EventScreen extends Component{
         this.setState({selectedEventYear: year});
         this.setState({selectedEventMonth: monthOfSelectedDay});
         this.setState({selectedEventDay: dayOfMonth});
-
-
     }
 
     render(){
@@ -68,6 +66,8 @@ export default class EventScreen extends Component{
                     <FlatList
                         data={this.state.selectedEvents}
                         keyExtractor={item => item.id}
+                        horizontal={true}
+                        contentContainerStyle={{position: 'absolute', left: '12%', height: '100%'}}
                         renderItem={({ item }) => (<EventInfo title={item.title} description={item.description} startTime={item.startTime} endTime={item.endTIme} endDate={item.endDate}/>)}
                     />
                 </View>

@@ -162,7 +162,7 @@ class CalendarScreen extends Component{
       } 
     }
 
-    for(var i =0; i < repeatingDays.length; i++){
+    for(var i = 0; i < repeatingDays.length; i++){
       delete events[repeatingDays[i]];
     }
 
@@ -172,6 +172,7 @@ class CalendarScreen extends Component{
       }
     }
     this.setState({markedEvents: events});
+    
   }
 
   markCalendarWithSingleEvents(){
@@ -189,7 +190,6 @@ class CalendarScreen extends Component{
     if (month < 10) month = '0' + month.toString();
     if (day < 10) day = '0' + day.toString();
 
-
     today = today.getFullYear().toString() + "-" + month + "-" + day;
 
     for(var i = 0; i < events.length; i++){
@@ -201,23 +201,27 @@ class CalendarScreen extends Component{
 
       eventDay in daysCounter ? daysCounter[eventDay] += 1 : daysCounter[eventDay] = 1;
       markedDay = {key: eventTitle, color: randomColor};
-
+      
       if (eventDay in markedEvents){
         let repeatingNumber = '_' + daysCounter[eventDay].toString(); 
         eventDay += repeatingNumber;
-        markedEvents[eventDay] = {dots: [markedDay], selected: true, marked: true, selectedColor: 'black'};
+        eventDay.substring(0, 10) === today ? markedEvents[eventDay] = { dots: [markedDay], selected: true, color: 'black', marked: true} : markedEvents[eventDay] = {dots: [markedDay], marked: true};
       }else{
-        markedEvents[eventDay] = {dots: [markedDay], selected: true, marked: true, selectedColor: 'black'};
+        eventDay === today ? markedEvents[today] = { dots: [markedDay], selected: true, color: 'black', marked: true} : markedEvents[eventDay] = {dots: [markedDay], marked: true};
       }
       
     }
+    
+    if (markedEvents[today] === undefined) markedEvents[today] = {selected: true, color: 'black', marked: true};
 
     this.markCalendarWithMultiEvents(markedEvents);
+    
   }
 
   generateRandomColor(){
-    color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
-    return color;
+    //color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+    //return color;
+    return 'hsla(' + Math.floor(Math.random()*360) + ', 100%, 70%, 1)';
   }
 
 
@@ -266,6 +270,17 @@ class CalendarScreen extends Component{
   }
 
   render() {
+    let today = new Date();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+    let noMarkedEvents = {};
+
+    if (month < 10) month = '0' + month.toString();
+    if (day < 10) day = '0' + day.toString();
+    
+    today = today.getFullYear().toString() + "-" + month + "-" + day;
+    noMarkedEvents[today] = {selected: true, marked: true, color: 'black'};
+
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
 
@@ -290,7 +305,7 @@ class CalendarScreen extends Component{
               selectedDotColor: 'orange',
               arrowColor: 'black',
               monthTextColor: 'white',
-              indicatorColor: 'blue',
+              //indicatorColor: 'blue',
               textDayFontFamily: 'sans-serif-thin',
               textMonthFontFamily: 'sans-serif-thin',
               textDayHeaderFontFamily: 'sans-serif-thin',
@@ -312,7 +327,7 @@ class CalendarScreen extends Component{
             pagingEnabled={true}
             calendarWidth={395}
             calendarHeight={380}
-            markedDates={this.state.markedEvents}
+            markedDates={Object.keys(this.state.markedEvents).length === 0 ? noMarkedEvents : this.state.markedEvents}
             markingType={'multi-dot'}
           />
         </View>
@@ -331,6 +346,7 @@ class CalendarScreen extends Component{
               <FlatList
                   data={this.state.upcomingUserEvents}
                   horizontal={true}
+                  showsHorizontalScrollIndicator={false}
                   keyExtractor={item => item.ID}
                   renderItem={({ item }) => (<UpcomingEventBox title={item.title} description={item.description} startDay={item.startDate} startTime={item.startTime} endDay={item.endDate} endTime={item.endTIme}/>)}
               />

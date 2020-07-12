@@ -3,13 +3,10 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
     eventContainer: {
         backgroundColor: '#2d2d2d',
-        paddingBottom: 20,
-        height: 200,
+        height: '55%',
         shadowColor: '#000000', 
-        borderLeftWidth: 5, 
-        borderRightWidth: 5,
-        marginBottom: 10,
-        borderColor: '#FF1DCE',
+        width: '50%',
+        marginRight: 30,
         shadowColor: 'white',
         shadowOffset: {
             width: 10,
@@ -22,28 +19,31 @@ export default StyleSheet.create({
     },
 
     title: {
-        alignContent: 'center',
+        position: 'absolute',
         alignSelf: 'center',
-        fontSize: 20,
+        top: '10%',
+        paddingBottom: 10,
+        fontSize: 25,
         fontWeight: 'bold', 
         color: 'white', 
         fontFamily: 'sans-serif-thin'
     },
 
     description: {
-        alignContent: 'center',
+        position: 'absolute',
+        top: '20%',
         alignSelf: 'center',
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: 'bold', 
         color: 'white', 
         fontFamily: 'sans-serif-thin'
     },
 
     dates: {
-        bottom: '-60%',
-        alignContent: 'center',
-        alignSelf: 'center',
-        fontSize: 15,
+        bottom: '-67%',
+        left: '8%',
+        
+        fontSize: 18,
         fontWeight: 'bold', 
         color: 'white', 
         fontFamily: 'sans-serif-thin'
@@ -55,5 +55,28 @@ export default StyleSheet.create({
         fontWeight: 'bold', 
         color: 'white', 
         fontFamily: 'sans-serif-thin'
+    },
+
+    editIcon: {
+        position: 'absolute',
+        top: '1%',
+        right: '12%'
+    },
+
+    trashIcon: {
+        position: 'absolute',
+        top: '1%',
+        right: '2%'
+    },
+
+    eventTimeInfoText: {
+        position: 'absolute',
+        bottom: '33%',
+        left: '3%',
+        fontWeight: 'bold', 
+        color: 'white', 
+        fontFamily: 'sans-serif-thin',
+        fontSize: 25
+
     }
 });

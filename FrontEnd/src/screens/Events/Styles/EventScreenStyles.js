@@ -33,10 +33,10 @@ export default StyleSheet.create({
 
     flatList: {
         position: 'absolute',
-        top: '17%',
+        top: '27%',
         height: '100%',
-        alignSelf: 'center',
-        flex: 1
+        width: '100%',
+        left: '0%',
     },
 
     noEventsView: {
