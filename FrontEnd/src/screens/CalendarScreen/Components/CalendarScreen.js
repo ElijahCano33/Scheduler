@@ -43,90 +43,98 @@ class CalendarScreen extends Component{
       tempAnnualEvents: []
     }
 
+    
     this.willFocusListener = this.props.navigation.addListener('willFocus', () => {
       this.componentWillFocus();
     });
     this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
       this.componentDidBlur();
     });
+    
 
   }
 
-  componentWillFocus() {
-    console.log(this.props);
+  
+  async componentWillFocus() {
     if(this.props.navigation.state.params !== undefined){
-      let userId = this.state.userId;
       let today = new Date();
       let year = today.getFullYear().toString();
       let month = (today.getMonth()+1).toString();
 
       if (month < 10) month = "0" + month;
       
-      this.fetchMonthEvents(userId, month, year);
-      this.fetchAnnualEvents(userId, year);
+      if (this.state.currentYearUserEvents !== undefined || this.state.currentMonthUserEvents !== undefined){
+        await this.fetchMonthEvents(month, year);
+        await this.fetchAnnualEvents(year);
+      }
     }else{
-      console.log("Did not come from the create event screen and create event!")
+      console.log("Did not come from the create event screen!")
     }
     
   }
+  
 
   componentDidBlur() {
     console.log("Screen No Longer In Focus!");
-  }
+ }
 
-  fetchUserId(usrId, m, y){
-    axios({
+  async fetchUserId(){
+    await axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/userId',
     })
     .then((response) => {
       this.setState({userId: response['data']['user_id']});
-      usrId = this.state.userId;
-      this.fetchMonthEvents(usrId, m, y);
-      this.fetchAnnualEvents(usrId, y);
+      return;
     }, (error) => {
           
       console.log(error);
     });
   }
 
-  fetchMonthEvents(usrId, m, y){
-    axios({
+  async fetchMonthEvents(m, y){
+    await axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: usrId, request_type: "month", month: m, year: y, fetch_friend_events: false}
+      data: {user_id: this.state.userId, request_type: "month", month: m, year: y}
     })
     .then((response) => {
-      this.setState({currentMonthUserEvents: response['data']['events']});
-      this.filterMonthEvents();
+      this.setState({currentMonthUserEvents: response['data']['events']}, function() {
+        this.filterMonthEvents();
+        return;
+      });
     }, (error) => {
         console.log(error);
     });
   }
 
-  fetchAnnualEvents(usrId, y){
-    axios({
+  async fetchAnnualEvents(y){
+    await axios({
       method: 'post',
       url: 'http://192.168.68.1:5000/api/event/read',
-      data: {user_id: usrId, request_type: "year", year: y, fetch_friend_events: false}
+      data: {user_id: this.state.userId, request_type: "year", year: y}
     })
     .then((response) => {
-      this.setState({currentYearUserEvents: response['data']['events']});
-      this.markCalendarWithSingleEvents();
+      this.setState({currentYearUserEvents: response['data']['events']}, function(){
+        this.markCalendarWithSingleEvents();
+        return;
+      });
     },(error) => {
       console.log(error);
     });
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     this.mounted = true;
 
-    let userId = 0;
     let today = new Date();
     let year = today.getFullYear().toString();
     let month = (today.getMonth()+1).toString();
     if (month < 10) month = "0" + month;
-    this.fetchUserId(userId, month, year);
+
+    await this.fetchUserId();
+    await this.fetchMonthEvents(month, year);
+    await this.fetchAnnualEvents(year);
     
   }
 
@@ -162,7 +170,7 @@ class CalendarScreen extends Component{
       } 
     }
 
-    for(var i =0; i < repeatingDays.length; i++){
+    for(var i = 0; i < repeatingDays.length; i++){
       delete events[repeatingDays[i]];
     }
 
@@ -172,6 +180,7 @@ class CalendarScreen extends Component{
       }
     }
     this.setState({markedEvents: events});
+    
   }
 
   markCalendarWithSingleEvents(){
@@ -189,7 +198,6 @@ class CalendarScreen extends Component{
     if (month < 10) month = '0' + month.toString();
     if (day < 10) day = '0' + day.toString();
 
-
     today = today.getFullYear().toString() + "-" + month + "-" + day;
 
     for(var i = 0; i < events.length; i++){
@@ -201,23 +209,27 @@ class CalendarScreen extends Component{
 
       eventDay in daysCounter ? daysCounter[eventDay] += 1 : daysCounter[eventDay] = 1;
       markedDay = {key: eventTitle, color: randomColor};
-
+      
       if (eventDay in markedEvents){
         let repeatingNumber = '_' + daysCounter[eventDay].toString(); 
         eventDay += repeatingNumber;
-        markedEvents[eventDay] = {dots: [markedDay], selected: true, marked: true, selectedColor: 'black'};
+        eventDay.substring(0, 10) === today ? markedEvents[eventDay] = { dots: [markedDay], selected: true, color: 'black', marked: true} : markedEvents[eventDay] = {dots: [markedDay], marked: true};
       }else{
-        markedEvents[eventDay] = {dots: [markedDay], selected: true, marked: true, selectedColor: 'black'};
+        eventDay === today ? markedEvents[today] = { dots: [markedDay], selected: true, color: 'black', marked: true} : markedEvents[eventDay] = {dots: [markedDay], marked: true};
       }
       
     }
+    
+    if (markedEvents[today] === undefined) markedEvents[today] = {selected: true, color: 'black', marked: true};
 
     this.markCalendarWithMultiEvents(markedEvents);
+    
   }
 
   generateRandomColor(){
-    color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
-    return color;
+    //color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+    //return color;
+    return 'hsla(' + Math.floor(Math.random()*360) + ', 100%, 70%, 1)';
   }
 
 
@@ -266,6 +278,17 @@ class CalendarScreen extends Component{
   }
 
   render() {
+    let today = new Date();
+    let month = today.getMonth() + 1;
+    let day = today.getDate();
+    let noMarkedEvents = {};
+
+    if (month < 10) month = '0' + month.toString();
+    if (day < 10) day = '0' + day.toString();
+    
+    today = today.getFullYear().toString() + "-" + month + "-" + day;
+    noMarkedEvents[today] = {selected: true, marked: true, color: 'black'};
+
     return (
       <ImageBackground source={require('../../../../pics/fade.jpg')} style={styles.fadeBackground}>
 
@@ -290,7 +313,7 @@ class CalendarScreen extends Component{
               selectedDotColor: 'orange',
               arrowColor: 'black',
               monthTextColor: 'white',
-              indicatorColor: 'blue',
+              //indicatorColor: 'blue',
               textDayFontFamily: 'sans-serif-thin',
               textMonthFontFamily: 'sans-serif-thin',
               textDayHeaderFontFamily: 'sans-serif-thin',
@@ -312,7 +335,7 @@ class CalendarScreen extends Component{
             pagingEnabled={true}
             calendarWidth={395}
             calendarHeight={380}
-            markedDates={this.state.markedEvents}
+            markedDates={Object.keys(this.state.markedEvents).length === 0 ? noMarkedEvents : this.state.markedEvents}
             markingType={'multi-dot'}
           />
         </View>
@@ -331,6 +354,7 @@ class CalendarScreen extends Component{
               <FlatList
                   data={this.state.upcomingUserEvents}
                   horizontal={true}
+                  showsHorizontalScrollIndicator={false}
                   keyExtractor={item => item.ID}
                   renderItem={({ item }) => (<UpcomingEventBox title={item.title} description={item.description} startDay={item.startDate} startTime={item.startTime} endDay={item.endDate} endTime={item.endTIme}/>)}
               />

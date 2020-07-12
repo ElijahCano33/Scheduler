@@ -63,8 +63,6 @@ def GetEvent():
 
             userID = data["user_id"]
             requestType = data["request_type"]
-            fetchFriendEvents = data["fetch_friend_events"]
-            
 
             if requestType == "month":
                 month = data["month"]
@@ -77,49 +75,16 @@ def GetEvent():
                 response['error'] = error
                 raise Exception(response)
 
-            if fetchFriendEvents == True:
-                cursor.execute(f"SELECT user_one_id FROM Scheduler.friendship WHERE user_two_id = '{userID}' AND relationship='mutual-friends'")
-                firstFriendsResult = cursor.fetchall()
-
-                friendIds = [tup[0] for tup in firstFriendsResult]
-                
-                for ids in friendIds:
-                    friends.insert(0, ids) 
-                
-                cursor.execute(f"SELECT user_two_id FROM Scheduler.friendship WHERE user_one_id = '{userID}' AND relationship='mutual-friends'")
-                secondFriendsResult = cursor.fetchall()
-
-                friendIds = [tup[0] for tup in secondFriendsResult]
-
-                for ids in friendIds:
-                    friends.insert(0, ids)
-
-                if len(friends) == 0:
-                    error = "No Current Friends!"
-                    response['error'] = error
-                    raise Exception(response)
-
-                if requestType == "month":
-                    for i in range(len(friends)):
-                        cursor.execute(f"""SELECT ID, user_id, title, location, description, startDate, endDate, startTime, endTIme FROM Scheduler.events WHERE (user_id='{userID}' OR (user_id='{friends[i]}' AND hiddenEvent='{0}')) AND month(startDate)='{month}' AND year(startDate)='{year}'""")
-                elif requestType == "year":
-                     for i in range(len(friends)):
-                        cursor.execute(f"""SELECT ID, user_id, title, location, description, startDate, endDate, startTime, endTIme FROM Scheduler.events WHERE (user_id='{userID}' OR (user_id='{friends[i]}' AND hiddenEvent='{0}')) AND year(startDate)='{year}'""")
-
-                eventList = cursor.fetchall()
+            if requestType == "month":
+                mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and month(startDate)= %s and year(startDate)= %s  """
+                recordTuple = (userID, month, year)
+                cursor.execute(mySql_insert_query, recordTuple)
+            elif requestType == "year":
+                mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and year(startDate)= %s  """
+                recordTuple = (userID, year)
+                cursor.execute(mySql_insert_query, recordTuple)
             
-            else:
-
-                if requestType == "month":
-                    mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and month(startDate)= %s and year(startDate)= %s  """
-                    recordTuple = (userID, month, year)
-                    cursor.execute(mySql_insert_query, recordTuple)
-                elif requestType == "year":
-                    mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and year(startDate)= %s  """
-                    recordTuple = (userID, year)
-                    cursor.execute(mySql_insert_query, recordTuple)
-                
-                eventList = cursor.fetchall()
+            eventList = cursor.fetchall()
 
             cursor.execute("SELECT GROUP_CONCAT(column_name ORDER BY ordinal_position) FROM information_schema.columns WHERE table_schema = DATABASE() and table_name = 'events'")
             columnLabels = list(cursor.fetchone())[0].split(',')
