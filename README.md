@@ -35,6 +35,7 @@ For all the guests who like to get straight to business :sunglasses:
 ![Login Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/Login.png)
 ![Register Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/Register.png)
 ![Calendar Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/CalendarPic.png)
+![Create Event Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/createEventScreen.png)
 ![Search Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/search.png)
 ![Add Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/add.png)
 ![Friend's Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/friends.png)
