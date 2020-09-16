@@ -7,7 +7,7 @@ event = Blueprint('event', __name__)
 @event.route("/api/event", methods=['POST'])
 def createEvent():
     try:
-        database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com', database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
+        database = mysql.connector.connect(host='us-cdbr-east-02.cleardb.com', database='heroku_d5d142a49ae2a49', user='bc2b010a09f146', password='29e8ca6a')
         if database:
             cursor = database.cursor()
             response = dict()
@@ -54,7 +54,7 @@ def createEvent():
 @event.route("/api/event/read", methods=['POST'])
 def GetEvent():
     try:
-        database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com', database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
+        database = mysql.connector.connect(host='us-cdbr-east-02.cleardb.com', database='heroku_d5d142a49ae2a49', user='bc2b010a09f146', password='29e8ca6a')
         if database:
             cursor = database.cursor()
             response = dict()
