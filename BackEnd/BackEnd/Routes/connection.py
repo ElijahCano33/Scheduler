@@ -6,8 +6,7 @@ import secrets
 import bcrypt
 import mysql.connector
 
-database = mysql.connector.connect(host='scheduler-mysql-db.cxe7niamrusn.us-west-2.rds.amazonaws.com',
-                                   database='Scheduler', user='admin_Scheduler', password='82h20kfaCrn05EKpEDrh')
+database = mysql.connector.connect(host='us-cdbr-east-02.cleardb.com', database='heroku_d5d142a49ae2a49', user='bc2b010a09f146', password='29e8ca6a')
 
 cursor = database.cursor()
 
