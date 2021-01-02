@@ -4,6 +4,7 @@ import styles from '../Styles/FriendsScreenStyles.js';
 import FriendBox from './FriendBox.js';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {API_URL} from "@env";
 import axios from "axios";
 
 export default class FriendsScreen extends Component{
@@ -24,7 +25,6 @@ export default class FriendsScreen extends Component{
         this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
             this.componentDidBlur();
         });
-        
         
     }
     
@@ -49,9 +49,10 @@ export default class FriendsScreen extends Component{
     
 
     fetchFriendsList(){
+        let url = API_URL + 'api/friendsList';
         axios({
             method: 'get',
-            url: 'http://192.168.68.1:5000/api/friendsList',  
+            url: url,  
         })
         .then((response) => {
             this.setState({unfilteredFriends: response['data']})

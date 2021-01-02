@@ -17,7 +17,7 @@ def fetchAllFriends():
                 cursor = database.cursor()
                 currentUserId = current_user.get_id()
 
-                cursor.execute(f"SELECT user_one_id FROM Scheduler.friendship WHERE user_two_id = '{currentUserId}' AND relationship='mutual-friends'")
+                cursor.execute(f"SELECT user_one_id FROM heroku_d5d142a49ae2a49.friendship WHERE user_two_id = '{currentUserId}' AND relationship='mutual-friends'")
                 firstFriendsResult = cursor.fetchall()
 
                 friendIds = [tup[0] for tup in firstFriendsResult]
@@ -25,7 +25,7 @@ def fetchAllFriends():
                 for ids in friendIds:
                     friends.insert(0, ids) 
                 
-                cursor.execute(f"SELECT user_two_id FROM Scheduler.friendship WHERE user_one_id = '{currentUserId}' AND relationship='mutual-friends'")
+                cursor.execute(f"SELECT user_two_id FROM heroku_d5d142a49ae2a49.friendship WHERE user_one_id = '{currentUserId}' AND relationship='mutual-friends'")
                 secondFriendsResult = cursor.fetchall()
 
                 friendIds = [tup[0] for tup in secondFriendsResult]
@@ -43,7 +43,7 @@ def fetchAllFriends():
                 for info in friends:
                     counter += 1
                     friendInfo = {}
-                    cursor.execute(f"SELECT first_name, last_name, email, username FROM Scheduler.users WHERE user_id = '{info}'")
+                    cursor.execute(f"SELECT first_name, last_name, email, username FROM heroku_d5d142a49ae2a49.users WHERE user_id = '{info}'")
                     result = cursor.fetchone()
                     firstName = result[0]
                     lastName = result[1]

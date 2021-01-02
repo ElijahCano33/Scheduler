@@ -17,7 +17,7 @@ def readFriendId():
 
                 data = request.get_json()
                 friend = data['friend']
-                cursor.execute(f"""SELECT user_id FROM Scheduler.users WHERE email='{friend}' OR username='{friend}'""")
+                cursor.execute(f"""SELECT user_id FROM heroku_d5d142a49ae2a49.users WHERE email='{friend}' OR username='{friend}'""")
                 result = cursor.fetchone()[0]
                 response['friend_id'] = result
            

@@ -6,6 +6,7 @@ import UpcomingEventBox from './UpcomingEventBox.js';
 import {CalendarList} from 'react-native-calendars';
 import axios from "axios";
 import ToggleSwitch from 'toggle-switch-react-native';
+import {API_URL} from "@env";
 import Feather from 'react-native-vector-icons/Feather';
 
 export default class FriendsCalendarScreen extends Component{
@@ -60,10 +61,11 @@ export default class FriendsCalendarScreen extends Component{
 
   fetchFriendId(friendId, m, y){
     let friendEmail = this.props['navigation']['state']['params']['email'];
+    let url = API_URL + 'api/friendId';
     
     axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/friendId',
+      url: url,
       data: {friend: friendEmail}
     })
     .then((response) => {
@@ -78,9 +80,10 @@ export default class FriendsCalendarScreen extends Component{
   }
 
   fetchMonthEvents(friendId, m, y){
+    let url = API_URL + 'api/event/read';
     axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/event/read',
+      url: url,
       data: {user_id: friendId, request_type: "month", month: m, year: y}
     })
     .then((response) => {
@@ -92,9 +95,10 @@ export default class FriendsCalendarScreen extends Component{
   }
 
   fetchAnnualEvents(friendId, y){
+    let url = API_URL + 'api/event/read';
     axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/event/read',
+      url: url,
       data: {user_id: friendId, request_type: "year", year: y}
     })
     .then((response) => {
@@ -200,8 +204,6 @@ export default class FriendsCalendarScreen extends Component{
   }
 
   generateRandomColor(){
-    //color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
-    //return color;
     return 'hsla(' + Math.floor(Math.random()*360) + ', 100%, 70%, 1)';
   }
 

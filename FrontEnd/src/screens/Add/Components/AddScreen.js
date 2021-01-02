@@ -4,6 +4,7 @@ import styles from '../Styles/AddScreenStyles.js';
 import { Dropdown } from 'react-native-material-dropdown';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
+import {API_URL} from "@env";
 import axios from "axios";
 
 export default class AddScreen extends Component{
@@ -26,9 +27,10 @@ export default class AddScreen extends Component{
     }
 
     getUserId(){
+        let url = API_URL + 'api/userId';
         axios({
             method: 'post',
-            url: 'http://192.168.68.1:5000/api/userId',
+            url: url,
         })
         .then((response) => {
             this.setState({userId: response['data']['user_id']});
@@ -43,10 +45,12 @@ export default class AddScreen extends Component{
         let friend = this.state.friend;
         let requestType = this.state.requestType;
         let friendId;
+        let friendIdServiceUrl = API_URL + 'api/friendId';
+        let updateFriendshipServiceUrl = API_URL + 'api/friendship/update';
 
         axios({
             method: 'post',
-            url: 'http://192.168.68.1:5000/api/friendId',
+            url: friendIdServiceUrl,
             data: {friend: friend}
         })
         .then((response) => {
@@ -55,7 +59,7 @@ export default class AddScreen extends Component{
               
             axios({
                 method: 'post',
-                url: 'http://192.168.68.1:5000/api/friendship/update',
+                url: updateFriendshipServiceUrl,
                 data: {request_user_id: currentUserId, befriend_user_id: friendId, requested_friendship_type: requestType}
             })
             .then((response) => {

@@ -3,6 +3,7 @@ import {Text,Image,TextInput,TouchableOpacity, TouchableWithoutFeedback, Keyboar
 import styles from '../Styles/LoginScreenStyles.js';
 import PasswordTextInput from './PasswordTextInput.js';
 import Loader from './Loader.js';
+import {API_URL} from "@env";
 import axios from "axios";
 
 export default class LoginScreen extends Component {
@@ -25,10 +26,11 @@ export default class LoginScreen extends Component {
   loginRequest(){
     let email = this.state.email;
     let password = this.state.password; 
+    let url = API_URL + 'api/login';
 
     axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/login',
+      url: url,
       data: {email: email, password: password}
     })
     .then((response) => { 

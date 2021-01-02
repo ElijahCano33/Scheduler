@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {CalendarList} from 'react-native-calendars';
 import ToggleSwitch from 'toggle-switch-react-native';
 import {TimePicker} from "react-native-wheel-picker-android";
+import {API_URL} from "@env";
 import axios from "axios";
 
 const HOURS = [
@@ -137,10 +138,9 @@ export default class CreateEventScreen extends Component{
 
   createEvent() {
     let userId = 0;
-    //if coming from normal calendar screen then we will create an event for our calendar 
+
     if (Object.keys(this.props.navigation.state.params).length <= 1){
       userId = this.props.navigation.state.params.data;
-    //else if coming from friend's calendar we will mask our friend's id as our screen just to create the event!!
     }else{
       userId = this.props.navigation.state.params.friendId; 
       console.log("this is the userId created: " + userId);
@@ -155,11 +155,12 @@ export default class CreateEventScreen extends Component{
     let endTime = this.state.selectedEndingTime;
     let singleDayEvent = this.state.singleDayEvent;
     let hiddenEvent = this.state.hideEvent;
+    let url = API_URL + 'api/event';
 
     
     axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/event',
+      url: url,
       data: {
         user_id: userId,
         event_title: eventTitle,

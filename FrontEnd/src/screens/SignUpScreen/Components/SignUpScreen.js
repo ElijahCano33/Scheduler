@@ -3,6 +3,7 @@ import {Alert, Button, Text,Image,TextInput,TouchableOpacity, ImageBackground, T
 import PasswordTextInput from './PasswordTextInput.js';
 import styles from '../Styles/SignUpScreenStyles.js';
 import Loader from './Loader.js';
+import {API_URL} from "@env";
 import axios from "axios";
 
 export default class SignUpScreen extends Component {
@@ -59,10 +60,12 @@ export default class SignUpScreen extends Component {
     let email = this.state.email;
     let password = this.state.password;
     let username = this.state.userName;
+    let url = API_URL + 'api/register';
+    console.log("this is the url: " + url);
     
     axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/register',
+      url: url,
       data: {first_name: firstName, last_name: lastName, email: email, password: password, user_name: username}
     })
     .then((response) => {
@@ -109,6 +112,7 @@ export default class SignUpScreen extends Component {
   }
   
   render(){
+    console.log("hellol!");
     return(
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 

@@ -3,6 +3,7 @@ import { Alert, View,Text, Image, TouchableOpacity} from "react-native";
 import styles from '../Styles/FriendBoxStyles.js';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {API_URL} from "@env";
 import axios from "axios";
 
 export default class FriendBox extends Component {
@@ -50,9 +51,10 @@ export default class FriendBox extends Component {
     }
 
     getUserId(){
+        let url = API_URL + 'api/userId';
         axios({
             method: 'post',
-            url: 'http://192.168.68.1:5000/api/userId',
+            url: url,
         })
         .then((response) => {
             this.setState({userId: response['data']['user_id']});
@@ -68,10 +70,12 @@ export default class FriendBox extends Component {
         let friend = this.state.friendEmail;
         let requestType = 'block';
         let friendId = 0;
+        let friendIdServiceUrl = API_URL + 'api/friendId';
+        let updateFriendshipServiceUrl = API_URL + 'api/friendship/update';
 
         axios({
             method: 'post',
-            url: 'http://192.168.68.1:5000/api/friendId',
+            url: friendIdServiceUrl,
             data: {friend: friend}
         })
         .then((response) => {
@@ -80,7 +84,7 @@ export default class FriendBox extends Component {
               
             axios({
                 method: 'post',
-                url: 'http://192.168.68.1:5000/api/friendship/update',
+                url: updateFriendshipServiceUrl,
                 data: {request_user_id: currentUserId, befriend_user_id: friendId, requested_friendship_type: requestType}
             })
             .then((response) => {

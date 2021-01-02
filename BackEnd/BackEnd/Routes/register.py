@@ -37,14 +37,14 @@ def register_():
                 salt = salt.decode("utf-8")
 
                 if request.method == 'POST' and 'email' in data and 'password' in data:
-                    cursor.execute(f'SELECT * FROM Scheduler.users WHERE username = "{user_name}" or email = "{email}"')
+                    cursor.execute(f'SELECT * FROM heroku_d5d142a49ae2a49.users WHERE username = "{user_name}" or email = "{email}"')
                     account = cursor.fetchone()
                     if account:
                         response['error'] = "User Already Exists!" 
                         raise Exception(response)
                     else:
                         cursor.execute(
-                            f'insert into Scheduler.users (username, email, password, salts, first_name, last_name) values ("{user_name}", "{email}", "{newPassPhrase}", "{salt}", "{first_name}", "{last_name}")')
+                            f'insert into heroku_d5d142a49ae2a49.users (username, email, password, salts, first_name, last_name) values ("{user_name}", "{email}", "{newPassPhrase}", "{salt}", "{first_name}", "{last_name}")')
                         database.commit()
                         response['status'] = True
                         response['status_info'] = 'account created successfully'

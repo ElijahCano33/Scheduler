@@ -18,7 +18,7 @@ def friendship_update():
     update_requested = data['requested_friendship_type']   # this could be befriend, accept, deny, unfriend or block
     
     cursor.execute(
-        f"SELECT COUNT(*) FROM Scheduler.users WHERE user_id = '{request_user_id}' or user_id = '{befriend_user_id}' "
+        f"SELECT COUNT(*) FROM heroku_d5d142a49ae2a49.users WHERE user_id = '{request_user_id}' or user_id = '{befriend_user_id}' "
     )
 
     if cursor.fetchone()[0] != 2:
@@ -27,7 +27,7 @@ def friendship_update():
 
     elif request.method == 'POST' and 'request_user_id' in data and 'befriend_user_id' in data:
         
-        cursor.execute(f'SELECT * FROM Scheduler.friendship WHERE  (user_one_id = "{request_user_id}" and user_two_id= "{befriend_user_id}") or (user_one_id = "{befriend_user_id}" and user_two_id= "{request_user_id}")')
+        cursor.execute(f'SELECT * FROM heroku_d5d142a49ae2a49.friendship WHERE  (user_one_id = "{request_user_id}" and user_two_id= "{befriend_user_id}") or (user_one_id = "{befriend_user_id}" and user_two_id= "{request_user_id}")')
         current_relationship_status = cursor.fetchone()
         
         if update_requested == "befriend":
@@ -54,11 +54,11 @@ def friend_request(request_user_id, befriend_user_id, current_relationship_statu
     if not current_relationship_status:
         if int(request_user_id) > int(befriend_user_id):
             cursor.execute(
-                f"INSERT INTO `Scheduler`.`friendship` (`user_one_id`, `user_two_id`, `action_user_id`) VALUES ('{request_user_id}', '{befriend_user_id}', '{request_user_id}');"
+                f"INSERT INTO `heroku_d5d142a49ae2a49`.`friendship` (`user_one_id`, `user_two_id`, `action_user_id`) VALUES ('{request_user_id}', '{befriend_user_id}', '{request_user_id}');"
             )
         else:
             cursor.execute(
-                f"INSERT INTO `Scheduler`.`friendship` (`user_one_id`, `user_two_id`, `action_user_id`) VALUES ('{befriend_user_id}', '{request_user_id}', '{request_user_id}');"
+                f"INSERT INTO `heroku_d5d142a49ae2a49`.`friendship` (`user_one_id`, `user_two_id`, `action_user_id`) VALUES ('{befriend_user_id}', '{request_user_id}', '{request_user_id}');"
             )
         database.commit()
         response['status'] = True
@@ -73,7 +73,7 @@ def friend_request_accepted(requester_user_id, other_user_id, current_relationsh
     response = dict()
     if current_relationship_status and current_relationship_status[-2] == int(other_user_id):
         cursor.execute(
-            f"UPDATE `Scheduler`.`friendship` SET `relationship` = 'mutual-friends', `action_user_id` = '{requester_user_id}' WHERE (`user_one_id` = '{current_relationship_status[0]}') and (`user_two_id` = '{current_relationship_status[1]}');"
+            f"UPDATE `heroku_d5d142a49ae2a49`.`friendship` SET `relationship` = 'mutual-friends', `action_user_id` = '{requester_user_id}' WHERE (`user_one_id` = '{current_relationship_status[0]}') and (`user_two_id` = '{current_relationship_status[1]}');"
         )
         database.commit()
         response['status'] = True
@@ -91,7 +91,7 @@ def remove_friendship(requester_user_id, other_user_id, current_relationship_sta
     response = dict()
     if current_relationship_status: 
         cursor.execute(
-            f"DELETE FROM `Scheduler`.`friendship` WHERE (`user_one_id` = '{current_relationship_status[0]}') and (`user_two_id` = '{current_relationship_status[1]}');"
+            f"DELETE FROM `heroku_d5d142a49ae2a49`.`friendship` WHERE (`user_one_id` = '{current_relationship_status[0]}') and (`user_two_id` = '{current_relationship_status[1]}');"
         )
         database.commit()
         response['status'] = True
@@ -105,11 +105,11 @@ def remove_friendship(requester_user_id, other_user_id, current_relationship_sta
 def block_someone(requester_user_id, other_user_id, current_relationship_status):
     if current_relationship_status:
         cursor.execute(
-            f"UPDATE `Scheduler`.`friendship` SET `action_user_id` = '{requester_user_id}', `relationship` = 'blocked' WHERE (`user_one_id` = '{requester_user_id}') and (`user_two_id` = '{other_user_id}') OR (`user_one_id` = '{other_user_id}') and (`user_two_id` = '{requester_user_id}') ;"
+            f"UPDATE `heroku_d5d142a49ae2a49`.`friendship` SET `action_user_id` = '{requester_user_id}', `relationship` = 'blocked' WHERE (`user_one_id` = '{requester_user_id}') and (`user_two_id` = '{other_user_id}') OR (`user_one_id` = '{other_user_id}') and (`user_two_id` = '{requester_user_id}') ;"
         )
     else:
         cursor.execute(
-            f"INSERT INTO `Scheduler`.`friendship` (`user_one_id`, `user_two_id`, `action_user_id`,`relationship`) VALUES ('{current_relationship_status[0]}', '{current_relationship_status[1]}', '{requester_user_id}', 'blocked');"
+            f"INSERT INTO `heroku_d5d142a49ae2a49`.`friendship` (`user_one_id`, `user_two_id`, `action_user_id`,`relationship`) VALUES ('{current_relationship_status[0]}', '{current_relationship_status[1]}', '{requester_user_id}', 'blocked');"
         )
     database.commit()
     response = dict()

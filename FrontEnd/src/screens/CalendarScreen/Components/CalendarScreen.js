@@ -16,6 +16,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TabBar from './TabBar.js';
 import UpcomingEventBox from './UpcomingEventBox.js';
+import {API_URL} from "@env";
 import {CalendarList} from 'react-native-calendars';
 import axios from "axios";
 import { withBadge } from 'react-native-elements' 
@@ -50,8 +51,6 @@ class CalendarScreen extends Component{
     this.didBlurListener = this.props.navigation.addListener('didBlur', () => {
       this.componentDidBlur();
     });
-    
-
   }
 
   
@@ -73,15 +72,15 @@ class CalendarScreen extends Component{
     
   }
   
-
   componentDidBlur() {
     console.log("Screen No Longer In Focus!");
  }
 
   async fetchUserId(){
+    let url = API_URL + 'api/userId';
     await axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/userId',
+      url: url,
     })
     .then((response) => {
       this.setState({userId: response['data']['user_id']});
@@ -93,9 +92,10 @@ class CalendarScreen extends Component{
   }
 
   async fetchMonthEvents(m, y){
+    let url = API_URL + 'api/event/read';
     await axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/event/read',
+      url: url,
       data: {user_id: this.state.userId, request_type: "month", month: m, year: y}
     })
     .then((response) => {
@@ -109,9 +109,10 @@ class CalendarScreen extends Component{
   }
 
   async fetchAnnualEvents(y){
+    let url = API_URL + 'api/event/read';
     await axios({
       method: 'post',
-      url: 'http://192.168.68.1:5000/api/event/read',
+      url: url,
       data: {user_id: this.state.userId, request_type: "year", year: y}
     })
     .then((response) => {
@@ -227,8 +228,6 @@ class CalendarScreen extends Component{
   }
 
   generateRandomColor(){
-    //color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
-    //return color;
     return 'hsla(' + Math.floor(Math.random()*360) + ', 100%, 70%, 1)';
   }
 
@@ -313,7 +312,6 @@ class CalendarScreen extends Component{
               selectedDotColor: 'orange',
               arrowColor: 'black',
               monthTextColor: 'white',
-              //indicatorColor: 'blue',
               textDayFontFamily: 'sans-serif-thin',
               textMonthFontFamily: 'sans-serif-thin',
               textDayHeaderFontFamily: 'sans-serif-thin',

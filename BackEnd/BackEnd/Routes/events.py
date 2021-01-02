@@ -30,7 +30,7 @@ def createEvent():
                 raise Exception(response)
 
 
-            mySql_insert_query = """INSERT INTO `Scheduler`.`events` (`user_id`, `title`, `location`, `description`, `startDate`, `endDate`, `startTime`, `endTIme`,`hiddenEvent`)  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) """
+            mySql_insert_query = """INSERT INTO `heroku_d5d142a49ae2a49`.`events` (`user_id`, `title`, `location`, `description`, `startDate`, `endDate`, `startTime`, `endTIme`,`hiddenEvent`)  VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) """
             recordTuple = (userID, eventTitle, location, description, startDate, endDate, startTime, endTime, hiddenEvent)
             cursor.execute(mySql_insert_query, recordTuple)
             database.commit()
@@ -76,11 +76,11 @@ def GetEvent():
                 raise Exception(response)
 
             if requestType == "month":
-                mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and month(startDate)= %s and year(startDate)= %s  """
+                mySql_insert_query = """SELECT * FROM heroku_d5d142a49ae2a49.events where user_id = %s and month(startDate)= %s and year(startDate)= %s  """
                 recordTuple = (userID, month, year)
                 cursor.execute(mySql_insert_query, recordTuple)
             elif requestType == "year":
-                mySql_insert_query = """SELECT * FROM Scheduler.events where user_id = %s and year(startDate)= %s  """
+                mySql_insert_query = """SELECT * FROM heroku_d5d142a49ae2a49.events where user_id = %s and year(startDate)= %s  """
                 recordTuple = (userID, year)
                 cursor.execute(mySql_insert_query, recordTuple)
             

@@ -3,8 +3,8 @@ import { TextInput, View, Text, Image, FlatList, ImageBackground} from 'react-na
 import styles from '../Styles/SearchScreenStyles.js';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import EventInfo from './EventInfo.js';
+import {API_URL} from "@env";
 import axios from "axios";
-
 
 export default class SearchScreen extends Component{
     constructor(props) {
@@ -29,9 +29,10 @@ export default class SearchScreen extends Component{
     }
 
     fetchUserId(usrId, m, y){
+        let url = API_URL + 'api/userId';
         axios({
           method: 'post',
-          url: 'http://192.168.68.1:5000/api/userId',
+          url: url,
         })
         .then((response) => {
           this.setState({userId: response['data']['user_id']});
@@ -44,9 +45,10 @@ export default class SearchScreen extends Component{
     }
 
     fetchAnnualEventsOfUserAndFriends(usrId, y){
+        let url = API_URL + 'api/event/read';
         axios({
           method: 'post',
-          url: 'http://192.168.68.1:5000/api/event/read',
+          url: url,
           data: {user_id: usrId, request_type: "year", year: y, fetch_friend_events: true}
         })
         .then((response) => {

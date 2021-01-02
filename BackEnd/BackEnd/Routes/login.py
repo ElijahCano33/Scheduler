@@ -56,7 +56,7 @@ def login():
                     response["error"] = error
                     raise Exception(response)
 
-                cursor.execute(f"SELECT COUNT(1) FROM Scheduler.users WHERE email = '{email}'")
+                cursor.execute(f"SELECT COUNT(1) FROM heroku_d5d142a49ae2a49.users WHERE email = '{email}'")
                 if not cursor.fetchone()[0]:
                     error = "User Does Not Exist!"
                     response["error"] = error
@@ -64,13 +64,13 @@ def login():
                     
                 else:
                     password = data['password']
-                    cursor.execute(f'SELECT password FROM Scheduler.users WHERE email = "{email}"')
+                    cursor.execute(f'SELECT password FROM heroku_d5d142a49ae2a49.users WHERE email = "{email}"')
                     results = cursor.fetchall()
                     
                     if len(results) > 0:
                         response['status']= False
                         response['status_info'] = 'Invalid Password!'
-                    cursor.execute(f'SELECT salts FROM Scheduler.users WHERE email = "{email}"')
+                    cursor.execute(f'SELECT salts FROM heroku_d5d142a49ae2a49.users WHERE email = "{email}"')
                     salt_result = cursor.fetchone()[0]
                     salt_result = str.encode(salt_result)
 
