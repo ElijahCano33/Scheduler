@@ -11,7 +11,7 @@
     "@babel/plugin-proposal-decorators": "^7.10.1",
     "@react-native-community/masked-view": "^0.1.5",
     "@react-navigation/stack": "^5.5.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "logkitty": "^0.7.1",
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
