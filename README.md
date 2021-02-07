@@ -20,4 +20,3 @@ To check some of the current issues or upcoming features that we're working on, 
 ![Search Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/search.png)
 ![Add Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/add.png)
 ![Friend's Screen](https://github.com/ElijahCano33/Scheduler/blob/master/FrontEnd/pics/friends.png)
-More On The Way Very Soon!
